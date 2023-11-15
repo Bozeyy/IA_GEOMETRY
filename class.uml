@@ -31,9 +31,20 @@ class Block {
    Position position
 }
 
+class Air {
+   Position position
+}
+
 Object <|-- Spike
 Object <|-- Block
+Object <|-- Air
+
+class Map {
+   List<Objetc> maps
+}
 
 Player --* Position 
 Game --* Player
+Game --* Map
+Map --* "maps" Object
 @enduml
