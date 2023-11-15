@@ -1,0 +1,39 @@
+@startuml
+class Player {
+   Position position;
+   double velociteX;
+   double velociteY;
+}
+
+class Position {
+   double x
+   double y
+   + void setX()
+   + void setY()
+   + double getX()
+   + double getY()
+}
+
+class Game {
+   Player player;
+   + void run()
+}
+
+interface Object {
+   + boolean IsInside(Player p)
+}
+
+class Spike {
+   Position position
+}
+
+class Block {
+   Position position
+}
+
+Object <|-- Spike
+Object <|-- Block
+
+Player --* Position 
+Game --* Player
+@enduml
