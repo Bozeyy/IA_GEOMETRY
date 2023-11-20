@@ -1,13 +1,14 @@
 @startuml
 class Player {
-   Position position;
-   double velociteX;
-   double velociteY;
+   + Position position
+   + double velociteX
+   + double velociteY
+   + void dessiner()
 }
 
 class Position {
-   double x
-   double y
+   + double x
+   + double y
    + void setX()
    + void setY()
    + double getX()
@@ -15,8 +16,11 @@ class Position {
 }
 
 class Game {
-   Player player;
+   + Player player
+   - long lastUpdateTime 
    + void run()
+   + void update()
+   + void dessiner()
 }
 
 interface Object {
@@ -24,15 +28,15 @@ interface Object {
 }
 
 class Spike {
-   Position position
+   + Position position
 }
 
 class Block {
-   Position position
+   + Position position
 }
 
 class Air {
-   Position position
+   + Position position
 }
 
 Object <|-- Spike
@@ -40,11 +44,12 @@ Object <|-- Block
 Object <|-- Air
 
 class Map {
-   List<Objetc> maps
+   + List<Object> maps
 }
 
 Player --* Position 
 Game --* Player
 Game --* Map
 Map --* "maps" Object
+Object --* Position
 @enduml
