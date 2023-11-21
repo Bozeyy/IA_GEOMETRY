@@ -15,8 +15,10 @@ public class Jeu extends Pane {
 
     public Terrain map;
 
+    public Camera camera;
 
     public Jeu(){
+        this.camera = new Camera(0, 0);
         this.joueur = new Joueur(0,10);
         this.map = new Terrain();
         for (Objet o : this.map.maps){
@@ -50,6 +52,10 @@ public class Jeu extends Pane {
      */
     public void update(double delta) {
         this.joueur.update(delta);
-        System.out.println("x : " + this.joueur.x + " y : " + this.joueur.y);
+        this.camera.update(this.joueur);
+
+        // on deplace la camera
+        this.setTranslateX(-this.camera.x);
+        this.setTranslateY(-this.camera.y);
     }
 }

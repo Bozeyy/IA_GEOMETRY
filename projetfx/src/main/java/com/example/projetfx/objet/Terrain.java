@@ -10,7 +10,7 @@ public class Terrain {
 
     public Terrain(){
         for (int i = 0; i < 20; i++) {
-            maps.add(new Block(i*util.METRE, 10*util.METRE));
+            maps.add(new Block(i*util.METRE, 12*util.METRE));
         }
 
 

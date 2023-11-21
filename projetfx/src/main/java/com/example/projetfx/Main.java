@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException, InterruptedException{
         Jeu jeu = new Jeu();
-        Scene scene = new Scene(jeu, 1000, 700);
+        Scene scene = new Scene(jeu, 1000, 600);
         stage.setTitle("SmartDash");
         stage.setScene(scene);
         stage.show();
