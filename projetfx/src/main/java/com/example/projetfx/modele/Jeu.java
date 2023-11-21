@@ -1,9 +1,11 @@
 package com.example.projetfx.modele;
 
+import com.example.projetfx.objet.Objet;
 import com.example.projetfx.objet.Terrain;
 import com.example.projetfx.util.util;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 import static java.lang.Thread.sleep;
 
@@ -17,6 +19,9 @@ public class Jeu extends Pane {
     public Jeu(){
         this.joueur = new Joueur(0,10);
         this.map = new Terrain();
+        for (Objet o : this.map.maps){
+            this.getChildren().add((Rectangle) o);
+        }
         this.getChildren().add(this.joueur);
     }
 

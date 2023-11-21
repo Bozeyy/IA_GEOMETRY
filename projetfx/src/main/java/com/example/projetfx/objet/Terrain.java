@@ -1,5 +1,7 @@
 package com.example.projetfx.objet;
 
+import com.example.projetfx.util.util;
+
 import java.util.ArrayList;
 
 public class Terrain {
@@ -7,7 +9,12 @@ public class Terrain {
     public ArrayList<Objet> maps = new ArrayList<Objet>();
 
     public Terrain(){
-        // TODO
+        for (int i = 0; i < 20; i++) {
+            maps.add(new Block(i*util.METRE, 10*util.METRE));
+        }
+
+
+        this.draw();
     }
 
     public void add(Objet o){
