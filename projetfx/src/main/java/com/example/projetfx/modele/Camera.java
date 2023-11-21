@@ -18,7 +18,7 @@ public class Camera {
      * @param joueur le joueur
      */
     public void update(Joueur joueur){
-        this.x = joueur.getPoseX();
+        this.x = joueur.getPoseX() - 5*util.METRE;
         if(joueur.getPoseY() < 0){
             this.y = joueur.getPoseY();
         }

@@ -29,4 +29,12 @@ public class Pique extends Rectangle implements Objet {
         this.setFill(javafx.scene.paint.Color.RED);
     }
 
+    public double getPoseX(){
+        return this.x;
+    }
+
+    public double getPoseY(){
+        return this.y;
+    }
+
 }

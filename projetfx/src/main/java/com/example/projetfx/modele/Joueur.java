@@ -1,7 +1,13 @@
 package com.example.projetfx.modele;
 
+import com.example.projetfx.objet.Block;
+import com.example.projetfx.objet.Objet;
 import com.example.projetfx.util.util;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Joueur extends Rectangle {
 
@@ -63,14 +69,29 @@ public class Joueur extends Rectangle {
      * méthode update
      * @param delta
      */
-    public void update(double delta){
-        System.out.println("delta : " + delta);
-        System.out.println("on se déplace de : " + this.vitesseX * delta + " en x");
-        System.out.println("on se déplace de : " + this.vitesseY * delta + " en y");
-        this.x += (this.vitesseX * delta);
-        this.y += (this.vitesseY * delta);
-        this.setX(this.x);
+    public void update(double delta, ArrayList<Objet> map){
+        if (map.size() == 0) {
+            this.setFill(Color.BLACK);
+            this.vitesseY = util.GRAVITE;
+            this.vitesseX = util.VITESSE;
+        }
+        for (Objet objet : map) {
+            if (objet instanceof Block) {
+                Block block = (Block) objet;
+                if (block.tomberSurBlock(this, this.vitesseY)) {
+                    this.setFill(Color.BLUE);
+                    ((Block) objet).setFill(Color.BLUE);
+                    System.out.println("tombe sur block");
+                    this.vitesseY = 0;
+                } else {
+                    ((Block) objet).setFill(Color.ORANGE);
+                }
+            }
+        }
+        this.y += this.vitesseY * delta;
         this.setY(this.y);
+        this.x += this.vitesseX * delta;
+        this.setX(this.x);
     }
 
     /**

@@ -19,7 +19,7 @@ public class Jeu extends Pane {
 
     public Jeu(){
         this.camera = new Camera(0, 0);
-        this.joueur = new Joueur(0,10);
+        this.joueur = new Joueur(0,9*util.METRE);
         this.map = new Terrain();
         for (Objet o : this.map.maps){
             this.getChildren().add((Rectangle) o);
@@ -51,7 +51,7 @@ public class Jeu extends Pane {
      * Méthode update
      */
     public void update(double delta) {
-        this.joueur.update(delta);
+        this.joueur.update(delta, this.map.getBlockAutour(this.joueur));
         this.camera.update(this.joueur);
 
         // on deplace la camera
