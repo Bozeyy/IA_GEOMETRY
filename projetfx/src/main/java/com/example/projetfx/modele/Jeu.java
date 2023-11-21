@@ -13,12 +13,10 @@ public class Jeu extends Pane {
 
     public Terrain map;
 
-    public long lastFrameTime;
 
     public Jeu(){
-        this.joueur = new Joueur(0,0);
+        this.joueur = new Joueur(0,10);
         this.map = new Terrain();
-        this.lastFrameTime = System.nanoTime();
         this.getChildren().add(this.joueur);
     }
 
@@ -27,12 +25,15 @@ public class Jeu extends Pane {
      */
     public void lancer() {
         AnimationTimer animationTimer = new AnimationTimer() {
-            private long lastFrameTime = 0;
+            private long lastFrameTime = System.nanoTime();
 
             @Override
             public void handle(long now) {
-                update((now - lastFrameTime) / 1e9);
-                lastFrameTime = now;
+                long nowT = System.nanoTime();
+                double deltaTime = (nowT - lastFrameTime)/1E9;
+                this.lastFrameTime = nowT;
+
+                update(deltaTime);
             }
         };
 
@@ -43,6 +44,7 @@ public class Jeu extends Pane {
      * Méthode update
      */
     public void update(double delta) {
-        System.out.println("delat = " + delta);
+        this.joueur.update(delta);
+        System.out.println("x : " + this.joueur.x + " y : " + this.joueur.y);
     }
 }

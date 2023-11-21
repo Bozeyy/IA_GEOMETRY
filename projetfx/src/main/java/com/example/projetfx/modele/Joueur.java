@@ -8,7 +8,7 @@ public class Joueur extends Rectangle {
     public double x;
     public double y;
 
-    public double vitesseX;
+    public double vitesseX = util.VITESSE;
 
     public double vitesseY = util.GRAVITE;
 
@@ -64,8 +64,11 @@ public class Joueur extends Rectangle {
      * @param delta
      */
     public void update(double delta){
-        this.x += this.vitesseX * delta;
-        this.y += this.vitesseY * delta;
+        System.out.println("delta : " + delta);
+        System.out.println("on se déplace de : " + this.vitesseX * delta + " en x");
+        System.out.println("on se déplace de : " + this.vitesseY * delta + " en y");
+        this.x += (this.vitesseX * delta);
+        this.y += (this.vitesseY * delta);
         this.setX(this.x);
         this.setY(this.y);
     }
@@ -74,8 +77,8 @@ public class Joueur extends Rectangle {
      * méthode draw
      */
     public void dessiner(){
-        this.setWidth(util.TAILLE_JOUEUR);
-        this.setHeight(util.TAILLE_JOUEUR);
+        this.setWidth(util.METRE);
+        this.setHeight(util.METRE);
         this.setX(this.x);
         this.setY(this.y);
         this.setFill(javafx.scene.paint.Color.BLACK);
