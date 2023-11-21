@@ -1,8 +1,9 @@
 package com.example.projetfx.objet;
 
 import com.example.projetfx.modele.Joueur;
+import javafx.scene.layout.Pane;
 
-public class Pique implements Objet {
+public class Pique extends Pane implements Objet {
 
     public double x;
     public double y;
