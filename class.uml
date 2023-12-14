@@ -1,55 +1,45 @@
 @startuml
-class Player {
-   + Position position
-   + double velociteX
-   + double velociteY
-   + void dessiner()
-}
 
-class Position {
-   + double x
-   + double y
-   + void setX()
-   + void setY()
-   + double getX()
-   + double getY()
-}
+Class Jeu {
+   
+   + Joueur joueur
+   + Terrain map
 
-class Game {
-   + Player player
-   - long lastUpdateTime 
-   + void run()
+   + void lancer()
    + void update()
-   + void dessiner()
+
 }
 
-interface Object {
-   + boolean IsInside(Player p)
+Jeu --> Joueur : joueur
+Jeu --> Terrain : map
+
+Class Joueur {
+   + Double x
+   + Double y
+
+   + void update()
+   + void draw()
 }
 
-class Spike {
-   + Position position
+Class Terrain {
+   ArrayList<Objet> map
+
+   + void draw()
+
 }
 
-class Block {
-   + Position position
+Terrain --> Objet: map
+
+Abstract Objet {
+   + Double x
+   + Double y
+
+   + void draw()
+   + boolean isInside(Joueur joueur)
 }
 
-class Air {
-   + Position position
-}
+Objet <|-- Block 
+Objet <|-- Pique
 
-Object <|-- Spike
-Object <|-- Block
-Object <|-- Air
 
-class Map {
-   + List<Object> maps
-}
-
-Player --* Position 
-Game --* Player
-Game --* Map
-Map --* "maps" Object
-Object --* Position
 @enduml
