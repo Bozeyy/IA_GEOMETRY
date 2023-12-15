@@ -11,8 +11,6 @@ public abstract class Neurone {
         this.active = false;
     }
 
-    public boolean isActive(Object object) {
-        return true;
-    }
+    public abstract boolean isActive(Object object);
 
 }

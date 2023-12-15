@@ -1,5 +1,6 @@
 package IA;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Reseau {
@@ -7,11 +8,14 @@ public class Reseau {
     private List<Module> modules;
 
     public Reseau() {
+        this.modules = new ArrayList<>(3);
         this.active = false;
     }
 
     public boolean isActive(Object object) {
-        return true;
+        return this.modules.stream().anyMatch(module -> module.isActive(object));
     }
+
+
 
 }

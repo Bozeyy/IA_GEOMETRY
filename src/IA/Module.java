@@ -1,5 +1,6 @@
 package IA;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Module {
@@ -7,10 +8,13 @@ public class Module {
     private List<Neurone> neurones;
 
     public Module() {
+        this.neurones = new ArrayList<>(3);
         this.active = false;
     }
 
     public boolean isActive(Object object) {
-        return true;
+        this.active = this.neurones.stream().allMatch(neurone -> neurone.isActive(object));
+        return this.active;
     }
+
 }
