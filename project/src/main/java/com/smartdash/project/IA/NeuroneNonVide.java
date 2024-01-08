@@ -2,6 +2,7 @@ package com.smartdash.project.IA;
 
 import com.smartdash.project.modele.objet.Bloc;
 import com.smartdash.project.modele.objet.Objet;
+import com.smartdash.project.modele.objet.Vide;
 
 import java.util.List;
 import java.util.Optional;
