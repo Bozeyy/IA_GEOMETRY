@@ -1,9 +1,14 @@
 package com.smartdash.project.IA;
 
+import com.smartdash.project.modele.objet.Objet;
+
+import java.util.List;
+
 public abstract class Neurone {
-    private int x;
-    private int y;
-    private boolean active;
+    protected int x;
+    protected int y;
+
+    protected boolean active;
 
     public Neurone(int x, int y) {
         this.x = x;
@@ -11,7 +16,7 @@ public abstract class Neurone {
         this.active = false;
     }
 
-    public abstract boolean isActive(Object object);
+    public abstract boolean isActive(List<Objet> objets);
 
     @Override
     public boolean equals(Object obj) {
@@ -24,13 +29,7 @@ public abstract class Neurone {
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append(this.getClass().getSimpleName())
-                .append("{")
-                .append("x=").append(x)
-                .append(", y=").append(y)
-                .append(", active=").append(active)
-                .append("}");
-        return res.toString();
+        return "Neurone{x=" + x + ", y=" + y + ", active=" + active + '}';
     }
+
 }

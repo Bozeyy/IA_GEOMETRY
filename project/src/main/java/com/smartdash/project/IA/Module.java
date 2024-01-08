@@ -1,20 +1,19 @@
 package com.smartdash.project.IA;
 
+import com.smartdash.project.modele.objet.Objet;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Module {
-    private boolean active;
     private List<Neurone> neurones;
 
     public Module() {
         this.neurones = new ArrayList<>(Constantes.NB_NEURONES_PAR_MODULES);
-        this.active = false;
     }
 
-    public boolean isActive(Object object) {
-        this.active = this.neurones.stream().allMatch(neurone -> neurone.isActive(object));
-        return this.active;
+    public boolean isActive(List<Objet> objets) {
+        return this.neurones.stream().allMatch(neurone -> neurone.isActive(objets));
     }
 
     public void addNeurone(Neurone neurone) {
@@ -34,12 +33,13 @@ public class Module {
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append("Module{ ").append("\n");
-        for (int i = 0; i < neurones.size(); i++) {
-            res.append("\t\t").append(neurones.get(i).toString()).append("\n");
+        StringBuilder res = new StringBuilder("Module{\n");
+        for (Neurone neurone : this.neurones) {
+            res.append("\t\t").append(neurone.toString()).append("\n");
         }
         res.append("\t}");
+
         return res.toString();
     }
+
 }
