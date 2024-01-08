@@ -1,11 +1,11 @@
-package com.smartdash.project.modele.IA;
+package com.smartdash.project.IA;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Reseau {
     private boolean active;
-    private List<java.lang.Module> modules;
+    private List<Module> modules;
 
     public Reseau() {
         this.modules = new ArrayList<>(Constantes.NB_MODULES_PAR_RESEAU);
@@ -17,7 +17,7 @@ public class Reseau {
         return this.active;
     }
 
-    public void addModule(java.lang.Module module) {
+    public void addModule(Module module) {
         if (this.modules.size() < Constantes.NB_MODULES_PAR_RESEAU) {
             this.modules.add(module);
         }
@@ -28,7 +28,7 @@ public class Reseau {
         StringBuilder res = new StringBuilder();
         res.append("Reseau{").append("\n");
         int i = 0;
-        for (java.lang.Module module : this.modules) {
+        for (Module module : this.modules) {
             res.append("\t").append(module.toString()).append("\n");
             i++;
         }

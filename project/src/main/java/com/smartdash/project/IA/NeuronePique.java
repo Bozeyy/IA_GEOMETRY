@@ -1,4 +1,4 @@
-package com.smartdash.project.modele.IA;
+package com.smartdash.project.IA;
 
 public class NeuronePique extends Neurone{
     public NeuronePique(int x, int y) {

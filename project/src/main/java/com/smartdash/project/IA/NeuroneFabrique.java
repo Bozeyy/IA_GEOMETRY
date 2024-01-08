@@ -1,4 +1,4 @@
-package com.smartdash.project.modele.IA;
+package com.smartdash.project.IA;
 
 import java.util.Random;
 

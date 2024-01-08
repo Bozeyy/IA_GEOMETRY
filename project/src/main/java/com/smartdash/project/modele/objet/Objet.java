@@ -3,8 +3,8 @@ package com.smartdash.project.modele.objet;
 import com.smartdash.project.modele.Joueur;
 
 public abstract class Objet {
-    private Double x;
-    private Double y;
+    protected Double x;
+    protected Double y;
 
     public Objet(double x, double y)
     {
@@ -13,4 +13,13 @@ public abstract class Objet {
     }
 
     public abstract boolean isInside(Joueur joueur);
+
+    public double getX()
+    {
+        return this.x;
+    }
+
+    public double getY() {
+        return this.y;
+    }
 }

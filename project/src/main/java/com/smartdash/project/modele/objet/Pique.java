@@ -2,6 +2,8 @@ package com.smartdash.project.modele.objet;
 
 import com.smartdash.project.modele.Joueur;
 
+import java.util.Objects;
+
 public class Pique extends Objet
 {
     public Pique(double x, double y) {
@@ -10,6 +12,6 @@ public class Pique extends Objet
 
     @Override
     public boolean isInside(Joueur joueur) {
-        return false;
+        return Objects.equals(joueur.getX(), this.x) && Objects.equals(joueur.getY(), this.y);
     }
 }

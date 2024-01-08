@@ -2,6 +2,8 @@ package com.smartdash.project.modele.objet;
 
 import com.smartdash.project.modele.Joueur;
 
+import java.util.Objects;
+
 public class Bloc extends Objet{
     public Bloc(double x, double y){
         super(x,y);
@@ -9,6 +11,6 @@ public class Bloc extends Objet{
 
     @Override
     public boolean isInside(Joueur joueur) {
-        return false;
+        return Objects.equals(joueur.getX(), this.x) && Objects.equals(joueur.getY(), this.y);
     }
 }
