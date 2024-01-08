@@ -1,5 +1,6 @@
 package com.smartdash.project.modele;
 
+import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.modele.objet.Objet;
 import com.smartdash.project.modele.objet.Pique;
 
@@ -8,19 +9,33 @@ import java.util.stream.Collectors;
 
 public class Joueur
 {
+    private Reseau reseau;
     private Double x;
     private Double y;
     private Double vY;
     private final Terrain map;
     private boolean vivant;
 
-    public Joueur(Double x, Double y, Terrain mapJeu)
+
+    public Joueur(Double x, Double y, Terrain mapJeu, Reseau reseau)
     {
         this.x = x;
         this.y = y;
         this.vY = 0.0;
+        this.reseau = reseau;
         this.map = mapJeu;
         this.vivant = true;
+    }
+
+    /**
+     * Méthode qui permet de récupérer la zone pour le réseau de neurone
+     * @return retourne une liste d'objet
+     */
+    public List<Objet> getObjetsReseau()
+    {
+        return this.map.getMap().stream()
+                .filter(objet -> Math.abs(this.getX() - objet.getX()) < 4 && Math.abs(this.getY() - objet.getY()) < 4)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -101,10 +116,15 @@ public class Joueur
         }
     }
 
+    /**
+     * Méthode qui permet de faire la vérification pour sauter
+     * @param objetsAutourJoueur les objets autours du joueur
+     * @return retourne un boolean
+     */
     private boolean verificationSauterObjets(List<Objet> objetsAutourJoueur) {
         for (Objet objet : objetsAutourJoueur)
         {
-            if(objet.isInside(new Joueur(this.x, this.y-1, this.map)))
+            if(objet.isInside(new Joueur(this.x, this.y-1, this.map, this.reseau)))
             {
                 if(objet instanceof Pique)
                 {
@@ -125,7 +145,7 @@ public class Joueur
     private boolean verificationSurObjets(List<Objet> objetsAutourJoueur) {
         for (Objet objet : objetsAutourJoueur)
         {
-            if(objet.isInside(new Joueur(this.x, this.y+1, this.map)))
+            if(objet.isInside(new Joueur(this.x, this.y+1, this.map, this.reseau)))
             {
                 if(objet instanceof Pique)
                 {
@@ -146,7 +166,7 @@ public class Joueur
     private boolean verificationRentrerDansObjets(List<Objet> objetsAutourJoueur) {
         for (Objet objet : objetsAutourJoueur)
         {
-            if(objet.isInside(new Joueur(this.x+1, this.y, this.map)))
+            if(objet.isInside(new Joueur(this.x+1, this.y, this.map, this.reseau)))
             {
                 this.vivant = false;
                 return true;
@@ -185,5 +205,10 @@ public class Joueur
     public boolean getVivant()
     {
         return vivant;
+    }
+
+    public Reseau getReseau()
+    {
+        return reseau;
     }
 }

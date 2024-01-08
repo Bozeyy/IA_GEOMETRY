@@ -1,6 +1,7 @@
 package com.smartdash.project.modele;
 
 
+import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.modele.objet.Bloc;
 import com.smartdash.project.modele.objet.Pique;
 
@@ -45,13 +46,23 @@ public class Jeu {
                         }
                     }
 
+                    /**
+
+                    boolean sauter = joueur.getReseau().isActive(joueur.getObjetsReseau());
+
+                    if(sauter)
+                    {
+                        joueur.sauter();
+                    }
+
+                    */
+
                     update();
                 }
             }
         };
 
         timer.scheduleAtFixedRate(task,0,200);
-
     }
 
     /**
@@ -102,7 +113,7 @@ public class Jeu {
 
     public static void main(String[] args) {
         Terrain terrain = new Terrain("src/main/resources/map.txt");
-        Joueur joueur1 = new Joueur(0.0,0.0, terrain);
+        Joueur joueur1 = new Joueur(0.0,0.0, terrain, new Reseau());
         Jeu jeu = new Jeu(joueur1);
 
         jeu.lancer();
