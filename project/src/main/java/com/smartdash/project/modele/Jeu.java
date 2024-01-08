@@ -35,6 +35,7 @@ public class Jeu {
                 }
                 else
                 {
+                    afficherJeu();
                     if (sc.hasNext()) {
                         String input = sc.nextLine();
                         if (input.equalsIgnoreCase("s")) {
@@ -44,7 +45,6 @@ public class Jeu {
                             timer.cancel(); // Arrête le Timer si l'utilisateur entre 'q'
                         }
                     }
-
                     update();
                 }
             }
