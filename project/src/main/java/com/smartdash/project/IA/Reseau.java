@@ -12,8 +12,12 @@ public class Reseau {
         this.modules = new ArrayList<>(Constantes.NB_MODULES_PAR_RESEAU);
     }
 
-    public boolean isActive(List<Objet> objets) {
-        return this.modules.stream().anyMatch(module -> module.isActive(objets));
+    public boolean isActive() {
+        return this.modules.stream().anyMatch(Module::isActive);
+    }
+
+    public void setActive(int x, int y, String type) {
+        modules.forEach(module -> module.setActive(x, y, type));
     }
     
     public void addModule(Module module) {

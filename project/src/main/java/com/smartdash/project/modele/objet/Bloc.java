@@ -8,4 +8,6 @@ public class Bloc extends Objet{
     public Bloc(double x, double y){
         super(x,y);
     }
+
+
 }

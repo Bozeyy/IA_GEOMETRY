@@ -12,13 +12,10 @@ public class NeuroneNonPique extends Neurone{
         super(x, y);
     }
 
-    public boolean isActive(List<Objet> objets) {
-        Optional<Objet> obj = objets.stream().filter(objet -> (objet.getX() == this.x  && objet.getY() == this.y)).findFirst();
-        if (obj.isPresent()) {
-            this.active = !(obj.get() instanceof Pique);
-        } else {
-            throw new Error("Coordonnées du neuronne non trouvé dans la liste des cases envoyé : (" + this.x + ", " + this.y + ")");
+    @Override
+    public void setActive(int x, int y, String type) {
+        if (this.x == x && this.y == y) {
+            this.active = !type.equals("pique");
         }
-        return this.active;
     }
 }

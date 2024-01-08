@@ -16,7 +16,11 @@ public abstract class Neurone {
         this.active = false;
     }
 
-    public abstract boolean isActive(List<Objet> objets);
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public abstract void setActive(int x, int y, String type);
 
     @Override
     public boolean equals(Object obj) {

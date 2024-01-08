@@ -12,8 +12,12 @@ public class Module {
         this.neurones = new ArrayList<>(Constantes.NB_NEURONES_PAR_MODULES);
     }
 
-    public boolean isActive(List<Objet> objets) {
-        return this.neurones.stream().allMatch(neurone -> neurone.isActive(objets));
+    public boolean isActive() {
+        return this.neurones.stream().allMatch(Neurone::isActive);
+    }
+
+    public void setActive(int x, int y, String type) {
+        this.neurones.forEach(neurone -> neurone.setActive(x, y, type));
     }
 
     public void addNeurone(Neurone neurone) {

@@ -9,8 +9,9 @@ public class NeuroneActif extends Neurone{
         super(x, y);
     }
 
-    public boolean isActive(List<Objet> objets) {
+    @Override
+    public void setActive(int x, int y, String type) {
         this.active = true;
-        return true;
     }
+
 }
