@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Terrain {
     private ArrayList<Objet> map = new ArrayList<>();
-    private int longueur;
-    private int largeur;
+    private int longueur = 0;
+    private int largeur = 0;
 
     /**
      * Constructeur qui permet de construire un terrain avec une longueur prédéfini
@@ -74,6 +74,12 @@ public class Terrain {
             int y = 0;
             while((line=bufferedReader.readLine()) != null)
             {
+                int currentLineLenght = line.length();
+                if(currentLineLenght>longueur)
+                {
+                    longueur = currentLineLenght;
+                }
+
                 x=0;
                 for(char c: line.toCharArray())
                 {
@@ -90,6 +96,7 @@ public class Terrain {
                 }
                 y++;
             }
+            largeur = y;
         }
         catch (IOException e)
         {
@@ -102,5 +109,13 @@ public class Terrain {
 
     public ArrayList<Objet> getMap() {
         return map;
+    }
+
+    public int getLongueur() {
+        return longueur;
+    }
+
+    public int getLargeur() {
+        return largeur;
     }
 }

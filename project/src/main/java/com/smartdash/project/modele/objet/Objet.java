@@ -2,7 +2,9 @@ package com.smartdash.project.modele.objet;
 
 import com.smartdash.project.modele.Joueur;
 
-public abstract class Objet {
+import java.util.Objects;
+
+public class Objet {
     protected Double x;
     protected Double y;
 
@@ -12,7 +14,10 @@ public abstract class Objet {
         this.y = y;
     }
 
-    public abstract boolean isInside(Joueur joueur);
+    public boolean isInside(Joueur joueur)
+    {
+        return Objects.equals(joueur.getX(), this.x) && Objects.equals(joueur.getY(), this.y);
+    }
 
     public double getX()
     {
