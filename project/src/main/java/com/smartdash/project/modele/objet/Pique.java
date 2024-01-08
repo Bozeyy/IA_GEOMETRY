@@ -6,7 +6,12 @@ import java.util.Objects;
 
 public class Pique extends Objet
 {
-    public Pique(double x, double y) {
+    public Pique(int x, int y) {
         super(x, y);
+    }
+
+    @Override
+    public String getType() {
+        return "pique";
     }
 }

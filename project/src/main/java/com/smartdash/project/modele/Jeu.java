@@ -1,10 +1,13 @@
 package com.smartdash.project.modele;
 
 
-import com.smartdash.project.IA.Reseau;
+import com.smartdash.project.IA.*;
+import com.smartdash.project.IA.Module;
 import com.smartdash.project.modele.objet.Bloc;
+import com.smartdash.project.modele.objet.Objet;
 import com.smartdash.project.modele.objet.Pique;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,6 +39,7 @@ public class Jeu {
                 }
                 else
                 {
+                    /**
                     if (sc.hasNext()) {
                         String input = sc.nextLine();
                         if (input.equalsIgnoreCase("s")) {
@@ -44,18 +48,19 @@ public class Jeu {
                         } else if (input.equalsIgnoreCase("q")) {
                             timer.cancel(); // Arrête le Timer si l'utilisateur entre 'q'
                         }
-                    }
+                    }*/
 
-                    /**
-
-                    boolean sauter = joueur.getReseau().isActive(joueur.getObjetsReseau());
+                    joueur.initialiserReseauActive();
+                    boolean sauter = joueur.getReseau().isActive();
 
                     if(sauter)
                     {
                         joueur.sauter();
                     }
 
-                    */
+                    System.out.println("coord");
+                    System.out.println(joueur.getX());
+                    System.out.println(joueur.getY());
 
                     update();
                 }
@@ -79,12 +84,12 @@ public class Jeu {
      */
     private void afficherJeu() {
         Terrain terrain = joueur.getMap();
-        Double joueurX = joueur.getX();
-        Double joueurY = joueur.getY();
+        int joueurX = joueur.getX();
+        int joueurY = joueur.getY();
 
         for (int i = 0; i < terrain.getLargeur(); i++) {
             for (int j = 0; j < terrain.getLongueur(); j++) {
-                boolean isJoueur = (j == joueurX.intValue() && i == joueurY.intValue());
+                boolean isJoueur = (j == joueurX && i == joueurY);
                 int finalI = i;
                 int finalJ = j;
 
@@ -113,7 +118,15 @@ public class Jeu {
 
     public static void main(String[] args) {
         Terrain terrain = new Terrain("src/main/resources/map.txt");
-        Joueur joueur1 = new Joueur(0.0,0.0, terrain, new Reseau());
+
+        Neurone neurone = new NeuronePique(0,2);
+        Module module = new Module();
+        module.addNeurone(neurone);
+
+        Reseau reseau = new Reseau();
+        reseau.addModule(module);
+
+        Joueur joueur1 = new Joueur(0,0, terrain, reseau);
         Jeu jeu = new Jeu(joueur1);
 
         jeu.lancer();

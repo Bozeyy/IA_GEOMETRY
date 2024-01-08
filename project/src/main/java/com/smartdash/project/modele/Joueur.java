@@ -3,39 +3,62 @@ package com.smartdash.project.modele;
 import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.modele.objet.Objet;
 import com.smartdash.project.modele.objet.Pique;
+import com.smartdash.project.modele.objet.Vide;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Joueur
 {
     private Reseau reseau;
-    private Double x;
-    private Double y;
-    private Double vY;
+    private int x;
+    private int y;
+    private int vY;
     private final Terrain map;
     private boolean vivant;
 
 
-    public Joueur(Double x, Double y, Terrain mapJeu, Reseau reseau)
+    public Joueur(int x, int y, Terrain mapJeu, Reseau reseau)
     {
         this.x = x;
         this.y = y;
-        this.vY = 0.0;
+        this.vY = 0;
         this.reseau = reseau;
         this.map = mapJeu;
         this.vivant = true;
     }
 
-    /**
-     * Méthode qui permet de récupérer la zone pour le réseau de neurone
-     * @return retourne une liste d'objet
-     */
-    public List<Objet> getObjetsReseau()
+
+    public void initialiserReseauActive()
     {
-        return this.map.getMap().stream()
-                .filter(objet -> Math.abs(this.getX() - objet.getX()) < 4 && Math.abs(this.getY() - objet.getY()) < 4)
-                .collect(Collectors.toList());
+        int x;
+        int y;
+        String type;
+
+        List<Objet> objets = new ArrayList<>();
+
+        for (Objet objet : this.map.getMap())
+        {
+            if(objet.getY()- this.getY() >= 0 && objet.getY()-this.getY() < 4)
+            {
+                if(objet.getX()-this.getX() >= -2 && objet.getX()-this.getX()<2)
+                {
+                   objets.add(objet);
+                }
+            }
+        }
+
+        System.out.println(objets.size());
+        for(Objet objet : objets)
+        {
+            x = objet.getX() - this.x;
+            y = objet.getY() - this.y;
+            type = objet.getType();
+
+            reseau.setActive(x,y,type);
+        }
+
     }
 
     /**
@@ -111,8 +134,8 @@ public class Joueur
         }
         else
         {
-            this.x = -1000.0;
-            this.y = -1000.0;
+            this.x = -1000;
+            this.y = -1000;
         }
     }
 
@@ -131,7 +154,7 @@ public class Joueur
                     this.vivant = false;
                 }
 
-                return true;
+                return !(objet instanceof Vide);
             }
         }
         return false;
@@ -152,7 +175,7 @@ public class Joueur
                     this.vivant = false;
                 }
 
-                return true;
+                return !(objet instanceof Vide);
             }
         }
         return false;
@@ -168,8 +191,8 @@ public class Joueur
         {
             if(objet.isInside(new Joueur(this.x+1, this.y, this.map, this.reseau)))
             {
-                this.vivant = false;
-                return true;
+                if(!(objet instanceof Vide)) this.vivant = false;
+                return !(objet instanceof Vide);
             }
         }
         return false;
@@ -186,16 +209,16 @@ public class Joueur
 
         if(surBloc)
         {
-            this.vY = 2.0;
+            this.vY = 2;
         }
     }
 
     // GETTER
-    public Double getX() {
+    public int getX() {
         return x;
     }
 
-    public Double getY() {
+    public int getY() {
         return y;
     }
 
