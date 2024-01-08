@@ -1,4 +1,4 @@
-package IA;
+package com.smartdash.project.modele.IA;
 
 public class ReseauFabrique {
     public static Reseau genererReseau(){

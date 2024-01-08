@@ -1,4 +1,4 @@
-package IA;
+package com.smartdash.project.modele.IA;
 
 public abstract class Neurone {
     private int x;

@@ -1,4 +1,4 @@
-package IA;
+package com.smartdash.project.modele.IA;
 
 public class NeuroneNonBloc extends Neurone{
     public NeuroneNonBloc(int x, int y) {

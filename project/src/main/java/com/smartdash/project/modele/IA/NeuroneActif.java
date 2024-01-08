@@ -1,4 +1,4 @@
-package IA;
+package com.smartdash.project.modele.IA;
 
 public class NeuroneActif extends Neurone{
     public NeuroneActif(int x, int y) {

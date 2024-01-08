@@ -1,11 +1,11 @@
-package IA;
+package com.smartdash.project.modele.IA;
 
 import java.util.List;
 
 public class ModuleFabrique {
-    public static Module genererModule(int numero) {
+    public static java.lang.Module genererModule(int numero) {
         List<Integer> numeros;
-        Module module = new Module();
+        java.lang.Module module = new java.lang.Module();
         switch (numero) {
             case 1 -> numeros = List.of(0,-1,1,0,1,1);
             case 2 -> numeros = List.of(1,1,2,-2,4,1);

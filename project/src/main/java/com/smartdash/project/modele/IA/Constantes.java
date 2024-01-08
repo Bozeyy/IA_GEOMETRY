@@ -1,4 +1,4 @@
-package IA;
+package com.smartdash.project.modele.IA;
 
 public class Constantes {
     public static final int NB_NEURONES_PAR_MODULES = 3;
