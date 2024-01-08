@@ -1,6 +1,9 @@
 package com.smartdash.project.modele;
 
 
+import com.smartdash.project.modele.objet.Bloc;
+import com.smartdash.project.modele.objet.Pique;
+
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,7 +19,7 @@ public class Jeu {
     }
 
     /**
-     * Méthode qui permets de lancer le jeu
+     * Méthode qui permet de lancer le jeu
      */
     public void lancer()
     {
@@ -68,19 +71,27 @@ public class Jeu {
         Double joueurX = joueur.getX();
         Double joueurY = joueur.getY();
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 20; j++) {
+        for (int i = 0; i < terrain.getLargeur(); i++) {
+            for (int j = 0; j < terrain.getLongueur(); j++) {
                 boolean isJoueur = (j == joueurX.intValue() && i == joueurY.intValue());
                 int finalI = i;
                 int finalJ = j;
-                boolean isObstacle = terrain.getMap().stream()
-                        .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI);
+
+                boolean isBloc = terrain.getMap().stream()
+                        .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Bloc);
+
+                boolean isPique = terrain.getMap().stream()
+                        .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Pique);
+
 
                 if (isJoueur) {
                     System.out.print("J"); // Afficher le joueur
-                } else if (isObstacle) {
-                    System.out.print("X"); // Afficher un obstacle
-                } else {
+                } else if (isBloc) {
+                    System.out.print("B");
+                } else if (isPique) {
+                    System.out.print("P");
+                }
+                else {
                     System.out.print("."); // Afficher une case vide
                 }
             }
