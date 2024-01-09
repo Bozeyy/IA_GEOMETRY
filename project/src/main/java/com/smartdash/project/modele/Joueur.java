@@ -241,8 +241,5 @@ public class Joueur
     {
         return reseau;
     }
-    public int getvY()
-    {
-        return vY;
-    }
+    public int getvY() { return vY; }
 }

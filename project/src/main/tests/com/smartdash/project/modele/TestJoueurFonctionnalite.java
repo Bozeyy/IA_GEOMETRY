@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.smartdash.project.IA.Reseau;
 import org.junit.jupiter.api.*;
 
-public class TestJoueur
+public class TestJoueurFonctionnalite
 {
     @Test
     public void test_deplacement_bloc_par_bloc()
