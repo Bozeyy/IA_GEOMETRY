@@ -1,26 +1,10 @@
 package com.smartdash.project.modele;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assumptions.assumingThat;
-import static org.junit.jupiter.api.DynamicTest.stream;
-
 import com.smartdash.project.IA.Reseau;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
-public class JoueurTest
+public class TestJoueur
 {
     @Test
     public void test_deplacement_bloc_par_bloc()
