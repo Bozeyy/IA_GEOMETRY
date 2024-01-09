@@ -15,4 +15,8 @@ public class NeuroneVide extends Neurone{
         }
     }
 
+    public String toString() {
+        return "Neurone Vide" + super.toString();
+    }
+
 }

@@ -5,9 +5,13 @@ import com.smartdash.project.modele.Joueur;
 import java.util.Objects;
 
 public class Bloc extends Objet{
-    public Bloc(double x, double y){
+    public Bloc(int x, int y){
         super(x,y);
     }
 
 
+    @Override
+    public String getType() {
+        return "bloc";
+    }
 }

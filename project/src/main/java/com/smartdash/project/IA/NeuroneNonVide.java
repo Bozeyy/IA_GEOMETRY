@@ -18,4 +18,8 @@ public class NeuroneNonVide extends Neurone{
             this.active = !type.equals("vide");
         }
     }
+
+    public String toString() {
+        return "Neurone Non Vide" + super.toString();
+    }
 }

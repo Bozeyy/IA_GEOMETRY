@@ -36,6 +36,7 @@ public class Reseau {
         return res.toString();
     }
 
-
-
+    public List<Module> getModules() {
+        return modules;
+    }
 }

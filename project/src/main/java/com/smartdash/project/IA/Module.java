@@ -46,4 +46,7 @@ public class Module {
         return res.toString();
     }
 
+    public List<Neurone> getNeurones() {
+        return neurones;
+    }
 }

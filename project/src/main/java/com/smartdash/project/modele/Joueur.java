@@ -3,39 +3,61 @@ package com.smartdash.project.modele;
 import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.modele.objet.Objet;
 import com.smartdash.project.modele.objet.Pique;
+import com.smartdash.project.modele.objet.Vide;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Joueur
 {
-    private Reseau reseau;
-    private Double x;
-    private Double y;
-    private Double vY;
+    private int x;
+    private int y;
+    private int vY;
     private final Terrain map;
     private boolean vivant;
+    private Reseau reseau;
 
-
-    public Joueur(Double x, Double y, Terrain mapJeu, Reseau reseau)
+    public Joueur(int x, int y, Terrain mapJeu, Reseau reseau)
     {
         this.x = x;
         this.y = y;
-        this.vY = 0.0;
+        this.vY = 0;
         this.reseau = reseau;
         this.map = mapJeu;
         this.vivant = true;
     }
 
     /**
-     * Méthode qui permet de récupérer la zone pour le réseau de neurone
-     * @return retourne une liste d'objet
+     * Méthode qui permet d'initialiser les positions des objets autours du joueur
      */
-    public List<Objet> getObjetsReseau()
+    public void initialiserReseauActive()
     {
-        return this.map.getMap().stream()
-                .filter(objet -> Math.abs(this.getX() - objet.getX()) < 4 && Math.abs(this.getY() - objet.getY()) < 4)
-                .collect(Collectors.toList());
+        int x;
+        int y;
+        String type;
+
+        List<Objet> objets = new ArrayList<>();
+
+        for (Objet objet : this.map.getMap()) {
+            int distanceX = Math.abs(objet.getX() - this.getX());
+            int distanceY = Math.abs(objet.getY() - this.getY());
+
+            // Récupération des objets dans une zone de 3x3 autour du joueur
+            if (distanceX <= 2 && distanceY <= 2) {
+                objets.add(objet);
+            }
+        }
+
+        for(Objet objet : objets)
+        {
+            x = objet.getX() - this.x;
+            y = objet.getY() - this.y;
+            type = objet.getType();
+
+            reseau.setActive(x,y,type);
+        }
+
     }
 
     /**
@@ -78,6 +100,10 @@ public class Joueur
                         if(!sauterObjet)
                         {
                             this.y--;
+
+                            rentrerDansObjet = verificationRentrerDansObjets(objetsAutourJoueur);
+                            if(!rentrerDansObjet) this.x++;
+
                             this.vY--;
                         }
                     }
@@ -94,6 +120,10 @@ public class Joueur
                     if(!sauterObjet)
                     {
                         this.y--;
+
+                        rentrerDansObjet = verificationRentrerDansObjets(objetsAutourJoueur);
+                        if(!rentrerDansObjet) this.x++;
+
                         this.vY--;
                     }
 
@@ -111,8 +141,8 @@ public class Joueur
         }
         else
         {
-            this.x = -1000.0;
-            this.y = -1000.0;
+            this.x = -1000;
+            this.y = -1000;
         }
     }
 
@@ -126,12 +156,12 @@ public class Joueur
         {
             if(objet.isInside(new Joueur(this.x, this.y-1, this.map, this.reseau)))
             {
-                if(objet instanceof Pique)
+                if(!(objet instanceof Vide))
                 {
                     this.vivant = false;
                 }
 
-                return true;
+                return !(objet instanceof Vide);
             }
         }
         return false;
@@ -147,12 +177,12 @@ public class Joueur
         {
             if(objet.isInside(new Joueur(this.x, this.y+1, this.map, this.reseau)))
             {
-                if(objet instanceof Pique && this.vY == 0.0)
+                if(objet instanceof Pique)
                 {
                     this.vivant = false;
                 }
 
-                return true;
+                return !(objet instanceof Vide);
             }
         }
         return false;
@@ -168,8 +198,8 @@ public class Joueur
         {
             if(objet.isInside(new Joueur(this.x+1, this.y, this.map, this.reseau)))
             {
-                this.vivant = false;
-                return true;
+                if(!(objet instanceof Vide)) this.vivant = false;
+                return !(objet instanceof Vide);
             }
         }
         return false;
@@ -184,18 +214,18 @@ public class Joueur
         List<Objet> objetsAutours = getObjetsAutour();
         boolean surBloc = verificationSurObjets(objetsAutours);
 
-        if(surBloc)
+        if(surBloc && vY==0)
         {
-            this.vY = 2.0;
+            this.vY = 1;
         }
     }
 
     // GETTER
-    public Double getX() {
+    public int getX() {
         return x;
     }
 
-    public Double getY() {
+    public int getY() {
         return y;
     }
 
@@ -211,4 +241,5 @@ public class Joueur
     {
         return reseau;
     }
+    public int getvY() { return vY; }
 }

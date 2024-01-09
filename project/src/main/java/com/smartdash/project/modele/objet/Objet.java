@@ -4,11 +4,11 @@ import com.smartdash.project.modele.Joueur;
 
 import java.util.Objects;
 
-public class Objet {
-    protected Double x;
-    protected Double y;
+public abstract class Objet {
+    protected int x;
+    protected int y;
 
-    public Objet(double x, double y)
+    public Objet(int x, int y)
     {
         this.x = x;
         this.y = y;
@@ -19,12 +19,14 @@ public class Objet {
         return Objects.equals(joueur.getX(), this.x) && Objects.equals(joueur.getY(), this.y);
     }
 
-    public double getX()
+    public int getX()
     {
         return this.x;
     }
 
-    public double getY() {
+    public int getY() {
         return this.y;
     }
+
+    public abstract String getType();
 }

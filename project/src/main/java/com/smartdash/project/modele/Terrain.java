@@ -3,6 +3,7 @@ package com.smartdash.project.modele;
 import com.smartdash.project.modele.objet.Bloc;
 import com.smartdash.project.modele.objet.Objet;
 import com.smartdash.project.modele.objet.Pique;
+import com.smartdash.project.modele.objet.Vide;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -77,7 +78,7 @@ public class Terrain {
                 int currentLineLenght = line.length();
                 if(currentLineLenght>longueur)
                 {
-                    longueur = currentLineLenght;
+                    longueur = currentLineLenght + 1;
                 }
 
                 x=0;
@@ -91,6 +92,11 @@ public class Terrain {
                     {
                         Pique pique = new Pique(x,y);
                         objets.add(pique);
+                    }
+                    if(c == '.')
+                    {
+                        Vide vide = new Vide(x,y);
+                        objets.add(vide);
                     }
                     x++;
                 }

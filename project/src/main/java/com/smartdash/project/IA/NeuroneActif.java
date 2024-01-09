@@ -11,7 +11,13 @@ public class NeuroneActif extends Neurone{
 
     @Override
     public void setActive(int x, int y, String type) {
-        this.active = true;
+        if (this.x == x && this.y == y) {
+            this.active = true;
+        }
+    }
+
+    public String toString() {
+        return "Neurone Actif" + super.toString();
     }
 
 }

@@ -1,9 +1,11 @@
 package com.smartdash.project.modele;
 
 
-import com.smartdash.project.IA.Reseau;
+import com.smartdash.project.IA.*;
+import com.smartdash.project.IA.Module;
 import com.smartdash.project.modele.objet.Bloc;
 import com.smartdash.project.modele.objet.Pique;
+import com.smartdash.project.modele.objet.Vide;
 
 import java.util.Scanner;
 import java.util.Timer;
@@ -36,6 +38,7 @@ public class Jeu {
                 }
                 else
                 {
+
                     afficherJeu();
                     if (sc.hasNext()) {
                         String input = sc.nextLine();
@@ -48,15 +51,13 @@ public class Jeu {
                     }
 
                     /**
-
-                    boolean sauter = joueur.getReseau().isActive(joueur.getObjetsReseau());
+                    joueur.initialiserReseauActive();
+                    boolean sauter = joueur.getReseau().isActive();
 
                     if(sauter)
                     {
                         joueur.sauter();
-                    }
-
-                    */
+                    }*/
 
                     update();
                 }
@@ -64,7 +65,6 @@ public class Jeu {
         };
 
         timer.scheduleAtFixedRate(task,0,200);
-
     }
 
     /**
@@ -81,12 +81,12 @@ public class Jeu {
      */
     private void afficherJeu() {
         Terrain terrain = joueur.getMap();
-        Double joueurX = joueur.getX();
-        Double joueurY = joueur.getY();
+        int joueurX = joueur.getX();
+        int joueurY = joueur.getY();
 
         for (int i = 0; i < terrain.getLargeur(); i++) {
             for (int j = 0; j < terrain.getLongueur(); j++) {
-                boolean isJoueur = (j == joueurX.intValue() && i == joueurY.intValue());
+                boolean isJoueur = (j == joueurX && i == joueurY);
                 int finalI = i;
                 int finalJ = j;
 
@@ -96,6 +96,9 @@ public class Jeu {
                 boolean isPique = terrain.getMap().stream()
                         .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Pique);
 
+                boolean isVide = terrain.getMap().stream()
+                        .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Vide);
+
 
                 if (isJoueur) {
                     System.out.print("J"); // Afficher le joueur
@@ -104,7 +107,7 @@ public class Jeu {
                 } else if (isPique) {
                     System.out.print("P");
                 }
-                else {
+                else if (isVide){
                     System.out.print("."); // Afficher une case vide
                 }
             }
@@ -115,7 +118,15 @@ public class Jeu {
 
     public static void main(String[] args) {
         Terrain terrain = new Terrain("src/main/resources/map.txt");
-        Joueur joueur1 = new Joueur(0.0,0.0, terrain, new Reseau());
+
+        Neurone neurone = new NeuroneBloc(0,-1);
+        Module module = new Module();
+        module.addNeurone(neurone);
+
+        Reseau reseau = new Reseau();
+        reseau.addModule(module);
+
+        Joueur joueur1 = new Joueur(0,0, terrain, reseau);
         Jeu jeu = new Jeu(joueur1);
 
         jeu.lancer();
