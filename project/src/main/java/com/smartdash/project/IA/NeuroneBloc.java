@@ -17,4 +17,8 @@ public class NeuroneBloc extends Neurone{
         }
     }
 
+    public String toString() {
+        return "Neurone Bloc" + super.toString();
+    }
+
 }

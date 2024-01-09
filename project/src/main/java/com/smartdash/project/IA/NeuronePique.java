@@ -18,4 +18,8 @@ public class NeuronePique extends Neurone{
             this.active = type.equals("pique");
         }
     }
+
+    public String toString() {
+        return "Neurone Pique" + super.toString();
+    }
 }

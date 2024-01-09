@@ -33,7 +33,14 @@ public abstract class Neurone {
 
     @Override
     public String toString() {
-        return "Neurone{x=" + x + ", y=" + y + ", active=" + active + '}';
+        return "{x=" + x + ", y=" + y + ", active=" + active + '}';
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }

@@ -17,4 +17,8 @@ public class NeuroneNonBloc extends Neurone{
             this.active = !type.equals("bloc");
         }
     }
+
+    public String toString() {
+        return "Neurone Non Bloc" + super.toString();
+    }
 }
