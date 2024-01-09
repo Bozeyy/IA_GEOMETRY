@@ -38,7 +38,7 @@ public class Jeu {
                 }
                 else
                 {
-                    /**
+
                     if (sc.hasNext()) {
                         String input = sc.nextLine();
                         if (input.equalsIgnoreCase("s")) {
@@ -47,7 +47,7 @@ public class Jeu {
                         } else if (input.equalsIgnoreCase("q")) {
                             timer.cancel(); // Arrête le Timer si l'utilisateur entre 'q'
                         }
-                    }*/
+                    }
 
                     /**
                     joueur.initialiserReseauActive();

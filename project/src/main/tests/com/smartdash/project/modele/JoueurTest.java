@@ -59,6 +59,8 @@ public class JoueurTest
 
         joueur.update();
         joueur.update();
+        joueur.update();
+        joueur.update();
         assertEquals(joueur.getY(), 2);
     }
 
@@ -139,18 +141,36 @@ public class JoueurTest
     @Test
     public void test_personnage_saute_sur_un_bloc()
     {
+        Joueur joueur = new Joueur(0,2, new Terrain("src/main/resources/terrains_test/test_map9.txt"), new Reseau());
 
+        joueur.update();
+        joueur.sauter();
+        joueur.update();
+
+        assertFalse(joueur.getVivant());
     }
 
     @Test
     public void test_personnage_saute_sur_deux_piques()
     {
+        Joueur joueur = new Joueur(0,2, new Terrain("src/main/resources/terrains_test/test_map10.txt"), new Reseau());
 
+        joueur.update();
+        joueur.sauter();
+        joueur.update();
+
+        assertFalse(joueur.getVivant());
     }
 
     @Test
     public void test_personnage_saute_sur_un_pique()
     {
+        Joueur joueur = new Joueur(0,2, new Terrain("src/main/resources/terrains_test/test_map11.txt"), new Reseau());
 
+        joueur.update();
+        joueur.sauter();
+        joueur.update();
+
+        assertFalse(joueur.getVivant());
     }
 }
