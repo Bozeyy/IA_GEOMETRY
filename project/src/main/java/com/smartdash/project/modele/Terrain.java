@@ -93,7 +93,7 @@ public class Terrain {
                         Pique pique = new Pique(x,y);
                         objets.add(pique);
                     }
-                    if(c == ' ')
+                    if(c == '.')
                     {
                         Vide vide = new Vide(x,y);
                         objets.add(vide);

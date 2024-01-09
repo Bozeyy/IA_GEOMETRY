@@ -11,13 +11,12 @@ import java.util.stream.Collectors;
 
 public class Joueur
 {
-    private Reseau reseau;
     private int x;
     private int y;
     private int vY;
     private final Terrain map;
     private boolean vivant;
-
+    private Reseau reseau;
 
     public Joueur(int x, int y, Terrain mapJeu, Reseau reseau)
     {
@@ -29,7 +28,9 @@ public class Joueur
         this.vivant = true;
     }
 
-
+    /**
+     * Méthode qui permet d'initialiser les positions des objets autours du joueur
+     */
     public void initialiserReseauActive()
     {
         int x;
@@ -38,18 +39,16 @@ public class Joueur
 
         List<Objet> objets = new ArrayList<>();
 
-        for (Objet objet : this.map.getMap())
-        {
-            if(objet.getY()- this.getY() >= 0 && objet.getY()-this.getY() < 4)
-            {
-                if(objet.getX()-this.getX() >= -2 && objet.getX()-this.getX()<2)
-                {
-                   objets.add(objet);
-                }
+        for (Objet objet : this.map.getMap()) {
+            int distanceX = Math.abs(objet.getX() - this.getX());
+            int distanceY = Math.abs(objet.getY() - this.getY());
+
+            // Récupération des objets dans une zone de 3x3 autour du joueur
+            if (distanceX <= 2 && distanceY <= 2) {
+                objets.add(objet);
             }
         }
 
-        System.out.println(objets.size());
         for(Objet objet : objets)
         {
             x = objet.getX() - this.x;
@@ -209,7 +208,7 @@ public class Joueur
 
         if(surBloc)
         {
-            this.vY = 2;
+            this.vY = 1;
         }
     }
 

@@ -13,7 +13,7 @@ public class NeuroneBloc extends Neurone{
     @Override
     public void setActive(int x, int y, String type) {
         if (this.x == x && this.y == y) {
-            this.active = type.equals("vide");
+            this.active = type.equals("bloc");
         }
     }
 

@@ -4,10 +4,9 @@ package com.smartdash.project.modele;
 import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
 import com.smartdash.project.modele.objet.Bloc;
-import com.smartdash.project.modele.objet.Objet;
 import com.smartdash.project.modele.objet.Pique;
+import com.smartdash.project.modele.objet.Vide;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,17 +49,14 @@ public class Jeu {
                         }
                     }*/
 
+                    /**
                     joueur.initialiserReseauActive();
                     boolean sauter = joueur.getReseau().isActive();
 
                     if(sauter)
                     {
                         joueur.sauter();
-                    }
-
-                    System.out.println("coord");
-                    System.out.println(joueur.getX());
-                    System.out.println(joueur.getY());
+                    }*/
 
                     update();
                 }
@@ -99,6 +95,9 @@ public class Jeu {
                 boolean isPique = terrain.getMap().stream()
                         .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Pique);
 
+                boolean isVide = terrain.getMap().stream()
+                        .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Vide);
+
 
                 if (isJoueur) {
                     System.out.print("J"); // Afficher le joueur
@@ -107,7 +106,7 @@ public class Jeu {
                 } else if (isPique) {
                     System.out.print("P");
                 }
-                else {
+                else if (isVide){
                     System.out.print("."); // Afficher une case vide
                 }
             }
@@ -119,7 +118,7 @@ public class Jeu {
     public static void main(String[] args) {
         Terrain terrain = new Terrain("src/main/resources/map.txt");
 
-        Neurone neurone = new NeuronePique(0,2);
+        Neurone neurone = new NeuroneBloc(0,-1);
         Module module = new Module();
         module.addNeurone(neurone);
 
