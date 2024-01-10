@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 
 public class Joueur
 {
-    private int x;
-    private int y;
-    private int vY;
-    private final Terrain map;
-    private boolean vivant;
-    private Reseau reseau;
+    protected int x;
+    protected int y;
+    protected int vY;
+    protected final Terrain map;
+    protected boolean vivant;
+    protected Reseau reseau;
 
     public Joueur(int x, int y, Terrain mapJeu, Reseau reseau)
     {
@@ -44,7 +44,7 @@ public class Joueur
             int distanceY = Math.abs(objet.getY() - this.getY());
 
             // Récupération des objets dans une zone de 3x3 autour du joueur
-            if (distanceX <= 2 && distanceY <= 2) {
+            if (distanceX <= 4 && distanceY <= 4 && distanceX >= 0 && distanceY >= -4) {
                 objets.add(objet);
             }
         }
@@ -64,7 +64,7 @@ public class Joueur
      * Méthode qui permet de renvoyer les objets autour du personnage
      * @return retourne une liste d'objet autours du personnage
      */
-    private List<Objet> getObjetsAutour() {
+    protected List<Objet> getObjetsAutour() {
         return this.map.getMap().stream()
                 .filter(objet -> Math.abs(this.getX() - objet.getX()) < 2 && Math.abs(this.getY() - objet.getY()) < 2)
                 .collect(Collectors.toList());
@@ -151,7 +151,7 @@ public class Joueur
      * @param objetsAutourJoueur les objets autours du joueur
      * @return retourne un boolean
      */
-    private boolean verificationSauterObjets(List<Objet> objetsAutourJoueur) {
+    protected boolean verificationSauterObjets(List<Objet> objetsAutourJoueur) {
         for (Objet objet : objetsAutourJoueur)
         {
             if(objet.isInside(new Joueur(this.x, this.y-1, this.map, this.reseau)))
@@ -172,7 +172,7 @@ public class Joueur
      * @param objetsAutourJoueur les objets autours du joueur
      * @return retourne un boolean
      */
-    private boolean verificationSurObjets(List<Objet> objetsAutourJoueur) {
+    protected boolean verificationSurObjets(List<Objet> objetsAutourJoueur) {
         for (Objet objet : objetsAutourJoueur)
         {
             if(objet.isInside(new Joueur(this.x, this.y+1, this.map, this.reseau)))
@@ -193,7 +193,7 @@ public class Joueur
      * @param objetsAutourJoueur liste des objets autours du joueur
      * @return retourne un boolean
      */
-    private boolean verificationRentrerDansObjets(List<Objet> objetsAutourJoueur) {
+    protected boolean verificationRentrerDansObjets(List<Objet> objetsAutourJoueur) {
         for (Objet objet : objetsAutourJoueur)
         {
             if(objet.isInside(new Joueur(this.x+1, this.y, this.map, this.reseau)))

@@ -39,24 +39,24 @@ public class Jeu {
                 else
                 {
 
-                    if (sc.hasNext()) {
-                        String input = sc.nextLine();
-                        if (input.equalsIgnoreCase("s")) {
-                            joueur.sauter(); // Action de saut du joueur
-                            // Vous pouvez ajouter la logique de saut ici
-                        } else if (input.equalsIgnoreCase("q")) {
-                            timer.cancel(); // Arrête le Timer si l'utilisateur entre 'q'
-                        }
-                    }
+//                    if (sc.hasNext()) {
+//                        String input = sc.nextLine();
+//                        if (input.equalsIgnoreCase("s")) {
+//                            joueur.sauter(); // Action de saut du joueur
+//                            // Vous pouvez ajouter la logique de saut ici
+//                        } else if (input.equalsIgnoreCase("q")) {
+//                            timer.cancel(); // Arrête le Timer si l'utilisateur entre 'q'
+//                        }
+//                    }
 
-                    /**
+
                     joueur.initialiserReseauActive();
                     boolean sauter = joueur.getReseau().isActive();
 
                     if(sauter)
                     {
                         joueur.sauter();
-                    }*/
+                    }
 
                     update();
                 }
@@ -116,16 +116,18 @@ public class Jeu {
     }
 
     public static void main(String[] args) {
-        Terrain terrain = new Terrain("src/main/resources/map.txt");
+        Terrain terrain = new Terrain("src/main/resources/terrains_test_reseaux/test_map3.txt");
 
-        Neurone neurone = new NeuroneBloc(0,-1);
+        Neurone neurone = new NeuroneNonVide(3,-2);
+        Neurone neurone2 = new NeuroneBloc(2, -2);
         Module module = new Module();
         module.addNeurone(neurone);
+        module.addNeurone(neurone2);
 
         Reseau reseau = new Reseau();
         reseau.addModule(module);
 
-        Joueur joueur1 = new Joueur(0,0, terrain, reseau);
+        Joueur joueur1 = new Joueur(0,2, terrain, reseau);
         Jeu jeu = new Jeu(joueur1);
 
         jeu.lancer();

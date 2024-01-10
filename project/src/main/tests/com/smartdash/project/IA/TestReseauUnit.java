@@ -1,8 +1,6 @@
 package com.smartdash.project.IA;
 
-import com.smartdash.project.IA.*;
-import com.smartdash.project.IA.Module;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
@@ -155,10 +153,11 @@ public class TestReseauUnit {
 
         String s = m.toString();
 
-        assertEquals(s, "Module{\n" +
-                "\t\tNeurone Bloc{x=3, y=2, active=false}\n" +
-                "\t\tNeurone Pique{x=4, y=0, active=false}\n" +
-                "\t}", "erreur creation d'un module de neurone perso avec la fabrique");
+        assertEquals(s, """
+                Module{
+                \t\tNeurone Bloc{x=3, y=2, active=false}
+                \t\tNeurone Pique{x=4, y=0, active=false}
+                \t}""", "erreur creation d'un module de neurone perso avec la fabrique");
     }
 
     @Test
@@ -189,18 +188,19 @@ public class TestReseauUnit {
 
         String s = r.toString();
 
-        assertEquals(s, "Reseau{\n" +
-                "\tModule{\n" +
-                "\t\tNeurone Bloc{x=3, y=2, active=false}\n" +
-                "\t\tNeurone Actif{x=5, y=1, active=false}\n" +
-                "\t\tNeurone Actif{x=2, y=1, active=false}\n" +
-                "\t}\n" +
-                "\tModule{\n" +
-                "\t\tNeurone Bloc{x=3, y=2, active=false}\n" +
-                "\t\tNeurone Non Vide{x=5, y=3, active=false}\n" +
-                "\t\tNeurone Pique{x=0, y=-2, active=false}\n" +
-                "\t}\n" +
-                "}","erreur de creation d un reseau perso avec une fabrique");
+        assertEquals(s, """
+                Reseau{
+                \tModule{
+                \t\tNeurone Bloc{x=3, y=2, active=false}
+                \t\tNeurone Actif{x=5, y=1, active=false}
+                \t\tNeurone Actif{x=2, y=1, active=false}
+                \t}
+                \tModule{
+                \t\tNeurone Bloc{x=3, y=2, active=false}
+                \t\tNeurone Non Vide{x=5, y=3, active=false}
+                \t\tNeurone Pique{x=0, y=-2, active=false}
+                \t}
+                }""","erreur de creation d un reseau perso avec une fabrique");
 
     }
 

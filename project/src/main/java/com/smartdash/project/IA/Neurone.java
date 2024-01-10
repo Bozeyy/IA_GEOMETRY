@@ -16,10 +16,20 @@ public abstract class Neurone {
         this.active = false;
     }
 
+    /**
+     * permet de retourner l'etat du neurone (activé ou désactivé)
+     * @return
+     */
     public boolean isActive() {
         return this.active;
     }
 
+    /**
+     * permet de mettre a jour l etat du neurone à partir des donnés d une case (l'active ou le désactive si la case correspond)
+     * @param x
+     * @param y
+     * @param type
+     */
     public abstract void setActive(int x, int y, String type);
 
     @Override
