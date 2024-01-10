@@ -22,9 +22,43 @@ public class Jeu {
     }
 
     /**
-     * Méthode qui permet de lancer le jeu
+     * Méthode qui permet de lancer le jeu en utilisant un réseau d'IA
      */
-    public void lancer()
+    public void lancerIA()
+    {
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if(!joueur.getVivant())
+                {
+                    timer.cancel();
+                }
+                else
+                {
+                    joueur.initialiserReseauActive();
+                    boolean sauter = joueur.getReseau().isActive();
+
+                    if(sauter)
+                    {
+                        joueur.sauter();
+                    }
+
+                    update();
+                }
+            }
+        };
+
+        // On affiche une première fois le jeu
+        afficherJeu();
+        timer.scheduleAtFixedRate(task,0,200);
+    }
+
+    /**
+     * Méthode qui permet de lancer le jeu et d'y jouer en console
+     */
+    public void lancerHuamin()
     {
         Scanner sc = new Scanner(System.in);
         Timer timer = new Timer();
@@ -38,8 +72,6 @@ public class Jeu {
                 }
                 else
                 {
-
-                    afficherJeu();
                     if (sc.hasNext()) {
                         String input = sc.nextLine();
                         if (input.equalsIgnoreCase("s")) {
@@ -50,20 +82,13 @@ public class Jeu {
                         }
                     }
 
-
-//                    joueur.initialiserReseauActive();
-//                    boolean sauter = joueur.getReseau().isActive();
-//
-//                    if(sauter)
-//                    {
-//                        joueur.sauter();
-//                    }
-
                     update();
                 }
             }
         };
 
+        // On affiche une première fois le jeu
+        afficherJeu();
         timer.scheduleAtFixedRate(task,0,200);
     }
 
@@ -116,6 +141,7 @@ public class Jeu {
         System.out.println(); // Ligne vide pour séparer les affichages successifs
     }
 
+
     public static void main(String[] args) {
         Terrain terrain = new Terrain("src/main/resources/terrains_test_reseaux/test_map4.txt");
 
@@ -131,6 +157,6 @@ public class Jeu {
         Joueur joueur1 = new Joueur(terrain, reseau);
         Jeu jeu = new Jeu(joueur1);
 
-        jeu.lancer();
+        jeu.lancerHuamin();
     }
 }
