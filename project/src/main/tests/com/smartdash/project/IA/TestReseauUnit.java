@@ -419,4 +419,5 @@ public class TestReseauUnit {
 
         assertTrue(actif, "erreur d activation du reseau");
     }
+
 }

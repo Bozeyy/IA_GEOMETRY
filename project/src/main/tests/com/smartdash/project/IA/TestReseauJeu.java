@@ -1,8 +1,11 @@
 package com.smartdash.project.IA;
 
-import com.smartdash.project.modele.JoueurAvecCompteur;
+import com.smartdash.project.modele.Joueur;
 import com.smartdash.project.modele.Terrain;
+import com.smartdash.project.modele.objet.Objet;
 import org.junit.jupiter.api.*;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -84,4 +87,39 @@ public class TestReseauJeu {
         assertEquals(saut, 1, "le joueur saute");
         assertTrue(vivant, "le joueur est mort");
     }
+
+     class JoueurAvecCompteur extends Joueur{
+
+        private int nbSauts;
+
+        public JoueurAvecCompteur(int x, int y, Terrain mapJeu, Reseau reseau) {
+
+            super(x, y, mapJeu, reseau);
+            nbSauts = 0;
+        }
+
+        public JoueurAvecCompteur(Terrain mapJeu, Reseau reseau) {
+
+            super(mapJeu, reseau);
+            nbSauts = 0;
+        }
+
+        @Override
+        public void sauter() {  // On vérifie que le joueur est bien sur un bloc
+            List<Objet> objetsAutours = getObjetsAutour();
+            boolean surBloc = verificationSurObjets(objetsAutours);
+
+            if(surBloc && vY==0)
+            {
+                this.vY = 1;
+                nbSauts++;
+            }
+
+        }
+
+        public int getNbSauts() {
+            return nbSauts;
+        }
+    }
 }
+

@@ -146,7 +146,7 @@ public class Jeu {
 
 
     public static void main(String[] args) {
-        Terrain terrain = new Terrain("src/main/resources/terrains_test_reseaux/test_map4.txt");
+        Terrain terrain = new Terrain("src/main/resources/map.txt");
 
         Neurone neurone = new NeuroneNonVide(3,-2);
         Neurone neurone2 = new NeuroneBloc(2, -2);
