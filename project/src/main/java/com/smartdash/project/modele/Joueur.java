@@ -169,7 +169,7 @@ public class Joueur
         {
             if(objet.isInside(new Joueur(this.x, this.y+1, this.map, this.reseau)))
             {
-                if(objet instanceof Pique)
+                if(objet instanceof Pique && vY == 0)
                 {
                     this.vivant = false;
                 }

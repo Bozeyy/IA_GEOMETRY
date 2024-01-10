@@ -126,7 +126,7 @@ public class Jeu {
         Reseau reseau = new Reseau();
         reseau.addModule(module);
 
-        Joueur joueur1 = new Joueur(0,0, terrain, reseau);
+        Joueur joueur1 = new Joueur(0,3, terrain, reseau);
         Jeu jeu = new Jeu(joueur1);
 
         jeu.lancer();
