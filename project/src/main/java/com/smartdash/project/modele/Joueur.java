@@ -100,10 +100,6 @@ public class Joueur
                         if(!sauterObjet)
                         {
                             this.y--;
-
-                            rentrerDansObjet = verificationRentrerDansObjets(objetsAutourJoueur);
-                            if(!rentrerDansObjet) this.x++;
-
                             this.vY--;
                         }
                     }
@@ -120,10 +116,6 @@ public class Joueur
                     if(!sauterObjet)
                     {
                         this.y--;
-
-                        rentrerDansObjet = verificationRentrerDansObjets(objetsAutourJoueur);
-                        if(!rentrerDansObjet) this.x++;
-
                         this.vY--;
                     }
 
@@ -216,7 +208,7 @@ public class Joueur
 
         if(surBloc && vY==0)
         {
-            this.vY = 1;
+            this.vY = 2;
         }
     }
 
