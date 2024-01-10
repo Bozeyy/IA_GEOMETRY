@@ -37,6 +37,10 @@ public class Jeu {
             public void run() {
                 if(!joueur.getVivant())
                 {
+                    System.out.println("Vous avez perdu");
+                    timer.cancel();
+                } else if (joueur.fin) {
+                    System.out.println("Vous avez gagné");
                     timer.cancel();
                 }
                 else
@@ -72,9 +76,12 @@ public class Jeu {
             public void run() {
                 if(!joueur.getVivant())
                 {
+                    System.out.println("Vous avez perdu");
                     timer.cancel();
-                }
-                else
+                } else if (joueur.fin) {
+                    System.out.println("Vous avez gagné");
+                    timer.cancel();
+                } else
                 {
                     if (sc.hasNext()) {
                         String input = sc.nextLine();

@@ -78,7 +78,7 @@ public class Terrain {
                 int currentLineLenght = line.length();
                 if(currentLineLenght>longueur)
                 {
-                    longueur = currentLineLenght + 1;
+                    longueur = currentLineLenght;
                 }
 
                 x=0;

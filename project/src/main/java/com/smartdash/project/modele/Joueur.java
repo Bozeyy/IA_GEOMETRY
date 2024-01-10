@@ -16,8 +16,16 @@ public class Joueur
     protected int vY;
     protected final Terrain map;
     protected boolean vivant;
+    protected  boolean fin;
     protected Reseau reseau;
 
+    /**
+     * Constructeur avec cordonnées
+     * @param x, cordonnée du joueur x
+     * @param y, cordonnée du joueur y
+     * @param mapJeu, terrain autour du joueur
+     * @param reseau, réseau de neurone du joueur
+     */
     public Joueur(int x, int y, Terrain mapJeu, Reseau reseau)
     {
         this.x = x;
@@ -26,20 +34,26 @@ public class Joueur
         this.reseau = reseau;
         this.map = mapJeu;
         this.vivant = true;
+        this.fin = false;
     }
 
+    /**
+     * Constructeur sans cordonnées
+     * @param mapJeu, terrain autour du joueur
+     * @param reseau, réseau de neurone du joueur
+     */
     public Joueur (Terrain mapJeu, Reseau reseau) {
         this.vY = 0;
         this.reseau = reseau;
         this.map = mapJeu;
         this.vivant = true;
+        this.fin = false;
         this.x = 0;
         this.y = mapJeu.getLargeur()-2;
-
     }
 
     /**
-     * Méthode qui permet d'initialiser les positions des objets autours du joueur
+     * Méthode qui permet d'initialiser les positions des objets autours du joueur pour les envoyer au réseau de neurones
      */
     public void initialiserReseauActive()
     {
@@ -86,7 +100,7 @@ public class Joueur
     public void updateJoueur()
     {
         // On vérifie que le joueur est bien vivant
-        if(this.vivant)
+        if(this.vivant && !this.fin)
         {
             // On initialise les booleans
             boolean rentrerDansObjet = false;
@@ -140,12 +154,19 @@ public class Joueur
                 rentrerDansObjet = verificationRentrerDansObjets(objetsAutourJoueur);
                 if(!rentrerDansObjet) this.x++;
             }
+
+            // On vérifie si la partie est fini
+            this.fin = verificationFinDePartie();
         }
         else
         {
             this.x = -1000;
             this.y = -1000;
         }
+    }
+
+    private boolean verificationFinDePartie() {
+        return this.x+1 == this.map.getLongueur();
     }
 
     /**
@@ -216,7 +237,7 @@ public class Joueur
         List<Objet> objetsAutours = getObjetsAutour();
         boolean surBloc = verificationSurObjets(objetsAutours);
 
-        if(surBloc && vY==0)
+        if(surBloc)
         {
             this.vY = 2;
         }
