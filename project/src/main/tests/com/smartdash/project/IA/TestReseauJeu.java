@@ -36,7 +36,7 @@ public class TestReseauJeu {
     }
 
     @Test
-    public void testReseau1NeuronePique() {
+    public void testReseau1Neurone() {
         Neurone n1 = new NeuronePique(1, 0);
         Reseau r = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{n1})});
 
@@ -55,7 +55,6 @@ public class TestReseauJeu {
         int saut = joueur.getNbSauts();
         boolean vivant = joueur.getVivant();
 
-        System.out.println(saut);
 
         assertEquals(saut, 2, "le joueur saute");
         assertFalse(vivant, "le joueur est vivant");

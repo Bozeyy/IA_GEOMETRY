@@ -15,6 +15,12 @@ public class JoueurAvecCompteur extends Joueur{
         nbSauts = 0;
     }
 
+    public JoueurAvecCompteur(Terrain mapJeu, Reseau reseau) {
+
+        super(mapJeu, reseau);
+        nbSauts = 0;
+    }
+
     @Override
     public void sauter() {  // On vérifie que le joueur est bien sur un bloc
         List<Objet> objetsAutours = getObjetsAutour();

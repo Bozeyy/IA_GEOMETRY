@@ -28,6 +28,16 @@ public class Joueur
         this.vivant = true;
     }
 
+    public Joueur (Terrain mapJeu, Reseau reseau) {
+        this.vY = 0;
+        this.reseau = reseau;
+        this.map = mapJeu;
+        this.vivant = true;
+        this.x = 0;
+        this.y = mapJeu.getLargeur()-2;
+
+    }
+
     /**
      * Méthode qui permet d'initialiser les positions des objets autours du joueur
      */
