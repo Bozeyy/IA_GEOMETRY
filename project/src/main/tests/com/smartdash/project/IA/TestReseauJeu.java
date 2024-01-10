@@ -1,7 +1,5 @@
 package com.smartdash.project.IA;
 
-import com.smartdash.project.modele.Jeu;
-import com.smartdash.project.modele.Joueur;
 import com.smartdash.project.modele.JoueurAvecCompteur;
 import com.smartdash.project.modele.Terrain;
 import org.junit.jupiter.api.*;
@@ -25,7 +23,7 @@ public class TestReseauJeu {
             {
                 joueur.sauter();
             }
-            joueur.update();
+            joueur.updateJoueur();
         }
 
         int saut = joueur.getNbSauts();
@@ -49,7 +47,7 @@ public class TestReseauJeu {
             {
                 joueur.sauter();
             }
-            joueur.update();
+            joueur.updateJoueur();
         }
 
         int saut = joueur.getNbSauts();
@@ -75,7 +73,7 @@ public class TestReseauJeu {
             {
                 joueur.sauter();
             }
-            joueur.update();
+            joueur.updateJoueur();
         }
 
         int saut = joueur.getNbSauts();

@@ -83,7 +83,7 @@ public class Joueur
     /**
      * Méthode qui permet d'actualiser le personnage
      */
-    public void update()
+    public void updateJoueur()
     {
         // On vérifie que le joueur est bien vivant
         if(this.vivant)

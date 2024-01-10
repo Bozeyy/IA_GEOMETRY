@@ -10,7 +10,7 @@ public class TestJoueurFonctionnalite
     public void test_deplacement_bloc_par_bloc()
     {
         Joueur joueur = new Joueur(0,0, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map1.txt"), new Reseau());
-        joueur.update();
+        joueur.updateJoueur();
         assertEquals(joueur.getX(), 1);
     }
 
@@ -18,9 +18,9 @@ public class TestJoueurFonctionnalite
     public void test_joueur_tombe_quand_dans_air()
     {
         Joueur joueur = new Joueur(0,0, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map2.txt"), new Reseau());
-        joueur.update();
-        joueur.update();
-        joueur.update();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
 
         assertEquals(joueur.getY(), 3);
     }
@@ -30,7 +30,7 @@ public class TestJoueurFonctionnalite
     {
         Joueur joueur = new Joueur(2,2, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map3.txt"), new Reseau());
         joueur.sauter();
-        joueur.update();
+        joueur.updateJoueur();
 
         assertEquals(joueur.getY(), 1);
     }
@@ -41,10 +41,10 @@ public class TestJoueurFonctionnalite
         Joueur joueur = new Joueur(2,2, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map3.txt"), new Reseau());
         joueur.sauter();
 
-        joueur.update();
-        joueur.update();
-        joueur.update();
-        joueur.update();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
         assertEquals(joueur.getY(), 2);
     }
 
@@ -53,7 +53,7 @@ public class TestJoueurFonctionnalite
     {
         Joueur joueur = new Joueur(1,1, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map4.txt"), new Reseau());
         joueur.sauter();
-        joueur.update();
+        joueur.updateJoueur();
 
         assertEquals(joueur.getY(),2);
     }
@@ -64,7 +64,7 @@ public class TestJoueurFonctionnalite
         Joueur joueur = new Joueur(2,2, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map3.txt"), new Reseau());
         joueur.sauter();
         joueur.sauter();
-        joueur.update();
+        joueur.updateJoueur();
 
         assertEquals(joueur.getY(), 1);
     }
@@ -73,8 +73,8 @@ public class TestJoueurFonctionnalite
     public void test_personnage_sur_bloc()
     {
         Joueur joueur = new Joueur(0,0, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map1.txt"), new Reseau());
-        joueur.update();
-        joueur.update();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
 
         assertEquals(joueur.getY(), 0);
     }
@@ -83,8 +83,8 @@ public class TestJoueurFonctionnalite
     public void test_personnage_percute_bloc()
     {
         Joueur joueur = new Joueur(0,1, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map5.txt"), new Reseau());
-        joueur.update();
-        joueur.update();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
 
         assertFalse(joueur.getVivant());
     }
@@ -93,8 +93,8 @@ public class TestJoueurFonctionnalite
     public void test_personnage_percute_pic()
     {
         Joueur joueur = new Joueur(0,1, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map6.txt"), new Reseau());
-        joueur.update();
-        joueur.update();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
 
         assertFalse(joueur.getVivant());
     }
@@ -103,9 +103,9 @@ public class TestJoueurFonctionnalite
     public void test_personnage_sur_pic()
     {
         Joueur joueur = new Joueur(0,1, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map7.txt"), new Reseau());
-        joueur.update();
-        joueur.update();
-        joueur.update();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
 
         assertFalse(joueur.getVivant());
     }
@@ -115,9 +115,9 @@ public class TestJoueurFonctionnalite
     {
         Joueur joueur = new Joueur(0,2, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map8.txt"), new Reseau());
 
-        joueur.update();
+        joueur.updateJoueur();
         joueur.sauter();
-        joueur.update();
+        joueur.updateJoueur();
 
         assertFalse(joueur.getVivant());
     }
@@ -127,9 +127,9 @@ public class TestJoueurFonctionnalite
     {
         Joueur joueur = new Joueur(0,2, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map9.txt"), new Reseau());
 
-        joueur.update();
+        joueur.updateJoueur();
         joueur.sauter();
-        joueur.update();
+        joueur.updateJoueur();
 
         assertFalse(joueur.getVivant());
     }
@@ -139,9 +139,9 @@ public class TestJoueurFonctionnalite
     {
         Joueur joueur = new Joueur(0,2, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map10.txt"), new Reseau());
 
-        joueur.update();
+        joueur.updateJoueur();
         joueur.sauter();
-        joueur.update();
+        joueur.updateJoueur();
 
         assertFalse(joueur.getVivant());
     }
@@ -151,9 +151,9 @@ public class TestJoueurFonctionnalite
     {
         Joueur joueur = new Joueur(0,2, new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map11.txt"), new Reseau());
 
-        joueur.update();
+        joueur.updateJoueur();
         joueur.sauter();
-        joueur.update();
+        joueur.updateJoueur();
 
         assertFalse(joueur.getVivant());
     }

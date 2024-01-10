@@ -14,11 +14,15 @@ import java.util.TimerTask;
 public class Jeu {
     // Attributs
     private Joueur joueur;
+    private Terrain terrain;
+
 
     //Constructeur
-    public Jeu(Joueur joueur)
+    public Jeu(Terrain terrain, Reseau reseau)
     {
-        this.joueur = joueur;
+        //this.joueur = new Joueur(0,0, terrain, reseau);
+        this.terrain = terrain;
+        this.joueur = new Joueur(terrain, reseau);
     }
 
     /**
@@ -45,13 +49,13 @@ public class Jeu {
                         joueur.sauter();
                     }
 
-                    update();
+                    updateJeu();
                 }
             }
         };
 
         // On affiche une première fois le jeu
-        afficherJeu();
+        afficherPartie();
         timer.scheduleAtFixedRate(task,0,200);
     }
 
@@ -82,30 +86,29 @@ public class Jeu {
                         }
                     }
 
-                    update();
+                    updateJeu();
                 }
             }
         };
 
         // On affiche une première fois le jeu
-        afficherJeu();
+        afficherPartie();
         timer.scheduleAtFixedRate(task,0,200);
     }
 
     /**
      * Méthode qui permet de changer l'état du jeu à chaque temps
      */
-    public void update()
+    public void updateJeu()
     {
-        this.joueur.update();
-        afficherJeu();
+        this.joueur.updateJoueur();
+        afficherPartie();
     }
 
     /**
      * Méthode temporaire qui affiche le jeu en console
      */
-    private void afficherJeu() {
-        Terrain terrain = joueur.getMap();
+    private void afficherPartie() {
         int joueurX = joueur.getX();
         int joueurY = joueur.getY();
 
@@ -154,8 +157,7 @@ public class Jeu {
         Reseau reseau = new Reseau();
         reseau.addModule(module);
 
-        Joueur joueur1 = new Joueur(terrain, reseau);
-        Jeu jeu = new Jeu(joueur1);
+        Jeu jeu = new Jeu(terrain, reseau);
 
         jeu.lancerHuamin();
     }
