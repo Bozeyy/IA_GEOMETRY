@@ -39,15 +39,16 @@ public class Jeu {
                 else
                 {
 
-//                    if (sc.hasNext()) {
-//                        String input = sc.nextLine();
-//                        if (input.equalsIgnoreCase("s")) {
-//                            joueur.sauter(); // Action de saut du joueur
-//                            // Vous pouvez ajouter la logique de saut ici
-//                        } else if (input.equalsIgnoreCase("q")) {
-//                            timer.cancel(); // Arrête le Timer si l'utilisateur entre 'q'
-//                        }
-//                    }
+                    afficherJeu();
+                    if (sc.hasNext()) {
+                        String input = sc.nextLine();
+                        if (input.equalsIgnoreCase("s")) {
+                            joueur.sauter(); // Action de saut du joueur
+                            // Vous pouvez ajouter la logique de saut ici
+                        } else if (input.equalsIgnoreCase("q")) {
+                            timer.cancel(); // Arrête le Timer si l'utilisateur entre 'q'
+                        }
+                    }
 
 
                     joueur.initialiserReseauActive();
@@ -56,7 +57,7 @@ public class Jeu {
                     if(sauter)
                     {
                         joueur.sauter();
-                    }
+                    }*/
 
                     update();
                 }

@@ -15,7 +15,7 @@ public class TestTerrain
     @Test
     public void test_nombre_objet_terrain()
     {
-        Terrain terrain = new Terrain("src/main/resources/terrains_test/test_map1.txt");
+        Terrain terrain = new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map1.txt");
         int nbObjets = terrain.getMap().size();
 
         assertEquals(nbObjets, 12);
@@ -27,7 +27,7 @@ public class TestTerrain
     @Test
     public void test_type_objet_terrain()
     {
-        Terrain terrain = new Terrain("src/main/resources/terrains_test/test_map12.txt");
+        Terrain terrain = new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map12.txt");
         Objet objet = terrain.getMap().get(0);
 
         assertTrue(objet instanceof Bloc);
@@ -39,7 +39,7 @@ public class TestTerrain
     @Test
     public void test_type_objet_terrain2()
     {
-        Terrain terrain = new Terrain("src/main/resources/terrains_test/test_map12.txt");
+        Terrain terrain = new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map12.txt");
         Objet objet = terrain.getMap().get(1);
 
         assertTrue(objet instanceof Vide);
@@ -51,7 +51,7 @@ public class TestTerrain
     @Test
     public void test_type_objet_terrain3()
     {
-        Terrain terrain = new Terrain("src/main/resources/terrains_test/test_map12.txt");
+        Terrain terrain = new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map12.txt");
         Objet objet = terrain.getMap().get(2);
 
         assertTrue(objet instanceof Pique);
@@ -63,7 +63,7 @@ public class TestTerrain
     @Test
     public void test_longueur_map()
     {
-        Terrain terrain = new Terrain("src/main/resources/terrains_test/test_map1.txt");
+        Terrain terrain = new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map1.txt");
         int longueur = terrain.getLongueur();
 
         assertEquals(longueur, 7);
@@ -75,7 +75,7 @@ public class TestTerrain
     @Test
     public void test_largeur_map()
     {
-        Terrain terrain = new Terrain("src/main/resources/terrains_test/test_map1.txt");
+        Terrain terrain = new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map1.txt");
         int longueur = terrain.getLargeur();
 
         assertEquals(longueur, 2);
