@@ -581,6 +581,47 @@ public class TestJoueurSituation
 
     }
 
+    @Test
+    public void test_terrain22_saut_reussi_entre_pique_espace(){
+        Joueur joueur = new Joueur(4,5, new Terrain("project/src/main/resources/terrains_test_situation/terrain_test22.txt"), new Reseau());
 
+        joueur.sauter();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+
+        assertTrue(joueur.getVivant());
+
+    }
+
+    @Test
+    public void test_terrain23_saut_reussi_entre_pique_espace(){
+        Joueur joueur = new Joueur(4,5, new Terrain("project/src/main/resources/terrains_test_situation/terrain_test23.txt"), new Reseau());
+
+        joueur.sauter();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+
+        assertTrue(joueur.getVivant());
+
+    }
+
+    @Test
+    public void test_terrain23_saut_reussi_avant_entre_pique_espace(){
+        Joueur joueur = new Joueur(3,5, new Terrain("project/src/main/resources/terrains_test_situation/terrain_test23.txt"), new Reseau());
+
+        joueur.sauter();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+        joueur.updateJoueur();
+
+        assertTrue(joueur.getVivant());
+
+    }
 
 }
