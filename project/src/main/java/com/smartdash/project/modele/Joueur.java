@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Joueur
+public class  Joueur
 {
     protected int x;
     protected int y;
@@ -26,7 +26,7 @@ public class Joueur
      * @param mapJeu, terrain autour du joueur
      * @param reseau, réseau de neurone du joueur
      */
-    public Joueur(int x, int y, Terrain mapJeu, Reseau reseau)
+    protected Joueur(int x, int y, Terrain mapJeu, Reseau reseau)
     {
         this.x = x;
         this.y = y;
@@ -88,7 +88,7 @@ public class Joueur
      * Méthode qui permet de renvoyer les objets autour du personnage
      * @return retourne une liste d'objet autours du personnage
      */
-    protected List<Objet> getObjetsAutour() {
+    public List<Objet> getObjetsAutour() {
         return this.map.getMap().stream()
                 .filter(objet -> Math.abs(this.getX() - objet.getX()) < 2 && Math.abs(this.getY() - objet.getY()) < 2)
                 .collect(Collectors.toList());
@@ -174,7 +174,7 @@ public class Joueur
      * @param objetsAutourJoueur les objets autours du joueur
      * @return retourne un boolean
      */
-    protected boolean verificationSauterObjets(List<Objet> objetsAutourJoueur) {
+    public boolean verificationSauterObjets(List<Objet> objetsAutourJoueur) {
         for (Objet objet : objetsAutourJoueur)
         {
             if(objet.isInside(new Joueur(this.x, this.y-1, this.map, this.reseau)))

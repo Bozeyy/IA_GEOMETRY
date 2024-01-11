@@ -153,19 +153,20 @@ public class Jeu {
 
 
     public static void main(String[] args) {
-        Terrain terrain = new Terrain("src/main/resources/map.txt");
+        Terrain terrain = new Terrain("src/main/resources/terrains_test_reseaux/test_map6.txt");
 
-        Neurone neurone = new NeuroneNonVide(3,-2);
-        Neurone neurone2 = new NeuroneBloc(2, -2);
-        Module module = new Module();
-        module.addNeurone(neurone);
-        module.addNeurone(neurone2);
+        Neurone n1 = new NeuroneBloc(2, -3);
+        Neurone n2 = new NeuroneNonVide(3, -3);
+        Neurone n3 = new NeuronePique(4, -3);
 
-        Reseau reseau = new Reseau();
-        reseau.addModule(module);
+        Neurone n4 = new NeuroneBloc(2, -4);
+        Neurone n5 = new NeuroneNonVide(3, -4);
 
-        Jeu jeu = new Jeu(terrain, reseau);
+        Neurone n6 = new NeuronePique(1,0);
+        Reseau r = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3}), ModuleFabrique.genererModule(new Neurone[]{n4, n5}), ModuleFabrique.genererModule(new Neurone[]{n6})});
 
-        jeu.lancerHuamin();
+        Jeu jeu = new Jeu(terrain, r);
+
+        jeu.lancerIA();
     }
 }
