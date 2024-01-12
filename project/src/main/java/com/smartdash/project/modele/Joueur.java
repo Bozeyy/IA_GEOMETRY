@@ -1,6 +1,7 @@
 package com.smartdash.project.modele;
 
 import com.smartdash.project.IA.Reseau;
+import com.smartdash.project.modele.objet.Bloc;
 import com.smartdash.project.modele.objet.Objet;
 import com.smartdash.project.modele.objet.Pique;
 import com.smartdash.project.modele.objet.Vide;
@@ -205,7 +206,7 @@ public class  Joueur
                     this.vivant = false;
                 }
 
-                return !(objet instanceof Vide);
+                return (objet instanceof Bloc);
             }
         }
         return false;

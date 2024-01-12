@@ -153,7 +153,7 @@ public class Jeu {
 
 
     public static void main(String[] args) {
-        Terrain terrain = new Terrain("src/main/resources/terrains_test_reseaux/test_map6.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain_1.txt");
 
         Neurone n1 = new NeuroneBloc(2, -3);
         Neurone n2 = new NeuroneNonVide(3, -3);
@@ -167,6 +167,6 @@ public class Jeu {
 
         Jeu jeu = new Jeu(terrain, r);
 
-        jeu.lancerIA();
+        jeu.lancerHuamin();
     }
 }

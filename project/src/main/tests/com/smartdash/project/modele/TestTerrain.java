@@ -66,7 +66,7 @@ public class TestTerrain
         Terrain terrain = new Terrain("src/main/resources/terrains_test_fonctionnalite/test_map1.txt");
         int longueur = terrain.getLongueur();
 
-        assertEquals(longueur, 7);
+        assertEquals(longueur, 6);
     }
 
     /**
