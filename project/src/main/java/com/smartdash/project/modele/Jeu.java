@@ -153,7 +153,7 @@ public class Jeu {
 
 
     public static void main(String[] args) {
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain_1.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain_3.txt");
 
         Neurone n1 = new NeuroneBloc(2, -3);
         Neurone n2 = new NeuroneNonVide(3, -3);
