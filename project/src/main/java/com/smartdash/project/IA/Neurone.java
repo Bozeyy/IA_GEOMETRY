@@ -16,6 +16,12 @@ public abstract class Neurone {
         this.active = false;
     }
 
+    public Neurone(Neurone n) {
+        this.x = n.x;
+        this.y = n.y;
+        this.active = n.active;
+    }
+
     /**
      * permet de retourner l'etat du neurone (activé ou désactivé)
      * @return
@@ -53,4 +59,5 @@ public abstract class Neurone {
     public int getY() {
         return y;
     }
+
 }

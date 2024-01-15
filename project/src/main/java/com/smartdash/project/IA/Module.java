@@ -5,12 +5,13 @@ import com.smartdash.project.modele.objet.Objet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Module {
+public class Module implements Cloneable {
     private List<Neurone> neurones;
 
     public Module() {
         this.neurones = new ArrayList<>(Constantes.NB_NEURONES_PAR_MODULES);
     }
+
 
     public boolean isActive() {
         return this.neurones.stream().allMatch(Neurone::isActive);
@@ -48,5 +49,14 @@ public class Module {
 
     public List<Neurone> getNeurones() {
         return neurones;
+    }
+
+    @Override
+    public Module clone() {
+        try {
+            return (Module) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
