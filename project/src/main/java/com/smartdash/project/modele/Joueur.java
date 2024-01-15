@@ -41,7 +41,7 @@ public class  Joueur
     }
 
     /**
-     * Constructeur sans cordonnées
+     * Constructeur sans coordonnées
      * @param mapJeu, terrain autour du joueur
      * @param reseau, réseau de neurone du joueur
      */

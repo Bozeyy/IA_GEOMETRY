@@ -6,8 +6,6 @@ import com.smartdash.project.modele.Joueur;
 import com.smartdash.project.modele.Terrain;
 import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.modele.Jeu;
-import com.smartdash.project.modele.Joueur;
-import com.smartdash.project.modele.Terrain;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -114,17 +112,37 @@ public class Neat {
         return res;
     }
 
+    /**
+     * Méthode qui permet de sélectionner les parents
+     * @param population population
+     * @return retourne la liste des parents
+     */
     public static List<Joueur> selectionnerParents(List<Joueur> population)
     {
+        List<Joueur> nouvellePopulation = new ArrayList<>();
         // On tri la population
         Collections.sort(population, Comparator.comparingInt(Joueur::getScore));
 
         // On intialise
-        List<Joueur> parents = new ArrayList<>();
+        List<Joueur> huitMeilleurs = new ArrayList<>(population.subList(0, 7));
 
+        List<Joueur> partie2 = prendreAleatoire(population.subList(8,57), 12);
+        List<Joueur> partie3 = prendreAleatoire(population.subList(58,407), 7);
+        List<Joueur> partie4 = prendreAleatoire(population.subList(408,907), 3);
+        List<Joueur> partie5 = prendreAleatoire(population.subList(908,1000), 2);
 
+        nouvellePopulation.addAll(huitMeilleurs);
+        nouvellePopulation.addAll(partie2);
+        nouvellePopulation.addAll(partie3);
+        nouvellePopulation.addAll(partie4);
+        nouvellePopulation.addAll(partie5);
 
-        return null;
+        return nouvellePopulation;
+    }
+
+    private static List<Joueur> prendreAleatoire(List<Joueur> joueurs, int i) {
+        // TODO
+        return  null;
     }
 
 }
