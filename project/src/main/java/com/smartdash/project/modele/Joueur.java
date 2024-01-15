@@ -15,10 +15,11 @@ public class  Joueur
     protected int x;
     protected int y;
     protected int vY;
-    protected final Terrain map;
+    protected Terrain map;
     protected boolean vivant;
     protected  boolean fin;
     protected Reseau reseau;
+    protected int score;
 
     /**
      * Constructeur avec cordonnées
@@ -36,6 +37,7 @@ public class  Joueur
         this.map = mapJeu;
         this.vivant = true;
         this.fin = false;
+        this.score = 0;
     }
 
     /**
@@ -51,6 +53,17 @@ public class  Joueur
         this.fin = false;
         this.x = 0;
         this.y = mapJeu.getLargeur()-2;
+        this.score = 0;
+    }
+
+    public Joueur(Reseau reseau)
+    {
+        this.vY = 0;
+        this.reseau = reseau;
+        this.vivant = true;
+        this.fin = false;
+        this.x = 0;
+        this.score = 0;
     }
 
     /**
@@ -244,7 +257,13 @@ public class  Joueur
         }
     }
 
-    // GETTER
+    // GETTER et SETTER
+
+    public void setTerrain(Terrain terrain)
+    {
+        this.map = terrain;
+        this.y = map.getLargeur()-2;
+    }
     public int getX() {
         return x;
     }
@@ -266,4 +285,12 @@ public class  Joueur
         return reseau;
     }
     public int getvY() { return vY; }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int x) {
+        this.score = x;
+    }
 }

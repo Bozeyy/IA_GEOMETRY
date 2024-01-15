@@ -14,6 +14,16 @@ public class DemoJeu {
         j.lancerHuamin();
     }
 
+    public static void lancerEvaluation()
+    {
+        Neurone neurone = new NeuronePique(0, 0);
+        Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone})});
+
+        Jeu j = new Jeu(new Terrain("src/main/resources/terrains_demo/test_map2.txt"), reseau);
+        int score = j.evaluation();
+        System.out.println(score);
+    }
+
     public static void lancerNeuronePique1() {
         Neurone neurone = new NeuronePique(1, 0);
         Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone})});
@@ -70,7 +80,7 @@ public class DemoJeu {
         switch (val) {
             case 0:
                 System.out.println("Lancement du jeu avec un joueur");
-                lancerHumain();
+                lancerEvaluation();
                 break;
 
             case 1:

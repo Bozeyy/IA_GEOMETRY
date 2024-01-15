@@ -17,12 +17,59 @@ public class Jeu {
     private Terrain terrain;
 
 
-    //Constructeur
+    /**
+     * Constructeur avec terrain et un reseau
+     * @param terrain terrain
+     * @param reseau réseau
+     */
     public Jeu(Terrain terrain, Reseau reseau)
     {
         //this.joueur = new Joueur(0,0, terrain, reseau);
         this.terrain = terrain;
         this.joueur = new Joueur(terrain, reseau);
+    }
+
+    /**
+     * Constructeur avec un joueur
+     * @param joueur joueur
+     */
+    public Jeu(Joueur joueur, Terrain terrain)
+    {
+        this.joueur = joueur;
+        this.joueur.setTerrain(terrain);
+    }
+
+    /**
+     * Méthode qui permet d'évaluer une partie
+     * @return retourne le score de la partie
+     */
+    public int evaluation()
+    {
+        lancerEvaluation();
+            this.joueur.setScore(joueur.getX() + 1);
+
+            return this.joueur.getScore();
+    }
+
+        /**
+         * Méthode qui permet de lancer le jeu pour l'évaluation
+         */
+        public void lancerEvaluation()
+        {
+            afficherPartie();
+
+            while (joueur.getVivant() && !joueur.fin)
+            {
+                joueur.initialiserReseauActive();
+                boolean sauter = joueur.getReseau().isActive();
+
+            if (sauter)
+            {
+                joueur.sauter();
+            }
+
+            updateJeu();
+        }
     }
 
     /**
@@ -153,7 +200,7 @@ public class Jeu {
 
 
     public static void main(String[] args) {
-        Terrain terrain = new Terrain("src/main/resources/morceaux_terrains/terrains9.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain5.txt");
 
         Neurone n1 = new NeuroneBloc(2, -3);
         Neurone n2 = new NeuroneNonVide(3, -3);
