@@ -124,13 +124,11 @@ public class Terrain {
 
         //tester si le nombre de terrain à mélanger est supérieur à 0 et s'il depasse pas le nombre de terrain
         if(nombreTerrainMelange < 0){
-            System.out.println("Le nombre de terrain à mélanger est inférieur à 0");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Le nombre de terrain à mélanger est inférieur à 0");
         }
 
         if(nombreTerrainMelange > nbTerrainsApprentissage){
-            System.out.println("Le nombre de terrain à mélanger est supérieur au nombre de terrain disponible");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Le nombre de terrain à mélanger est supérieur au nombre de terrain disponible");
         }
 
         //On récupère les terrains d'apprentissage
