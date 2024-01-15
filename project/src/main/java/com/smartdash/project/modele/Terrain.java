@@ -6,10 +6,12 @@ import com.smartdash.project.modele.objet.Pique;
 import com.smartdash.project.modele.objet.Vide;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Terrain {
     private ArrayList<Objet> map = new ArrayList<>();
@@ -113,6 +115,57 @@ public class Terrain {
         return objets;
     }
 
+    public ArrayList<Objet> genererTerrainAleatoire(int nombreTerrainMelange){
+        //créer la liste des objets
+        ArrayList<Objet> objets = new ArrayList<>();
+
+        //On récupère le nombre de terrain
+        int nbTerrainsApprentissage =  Objects.requireNonNull(new File("src/main/resources/apprentissage").listFiles()).length;
+
+        //tester si le nombre de terrain à mélanger est supérieur à 0 et s'il depasse pas le nombre de terrain
+        if(nombreTerrainMelange < 0){
+            System.out.println("Le nombre de terrain à mélanger est inférieur à 0");
+            throw new IllegalArgumentException();
+        }
+
+        if(nombreTerrainMelange > nbTerrainsApprentissage){
+            System.out.println("Le nombre de terrain à mélanger est supérieur au nombre de terrain disponible");
+            throw new IllegalArgumentException();
+        }
+
+        //On récupère les terrains d'apprentissage
+        //On prend aléatoirement les terrains à mélanger en fonction du nombre de terrain à mélanger
+        //on les ajoute le nom des terrains tirés aléatoirement dans une liste
+        List<ArrayList<Objet>> terrainsAMelanger = new ArrayList<>(nombreTerrainMelange);
+        List<String> nomterrainsAMelanger = new ArrayList<>(nombreTerrainMelange);
+        while(nombreTerrainMelange > 0){
+            int random = (int) (Math.random() * nbTerrainsApprentissage) + 1;
+            String terrain = "src/main/resources/apprentissage/terrain" + random + ".txt";
+            if(!nomterrainsAMelanger.contains(terrain)){
+                nomterrainsAMelanger.add(terrain);
+                terrainsAMelanger.add(chargerMap(terrain));
+                nombreTerrainMelange--;
+            }
+        }
+
+        //On ajoute aux coordonnées X des objects 100 fois leur position dans la liste pour coller les terrains
+        //On ajoute les objets dans la liste des objets
+        for(int i = 0; i < terrainsAMelanger.size(); i++){
+            ArrayList<Objet> terrain = terrainsAMelanger.get(i);
+            for(Objet objet : terrain){
+                objet.setX(objet.getX() + 100 * i);
+                objets.add(objet);
+            }
+        }
+
+        //On met à jour la longueur et la largeur
+        largeur = 20;
+        longueur = objets.size()/largeur;
+
+        //On retourne la liste des objets
+        return objets;
+    }
+
     public ArrayList<Objet> getMap() {
         return map;
     }
@@ -123,5 +176,9 @@ public class Terrain {
 
     public int getLargeur() {
         return largeur;
+    }
+
+    public void setMap(ArrayList<Objet> map) {
+        this.map = map;
     }
 }
