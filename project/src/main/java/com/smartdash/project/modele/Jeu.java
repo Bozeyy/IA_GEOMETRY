@@ -43,12 +43,11 @@ public class Jeu {
      * Méthode qui permet d'évaluer une partie
      * @return retourne le score de la partie
      */
-    public int evaluation()
+    public void evaluation()
     {
         lancerEvaluation();
             this.joueur.setScore(joueur.getX() + 1);
 
-            return this.joueur.getScore();
     }
 
         /**
@@ -157,6 +156,10 @@ public class Jeu {
     {
         this.joueur.updateJoueur();
         afficherPartie();
+    }
+
+    public Joueur getJoueur() {
+        return this.joueur;
     }
 
     /**

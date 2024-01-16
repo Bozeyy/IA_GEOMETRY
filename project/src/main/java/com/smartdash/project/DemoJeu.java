@@ -20,8 +20,8 @@ public class DemoJeu {
         Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone})});
 
         Jeu j = new Jeu(new Terrain("src/main/resources/terrains_demo/test_map2.txt"), reseau);
-        int score = j.evaluation();
-        System.out.println(score);
+        j.evaluation();
+        System.out.println(j.getJoueur().getScore());
     }
 
     public static void lancerNeuronePique1() {

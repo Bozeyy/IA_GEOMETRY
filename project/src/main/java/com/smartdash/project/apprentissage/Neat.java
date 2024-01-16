@@ -36,6 +36,64 @@ public class Neat {
         Joueur j3 = croisement(j1, j2);
 
         System.out.println(j3.getReseau());
+        lancerApprentissage();
+    }
+
+    public static void lancerApprentissage() {
+        int nbIndividu = 1000;
+        List<Joueur> population = new ArrayList<Joueur>(nbIndividu);
+
+        // initialisation de la population pour la generation initiale
+        for (int i = 0; i < nbIndividu; i++) {
+            Reseau r = ReseauFabrique.genererReseau();
+            population.set(i, new Joueur(r));
+        }
+
+        int generation = 0;
+        int maxGeneration = 100;
+        int nbParents = 32;
+        List<Joueur> parents = new ArrayList<>(nbParents);
+        List<Joueur> enfants = new ArrayList<>(nbIndividu);
+
+        while (generation < maxGeneration) {
+            Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
+
+            // calcul du score des individus
+            for (Joueur j : population) {
+                evaluerPerformance(j, terrain);
+            }
+
+            parents = selectionnerParents(population);
+            int indiceEnfant = 0;
+
+            for (int i =0; i < nbParents - 1; i++) {
+                for (int j = i+1; j < nbParents; j++) {
+
+                    Joueur parent1 = parents.get(i);
+                    Joueur parent2 = parents.get(j);
+
+                    // 2 enfants par couple
+                    Joueur enfant1 = croisement(parent1, parent2);
+                    Joueur enfant2 = croisement(parent1, parent2);
+
+                    enfants.add(enfant1);
+                    enfants.add(enfant2);
+                    indiceEnfant += 2;
+                }
+            }
+
+            while (indiceEnfant < nbIndividu) {
+                enfants.add(parents.get(nbIndividu - indiceEnfant+1));
+                indiceEnfant++;
+            }
+
+            population = enfants;
+
+        }
+
+        System.out.println("fini");
+
+
     }
 
     /**
@@ -43,13 +101,12 @@ public class Neat {
      * @param joueur joueur qu'on essaye d'évaluer
      * @return le score
      */
-    public static int evaluerPerformance(Joueur joueur, Terrain terrain)
+    public static void evaluerPerformance(Joueur joueur, Terrain terrain)
     {
         int score = 0;
         Jeu jeu = new Jeu(joueur, terrain);
-        score = jeu.evaluation();
+        jeu.evaluation();
 
-        return score;
     }
 
     public static Joueur croisement(Joueur parent1, Joueur parent2) {
