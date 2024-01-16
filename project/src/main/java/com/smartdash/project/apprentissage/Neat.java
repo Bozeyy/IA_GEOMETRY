@@ -88,11 +88,10 @@ public class Neat {
             }
 
             population = enfants;
+            System.out.println("Moyenne de la population " + generation + " : " + Statistique.calculerMoyenneDesScores(population));
 
         }
-
         System.out.println("fini");
-
 
     }
 
