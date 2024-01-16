@@ -19,7 +19,7 @@ public class  Joueur
     protected boolean vivant;
     protected  boolean fin;
     protected Reseau reseau;
-    protected int score;
+    protected double score;
 
     /**
      * Constructeur avec cordonnées
@@ -172,11 +172,6 @@ public class  Joueur
             // On vérifie si la partie est fini
             this.fin = verificationFinDePartie();
         }
-        else
-        {
-            this.x = -1000;
-            this.y = -1000;
-        }
     }
 
     private boolean verificationFinDePartie() {
@@ -286,7 +281,7 @@ public class  Joueur
     }
     public int getvY() { return vY; }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 

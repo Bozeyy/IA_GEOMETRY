@@ -42,35 +42,29 @@ public class Jeu {
 
     /**
      * Méthode qui permet d'évaluer une partie
-     * @return retourne le score de la partie
+     * retourne le score de la partie
      */
     public void evaluation()
     {
         lancerEvaluation();
-            this.joueur.setScore(joueur.getX() + 1);
-
+        this.joueur.setScore(joueur.getX() + 1);
+        System.out.println("Score d'un joueur: " + this.joueur.getScore());
     }
 
-        /**
-         * Méthode qui permet de lancer le jeu pour l'évaluation
-         */
-        public void lancerEvaluation()
-        {
-            //afficherPartie();
+    public void lancerEvaluation() {
+        //afficherPartie();
+        while (joueur.getVivant() && !joueur.fin) {
+            joueur.initialiserReseauActive();
+            boolean sauter = joueur.getReseau().isActive();
 
-            while (joueur.getVivant() && !joueur.fin)
-            {
-                joueur.initialiserReseauActive();
-                boolean sauter = joueur.getReseau().isActive();
-
-            if (sauter)
-            {
+            if (sauter) {
                 joueur.sauter();
             }
-
             updateJeu();
         }
     }
+
+
 
     /**
      * Méthode qui permet de lancer le jeu en utilisant un réseau d'IA

@@ -19,18 +19,20 @@ public class Statistique {
     private List<List<Joueur>> generations = new ArrayList<>();
 
     // Méthode pour calculer la moyenne des scores des joueurs dans une liste
-    public static double calculerMoyenneDesScores(List<Joueur> joueurs) {
+    public static double calculerMoyenneDesScores(List<Joueur> joueurs) throws Exception {
         if (joueurs == null || joueurs.isEmpty()) {
-            return 0.0; // Retourne 0 si la liste est vide ou nulle
+            throw new Exception("Joueur null existant");
         }
 
         double sommeDesScores = 0;
 
         for (Joueur joueur : joueurs) {
+            if(joueur.getScore()<0) throw new Exception("Score inférieur à 0");
+
             sommeDesScores += joueur.getScore();
         }
 
-        return sommeDesScores / joueurs.size();
+        return (sommeDesScores) / (joueurs.size());
     }
 
     public void addGeneration (List<Joueur> joueurs) {
@@ -87,7 +89,7 @@ public class Statistique {
             contentStream.newLine();
             contentStream.showText("Moyenne du score: " + calculerMoyenneDesScores(generation));
             contentStream.endText();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
