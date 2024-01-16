@@ -16,26 +16,6 @@ import java.util.Random;
 public class Neat {
 
     public static void main(String[] args) {
-        Neurone n1 = new NeuroneBloc(1, 0);
-        Neurone n2 = new NeuroneBloc(-4, 3);
-        Neurone n3 = new NeuroneBloc(4, 2);
-
-        Neurone n4 = new NeuronePique(1, 0);
-        Neurone n5 = new NeuronePique(-4, 3);
-        Neurone n6 = new NeuronePique(4, 2);
-
-        Neurone n7 = new NeuroneVide(1, 0);
-        Neurone n8 = new NeuroneVide(-4, 3);
-        Neurone n9 = new NeuroneVide(4, 2);
-
-        Reseau r1 = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3}), ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3}), ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3})});
-        Reseau r2 = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{n4, n5, n6}), ModuleFabrique.genererModule(new Neurone[]{n4, n5, n6}), ModuleFabrique.genererModule(new Neurone[]{n4, n5, n6})});
-
-        Joueur j1 = new Joueur(r1);
-        Joueur j2 = new Joueur(r2);
-        Joueur j3 = croisement(j1, j2);
-
-        System.out.println(j3.getReseau());
         lancerApprentissage();
     }
 
@@ -46,7 +26,7 @@ public class Neat {
         // initialisation de la population pour la generation initiale
         for (int i = 0; i < nbIndividu; i++) {
             Reseau r = ReseauFabrique.genererReseau();
-            population.set(i, new Joueur(r));
+            population.add(new Joueur(r));
         }
 
         int generation = 0;
@@ -57,6 +37,7 @@ public class Neat {
 
         while (generation < maxGeneration) {
             Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
+            System.out.println(terrain);
 
             // calcul du score des individus
             for (Joueur j : population) {
@@ -74,7 +55,9 @@ public class Neat {
 
                     // 2 enfants par couple
                     Joueur enfant1 = croisement(parent1, parent2);
+                    mutation(enfant1);
                     Joueur enfant2 = croisement(parent1, parent2);
+                    mutation(enfant2);
 
                     enfants.add(enfant1);
                     enfants.add(enfant2);
@@ -90,6 +73,7 @@ public class Neat {
             population = enfants;
             System.out.println("Moyenne de la population " + generation + " : " + Statistique.calculerMoyenneDesScores(population));
 
+            generation++;
         }
         System.out.println("fini");
 
@@ -98,14 +82,13 @@ public class Neat {
     /**
      * Méthode qui permet d'évaluer les performances d'un réseau
      * @param joueur joueur qu'on essaye d'évaluer
-     * @return le score
      */
     public static void evaluerPerformance(Joueur joueur, Terrain terrain)
     {
         int score = 0;
+        joueur.setMap(terrain);
         Jeu jeu = new Jeu(joueur, terrain);
         jeu.evaluation();
-
     }
 
     public static Joueur croisement(Joueur parent1, Joueur parent2) {
@@ -196,9 +179,30 @@ public class Neat {
         return nouvellePopulation;
     }
 
-    private static List<Joueur> prendreAleatoire(List<Joueur> joueurs, int i) {
-        // TODO
-        return  null;
+    /**
+     * Méthode qui permet de sélectionner aléatoirement une partie de la population
+     * @param population liste de joueur
+     * @param i nombre de joueurs à sélectionern
+     * @return retourne une partie de la population aléatoire
+     */
+    public static List<Joueur> prendreAleatoire(List<Joueur> population, int i) {
+        List<Joueur> individuAleatoire = new ArrayList<>();
+        int j = 0;
+        Random rnd = new Random();
+
+        // Tant que i est plus petit que i
+        while (j<i)
+        {
+            // On récupère un joueur aléatoirement dans la liste de population que l'on va envoyer dans la nouvelle liste
+
+            int nbAleatoire = rnd.nextInt(population.size());
+
+            Joueur joueur = population.get(nbAleatoire);
+            individuAleatoire.add(joueur);
+        }
+
+        // On retourne la liste d'individu aléatoire
+        return  individuAleatoire;
     }
 
 }

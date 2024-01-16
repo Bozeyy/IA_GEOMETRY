@@ -259,7 +259,7 @@ public class  Joueur
 
     // GETTER et SETTER
 
-    public void setTerrain(Terrain terrain)
+    public void setMap(Terrain terrain)
     {
         this.map = terrain;
         this.y = map.getLargeur()-2;

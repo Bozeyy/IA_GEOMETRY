@@ -36,7 +36,8 @@ public class Jeu {
     public Jeu(Joueur joueur, Terrain terrain)
     {
         this.joueur = joueur;
-        this.joueur.setTerrain(terrain);
+        this.joueur.setMap(terrain);
+        this.terrain = terrain;
     }
 
     /**
@@ -55,7 +56,7 @@ public class Jeu {
          */
         public void lancerEvaluation()
         {
-            afficherPartie();
+            //afficherPartie();
 
             while (joueur.getVivant() && !joueur.fin)
             {
@@ -155,7 +156,7 @@ public class Jeu {
     public void updateJeu()
     {
         this.joueur.updateJoueur();
-        afficherPartie();
+        //afficherPartie();
     }
 
     public Joueur getJoueur() {
