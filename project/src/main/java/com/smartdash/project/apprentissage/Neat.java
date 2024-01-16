@@ -15,6 +15,8 @@ import java.util.Random;
 
 public class Neat {
 
+    private static final Random random = new Random();
+
     public static void main(String[] args) {
         lancerApprentissage();
     }
@@ -32,7 +34,7 @@ public class Neat {
         int generation = 0;
         int maxGeneration = 100;
         int nbParents = 32;
-        List<Joueur> parents = new ArrayList<>(nbParents);
+        List<Joueur> parents;
         List<Joueur> enfants = new ArrayList<>(nbIndividu);
 
         while (generation < maxGeneration) {
@@ -94,9 +96,10 @@ public class Neat {
     public static Joueur croisement(Joueur parent1, Joueur parent2) {
         Reseau enfant = new Reseau();
         Module mod;
+        boolean boolAleatoire;
 
         for (int i = 0; i < Constantes.NB_MODULES_PAR_RESEAU; i++) {
-            boolean boolAleatoire = new Random().nextBoolean();
+            boolAleatoire = random.nextBoolean();
 
             if (boolAleatoire) {
                 mod = parent1.getReseau().getModules().get(i).clone();
@@ -112,9 +115,9 @@ public class Neat {
     public static void mutation(Joueur joueur) {
         Reseau res = joueur.getReseau();
 
-        int indiceModuleAleatoire = new Random().nextInt(res.getModules().size());
+        int indiceModuleAleatoire = random.nextInt(res.getModules().size());
 
-        int indiceNeuroneAleatoire = new Random().nextInt(res.getModules().get(indiceModuleAleatoire).getNeurones().size());
+        int indiceNeuroneAleatoire = random.nextInt(res.getModules().get(indiceModuleAleatoire).getNeurones().size());
 
         List<Module> modules = res.getModules();
         List<Neurone> neurones = modules.get(indiceModuleAleatoire).getNeurones();
@@ -135,7 +138,7 @@ public class Neat {
 
         while (neurone.getClass() == res.getClass()) {
 
-            type = new Random().nextInt(7);
+            type = random.nextInt(7);
             res = switch (type) {
                 case 0 -> new NeuroneBloc(neurone.getX(), neurone.getY());
                 case 1 -> new NeuronePique(neurone.getX(), neurone.getY());
@@ -160,7 +163,7 @@ public class Neat {
     {
         List<Joueur> nouvellePopulation = new ArrayList<>();
         // On tri la population
-        Collections.sort(population, Comparator.comparingInt(Joueur::getScore));
+        population.sort(Comparator.comparingInt(Joueur::getScore));
 
         // On intialise
         List<Joueur> huitMeilleurs = new ArrayList<>(population.subList(0, 7));
@@ -188,17 +191,17 @@ public class Neat {
     public static List<Joueur> prendreAleatoire(List<Joueur> population, int i) {
         List<Joueur> individuAleatoire = new ArrayList<>();
         int j = 0;
-        Random rnd = new Random();
 
         // Tant que i est plus petit que i
         while (j<i)
         {
             // On récupère un joueur aléatoirement dans la liste de population que l'on va envoyer dans la nouvelle liste
 
-            int nbAleatoire = rnd.nextInt(population.size());
+            int nbAleatoire = random.nextInt(population.size());
 
             Joueur joueur = population.get(nbAleatoire);
             individuAleatoire.add(joueur);
+            j++;
         }
 
         // On retourne la liste d'individu aléatoire
