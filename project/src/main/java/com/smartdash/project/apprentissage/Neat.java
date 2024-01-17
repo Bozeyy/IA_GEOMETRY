@@ -202,7 +202,7 @@ public class Neat {
         }
 
         // On intialise
-        List<Joueur> huitMeilleurs = new ArrayList<>(population.subList(0, 8));
+        List<Joueur> huitMeilleurs = new ArrayList<>(copiePopulation.subList(0, 8));
 
         List<Joueur> partie2 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(8,57)), 12);
         List<Joueur> partie3 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(57,407)), 7);

@@ -46,12 +46,16 @@ public class Jeu {
      */
     public void evaluation()
     {
-        lancerEvaluation();
+        lancerEvaluation(false);
         this.joueur.setScore(joueur.getX() + 1);
     }
 
-    public void lancerEvaluation() {
-//        afficherPartie();
+    public void lancerEvaluation(boolean afficher) {
+        if(afficher)
+        {
+            afficherPartie();
+        }
+
         while (joueur.getVivant() && !joueur.fin) {
             joueur.initialiserReseauActive();
             boolean sauter = joueur.getReseau().isActive();
@@ -59,7 +63,7 @@ public class Jeu {
             if (sauter) {
                 joueur.sauter();
             }
-            updateJeu();
+            updateJeu(afficher);
         }
     }
 
@@ -93,7 +97,7 @@ public class Jeu {
                         joueur.sauter();
                     }
 
-                    updateJeu();
+                    updateJeu(true);
                 }
             }
         };
@@ -133,7 +137,7 @@ public class Jeu {
                         }
                     }
 
-                    updateJeu();
+                    updateJeu(true);
                 }
             }
         };
@@ -146,10 +150,13 @@ public class Jeu {
     /**
      * Méthode qui permet de changer l'état du jeu à chaque temps
      */
-    public void updateJeu()
+    public void updateJeu(boolean afficher)
     {
         this.joueur.updateJoueur();
-//        afficherPartie();
+        if(afficher)
+        {
+            afficherPartie();
+        }
     }
 
     public Joueur getJoueur() {

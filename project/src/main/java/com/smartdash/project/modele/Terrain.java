@@ -19,19 +19,12 @@ public class Terrain {
     private int largeur = 0;
 
     /**
-     * Constructeur qui permet de construire un terrain avec une longueur prédéfini
-     * @param longueur longueur du niveau
+     * Constructeur qui permet de construire un terrain avec pleins de petit terrain
+     * @param nbTerrain nombre de terrains que l'on va générer
      */
-    public Terrain(int longueur)
+    public Terrain(int nbTerrain)
     {
-        // Générations des blocs de la map
-        for(int i=-10; i<longueur; i++)
-        {
-            this.map.add((new Bloc(i,11)));
-            this.map.add((new Bloc(i,12)));
-            this.map.add((new Bloc(i,13)));
-            this.map.add((new Bloc(i,14)));
-        }
+        this.map = genererTerrainAleatoire(nbTerrain);
     }
 
     /**
