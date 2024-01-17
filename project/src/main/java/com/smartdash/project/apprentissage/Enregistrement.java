@@ -16,6 +16,8 @@ import java.util.List;
 public class Enregistrement {
 
     public static String debutEnregistrement() throws Exception {
+        //On vérifie si le dossier <enregistrement> existe
+        if(!new File("src/main/resources/enregistrement").exists()) new File("src/main/resources/enregistrement").mkdir();
 
         //Récupération de la date et du temps ou le programme a été lancé
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
