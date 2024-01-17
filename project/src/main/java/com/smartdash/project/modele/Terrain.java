@@ -157,6 +157,53 @@ public class Terrain {
         return objets;
     }
 
+    /**
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < largeur; i++) {
+            for (int j = 0; j < longueur; j++) {
+                int finalI = i;
+                int finalJ1 = j;
+                boolean isObjet = map.stream()
+                        .anyMatch(objet -> objet.getX() == finalJ1 && objet.getY() == finalI);
+
+                if (isObjet) {
+                    // Vérifier le type d'objet à cette position
+                    int finalI1 = i;
+                    int finalJ = j;
+                    boolean isBloc = map.stream()
+                            .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI1 && objet instanceof Bloc);
+
+                    int finalI2 = i;
+                    int finalJ2 = j;
+                    boolean isPique = map.stream()
+                            .anyMatch(objet -> objet.getX() == finalJ2 && objet.getY() == finalI2 && objet instanceof Pique);
+
+                    int finalJ3 = j;
+                    int finalI3 = i;
+                    boolean isVide = map.stream()
+                            .anyMatch(objet -> objet.getX() == finalJ3 && objet.getY() == finalI3 && objet instanceof Vide);
+
+
+                    if (isBloc) {
+                        sb.append("B");
+                    } else if (isPique) {
+                        sb.append("P");
+                    } else if (isVide) {
+                        sb.append(".");
+                    }
+                } else {
+                    sb.append(" "); // Si pas d'objet, afficher un espace
+                }
+            }
+            sb.append(System.lineSeparator()); // Nouvelle ligne pour chaque ligne de la carte
+        }
+
+        return sb.toString();
+    }
+*/
+
     public ArrayList<Objet> getMap() {
         return map;
     }

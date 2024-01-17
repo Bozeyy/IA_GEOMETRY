@@ -33,6 +33,10 @@ public class Neat{
         n.lancerApprentissage();
     }
 
+    /**
+     * Méthode qui permet de lancer l'apprentissage de l'IA grâce à NEAT
+     * @throws Exception exception
+     */
     public void lancerApprentissage() throws Exception {
         //Début de l'enregistrement, on récupère le chemin du dossier
         String pathname = Enregistrement.debutEnregistrement();
@@ -53,7 +57,7 @@ public class Neat{
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
 
         while (generation < maxGenerations) {
             // calcul du score des individus
@@ -98,11 +102,11 @@ public class Neat{
             enfants = new ArrayList<>();
 
             generation++;
+
             System.out.println("-------");
         }
         stat.genererPDF();
         System.out.println("fini");
-
     }
 
     /**
@@ -113,7 +117,7 @@ public class Neat{
     {
         joueur.setMap(terrain);
         Jeu jeu = new Jeu(joueur, terrain);
-        jeu.evaluation();
+        jeu.evaluationUnJoueur();
     }
 
     /**
@@ -127,7 +131,7 @@ public class Neat{
         Module mod;
 
         for (int i = 0; i < Constantes.NB_MODULES_PAR_RESEAU; i++) {
-            boolean boolAleatoire = new Random().nextBoolean();
+            boolean boolAleatoire = random.nextBoolean();
 
             if (boolAleatoire) {
                 mod = parent1.getReseau().getModules().get(i).clone();

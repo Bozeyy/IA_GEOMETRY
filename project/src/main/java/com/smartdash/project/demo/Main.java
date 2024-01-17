@@ -1,14 +1,13 @@
 package com.smartdash.project.demo;
 
-import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.apprentissage.Neat;
 import com.smartdash.project.apprentissage.NeatAmelioration;
-import com.smartdash.project.modele.Joueur;
 
 public class Main
 {
     public static void main(String[] args) {
-        Neat neat = new Neat();
+        Neat neat = new Neat(1000);
+        NeatAmelioration neatAmelioration = new NeatAmelioration(100);
 
         try {
             neat.lancerApprentissage();

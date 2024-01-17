@@ -20,6 +20,9 @@ public class  Joueur
     protected  boolean fin;
     protected Reseau reseau;
     protected double score;
+    protected ArrayList<Double> scoresListes;
+    protected double scoreMoyen;
+    protected int nbScore = 0;
 
     /**
      * Constructeur avec cordonnées
@@ -38,6 +41,8 @@ public class  Joueur
         this.vivant = true;
         this.fin = false;
         this.score = 0;
+        this.scoreMoyen = 0;
+        this.scoresListes = new ArrayList<>();
     }
 
     /**
@@ -54,6 +59,8 @@ public class  Joueur
         this.x = 0;
         this.y = mapJeu.getLargeur()-2;
         this.score = 0;
+        this.scoreMoyen = 0;
+        this.scoresListes = new ArrayList<>();
     }
 
     public Joueur(Reseau reseau)
@@ -64,6 +71,8 @@ public class  Joueur
         this.fin = false;
         this.x = 0;
         this.score = 0;
+        this.scoreMoyen = 0;
+        this.scoresListes = new ArrayList<>();
     }
 
     /**
@@ -253,12 +262,6 @@ public class  Joueur
     }
 
     // GETTER et SETTER
-
-    public void setMap(Terrain terrain)
-    {
-        this.map = terrain;
-        this.y = map.getLargeur()-2;
-    }
     public int getX() {
         return x;
     }
@@ -284,8 +287,50 @@ public class  Joueur
     public double getScore() {
         return score;
     }
+    public double getNbScore() {
+        return  this.nbScore;
+    }
+    public double getScoreMoyen()
+    {
+        return this.scoreMoyen;
+    }
+
+    public ArrayList<Double> getScoresListes()
+    {
+        return scoresListes;
+    }
 
     public void setScore(int x) {
         this.score = x;
+    }
+    public void setMap(Terrain terrain)
+    {
+        this.map = terrain;
+        this.y = map.getLargeur()-2;
+    }
+
+    public void setNbScore() {
+        this.nbScore++;
+    }
+
+
+    public void setScoreMoyen(double scoreMoyen) {
+        this.scoreMoyen = scoreMoyen;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setVivant(boolean vivant) {
+        this.vivant = vivant;
+    }
+
+    public void setFin(boolean fin) {
+        this.fin = fin;
     }
 }

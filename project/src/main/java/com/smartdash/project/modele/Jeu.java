@@ -40,14 +40,38 @@ public class Jeu {
         this.terrain = terrain;
     }
 
+    public void evaluationUnJoueur() {
+        lancerEvaluation(false);
+        this.joueur.setScore(joueur.getX() + 1);
+    }
+
     /**
      * Méthode qui permet d'évaluer une partie
      * retourne le score de la partie
      */
-    public void evaluation()
+    public void evaluationPlusieurs()
     {
+        // On mets à jours le joueur
+        this.joueur.setVivant(true);
+        this.joueur.setFin(false);
+        this.joueur.setX(0);
+        this.joueur.setY(this.joueur.getMap().getLargeur()-2);
+
+        double scoreMoyen = 0.0;
+
         lancerEvaluation(false);
+
+        this.joueur.setNbScore();
         this.joueur.setScore(joueur.getX() + 1);
+        this.joueur.getScoresListes().add(this.joueur.getScore());
+
+        scoreMoyen = joueur.getScoresListes().stream().mapToDouble(Double::doubleValue).sum();
+
+        if (this.joueur.getNbScore() > 0) {
+            scoreMoyen = scoreMoyen / this.joueur.getNbScore();
+        }
+
+        this.joueur.setScoreMoyen(scoreMoyen);
     }
 
     public void lancerEvaluation(boolean afficher) {
@@ -159,10 +183,6 @@ public class Jeu {
         }
     }
 
-    public Joueur getJoueur() {
-        return this.joueur;
-    }
-
     /**
      * Méthode temporaire qui affiche le jeu en console
      */
@@ -202,6 +222,12 @@ public class Jeu {
         System.out.println(); // Ligne vide pour séparer les affichages successifs
     }
 
+    // GETTER
+
+    public Joueur getJoueur() {
+        return this.joueur;
+    }
+
 
     public static void main(String[] args) {
         Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain5.txt");
@@ -220,4 +246,6 @@ public class Jeu {
 
         jeu.lancerHuamin();
     }
+
+
 }

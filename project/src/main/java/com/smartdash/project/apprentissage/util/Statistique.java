@@ -3,6 +3,7 @@ package com.smartdash.project.apprentissage.util;
 import java.awt.image.BufferedImage;
 
 import com.smartdash.project.IA.Reseau;
+import com.smartdash.project.modele.Jeu;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
@@ -57,6 +58,34 @@ public class Statistique {
         }
 
         return (sommeDesScores) / (10);
+    }
+
+    /**
+     * Méthode qui permet de calculer les 10 meilleurs scores moyen
+     * @param joueurs joueur
+     * @return retourne un double qui est la moyenne
+     * @throws Exception
+     */
+    public static double calculerMoyenne10MeilleursScoreMoyen(List<Joueur> joueurs) throws Exception {
+
+        List<Joueur> copieJoueurs = new ArrayList<>(joueurs);
+        copieJoueurs.sort(Comparator.comparingDouble(Joueur::getScoreMoyen).reversed());
+
+
+        double sommeDesScoresMoyen = 0;
+
+        for (int i = 0; i < 10; i++) {
+            Joueur joueur = copieJoueurs.get(i);
+
+            if(joueur.getScoreMoyen()<0) throw new Exception("Score inférieur à 0");
+
+            sommeDesScoresMoyen += joueur.getScoreMoyen();
+            System.out.println("Score : "+joueur.getScoreMoyen());
+            //System.out.println(joueur.getReseau());
+            //System.out.println(joueur.getScore());
+        }
+
+        return (sommeDesScoresMoyen) / (10);
     }
 
     public void addGeneration (List<Joueur> joueurs) {
@@ -131,6 +160,8 @@ public class Statistique {
         contentStream.newLineAtOffset(100, 610);
 
         Joueur meilleurJoueur = generation.stream().max(Comparator.comparingDouble(Joueur::getScore)).orElse(null);
+
+
 
         if (meilleurJoueur != null) {
             contentStream.showText("Réseau de Neurones du meilleur Joueur (score : " + meilleurJoueur.getScore() + " :");
