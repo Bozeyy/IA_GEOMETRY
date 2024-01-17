@@ -1,6 +1,9 @@
-package com.smartdash.project;
+package com.smartdash.project.demo;
 
+import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.apprentissage.Neat;
+import com.smartdash.project.apprentissage.NeatAmelioration;
+import com.smartdash.project.modele.Joueur;
 
 public class Main
 {

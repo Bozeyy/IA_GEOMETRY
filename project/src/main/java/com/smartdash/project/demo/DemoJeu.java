@@ -1,4 +1,4 @@
-package com.smartdash.project;
+package com.smartdash.project.demo;
 
 import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;

@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Neat{
-    private final Random random = new Random();
-    private final int maxGenerations;
+    protected final Random random = new Random();
+    protected int maxGenerations;
 
     public Neat()
     {
@@ -165,7 +165,7 @@ public class Neat{
      * @param neurone le neurone qui mute
      * @return retourne le nouveau neurone
      */
-    private Neurone changerTypeNeurone(Neurone neurone){
+    protected Neurone changerTypeNeurone(Neurone neurone){
         Neurone res = neurone;
         int type;
 
@@ -227,7 +227,7 @@ public class Neat{
      * @param i nombre de joueurs à sélectionner
      * @return retourne une partie de la population aléatoire
      */
-    public List<Joueur> prendreAleatoire(List<Joueur> population, int i) {
+    protected List<Joueur> prendreAleatoire(List<Joueur> population, int i) {
         List<Joueur> individuAleatoire = new ArrayList<>();
         int j = 0;
 
