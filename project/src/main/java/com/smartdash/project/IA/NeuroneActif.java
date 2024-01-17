@@ -20,4 +20,9 @@ public class NeuroneActif extends Neurone{
         return "Neurone Actif" + super.toString();
     }
 
+    @Override
+    public char getType() {
+        return 'a';
+    }
+
 }

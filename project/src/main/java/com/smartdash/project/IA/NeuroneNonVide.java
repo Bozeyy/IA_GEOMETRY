@@ -22,4 +22,9 @@ public class NeuroneNonVide extends Neurone{
     public String toString() {
         return "Neurone Non Vide" + super.toString();
     }
+
+    @Override
+    public char getType() {
+        return 'w';
+    }
 }

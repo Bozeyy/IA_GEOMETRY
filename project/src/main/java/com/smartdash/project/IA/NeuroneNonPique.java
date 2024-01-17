@@ -22,4 +22,9 @@ public class NeuroneNonPique extends Neurone{
     public String toString() {
         return "Neurone Non Pique" + super.toString();
     }
+
+    @Override
+    public char getType() {
+        return 'q';
+    }
 }

@@ -21,4 +21,9 @@ public class NeuroneBloc extends Neurone{
         return "Neurone Bloc" + super.toString();
     }
 
+    @Override
+    public char getType() {
+        return 'b';
+    }
+
 }

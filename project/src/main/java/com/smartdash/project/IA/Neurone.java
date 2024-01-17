@@ -60,4 +60,7 @@ public abstract class Neurone {
         return y;
     }
 
+    public abstract char getType();
+
+
 }

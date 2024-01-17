@@ -19,4 +19,9 @@ public class NeuroneVide extends Neurone{
         return "Neurone Vide" + super.toString();
     }
 
+    @Override
+    public char getType() {
+        return 'v';
+    }
+
 }
