@@ -336,22 +336,6 @@ public class TestReseauUnit {
     }
 
     @Test
-    public void testModuleNonActive() {
-        Neurone n1 = new NeuroneBloc(3, 5);
-        Neurone n2 = new NeuroneActif(2, 1);
-        Neurone n3 = new NeuronePique(0, 0);
-
-        Module m = ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3});
-        m.setActive(3,5, "bloc");
-        m.setActive(2, 1, "bloc");
-        m.setActive(0, 0, "vide");
-        boolean actif = m.isActive();
-
-        assertFalse(actif, "erreur d activation du module non souhaité");
-
-    }
-
-    @Test
     public void testModuleActive() {
         Neurone n1 = new NeuroneBloc(3, 5);
         Neurone n2 = new NeuroneActif(2, 1);

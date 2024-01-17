@@ -28,6 +28,11 @@ public class Neat{
         this.maxGenerations = maxGenerations;
     }
 
+    public static void main(String[] args) throws Exception {
+        Neat n = new Neat();
+        n.lancerApprentissage();
+    }
+
     public void lancerApprentissage() throws Exception {
         //Début de l'enregistrement, on récupère le chemin du dossier
         String pathname = Enregistrement.debutEnregistrement();
@@ -46,6 +51,7 @@ public class Neat{
         int nbParents = 32;
         List<Joueur> parents;
         List<Joueur> enfants = new ArrayList<>();
+        Statistique stat = new Statistique();
 
         Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
 
@@ -57,6 +63,7 @@ public class Neat{
 
             // enregistrement de la population
             Enregistrement.generationEnregistrement(pathname, generation, population);
+            stat.addGeneration(population);
 
             // On calcule la moyenne des 10 meilleurs
             double moyenneGeneration = Statistique.calculerMoyenne10Meilleurs(population);
@@ -93,6 +100,7 @@ public class Neat{
             generation++;
             System.out.println("-------");
         }
+        stat.genererPDF();
         System.out.println("fini");
 
     }
