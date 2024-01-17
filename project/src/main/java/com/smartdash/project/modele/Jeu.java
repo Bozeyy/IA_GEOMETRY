@@ -48,11 +48,10 @@ public class Jeu {
     {
         lancerEvaluation();
         this.joueur.setScore(joueur.getX() + 1);
-        System.out.println("Score d'un joueur: " + this.joueur.getScore());
     }
 
     public void lancerEvaluation() {
-        //afficherPartie();
+//        afficherPartie();
         while (joueur.getVivant() && !joueur.fin) {
             joueur.initialiserReseauActive();
             boolean sauter = joueur.getReseau().isActive();
@@ -150,7 +149,7 @@ public class Jeu {
     public void updateJeu()
     {
         this.joueur.updateJoueur();
-        //afficherPartie();
+        afficherPartie();
     }
 
     public Joueur getJoueur() {

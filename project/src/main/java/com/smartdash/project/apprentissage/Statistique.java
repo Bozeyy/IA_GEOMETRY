@@ -12,6 +12,7 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Statistique {
@@ -28,11 +29,29 @@ public class Statistique {
 
         for (Joueur joueur : joueurs) {
             if(joueur.getScore()<0) throw new Exception("Score inférieur à 0");
-
             sommeDesScores += joueur.getScore();
         }
 
         return (sommeDesScores) / (joueurs.size());
+    }
+
+    public static double calculerMoyenne10Meilleurs(List<Joueur> joueurs) throws Exception {
+
+        List<Joueur> copieJoueurs = new ArrayList<>(joueurs);
+        copieJoueurs.sort(Comparator.comparingDouble(Joueur::getScore).reversed());
+
+        double sommeDesScores = 0;
+
+        for (int i = 0; i < 10; i++) {
+            Joueur joueur = joueurs.get(i);
+            if(joueur.getScore()<0) throw new Exception("Score inférieur à 0");
+            sommeDesScores += joueur.getScore();
+            System.out.println("Score : "+joueur.getScore());
+            System.out.println(joueur.getReseau());
+//            System.out.println(joueur.getScore());
+        }
+
+        return (sommeDesScores) / (10);
     }
 
     public void addGeneration (List<Joueur> joueurs) {

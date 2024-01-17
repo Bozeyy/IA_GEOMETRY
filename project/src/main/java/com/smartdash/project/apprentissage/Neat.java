@@ -21,7 +21,29 @@ public class Neat {
 
 
     public static void main(String[] args) throws Exception {
-        lancerApprentissage();
+//        Neurone n1 = new NeuroneBloc(3, 5);
+//        Neurone n2 = new NeuroneActif(2, 1);
+//        Neurone n3 = new NeuronePique(0, 0);
+//
+//        Module m1 = ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3});
+//        Module m2 = ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3});
+//        Module m3 = ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3});
+//
+//        Module m4 = ModuleFabrique.genererModule(new Neurone[]{n3, n1, n2});
+//        Module m5 = ModuleFabrique.genererModule(new Neurone[]{n3, n1, n2});
+//        Module m6 = ModuleFabrique.genererModule(new Neurone[]{n3, n1, n2});
+//
+//        Reseau r1 = ReseauFabrique.genererReseau(new Module[]{m1,m2,m3});
+//        Reseau r2 = ReseauFabrique.genererReseau(new Module[]{m4,m5,m6});
+//
+//        Joueur j1 = new Joueur(r1);
+//        Joueur j2 = new Joueur(r2);
+//
+//        System.out.println(r1);
+//        mutation(j1);
+//        System.out.println(j1.getReseau());
+
+         lancerApprentissage();
     }
 
     public static void lancerApprentissage() throws Exception {
@@ -39,12 +61,15 @@ public class Neat {
         List<Joueur> enfants = new ArrayList<>();
 
         while (generation < maxGeneration) {
-            Terrain terrain = new Terrain("src/main/resources/map.txt");
+            Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
 
             // calcul du score des individus
             for (Joueur j : population) {
                 evaluerPerformance(j, terrain);
             }
+
+            double moyenneGeneration = Statistique.calculerMoyenne10Meilleurs(population);
+            System.out.println("Moyenne de la population " + generation + " : " + moyenneGeneration);
 
 
             parents = selectionnerParents(population);
@@ -67,6 +92,7 @@ public class Neat {
                 }
             }
 
+            System.out.println("-------");
             while (indiceEnfant < nbIndividu) {
                 enfants.add(parents.get(nbIndividu - indiceEnfant+1));
                 indiceEnfant++;
@@ -74,10 +100,6 @@ public class Neat {
 
             population = enfants;
             enfants = new ArrayList<>();
-
-
-            double moyenneGeneration = Statistique.calculerMoyenneDesScores(population);
-            System.out.println("Moyenne de la population " + generation + " : " + moyenneGeneration);
 
             generation++;
         }
@@ -118,18 +140,22 @@ public class Neat {
     public static void mutation(Joueur joueur) {
         Reseau res = joueur.getReseau();
 
-        int indiceModuleAleatoire = new Random().nextInt(res.getModules().size());
-
-        int indiceNeuroneAleatoire = new Random().nextInt(res.getModules().get(indiceModuleAleatoire).getNeurones().size());
+        int probaMutation;
+        Neurone n;
+        int index;
 
         List<Module> modules = res.getModules();
-        List<Neurone> neurones = modules.get(indiceModuleAleatoire).getNeurones();
-        Neurone neurone = neurones.get(indiceNeuroneAleatoire);
-
         try {
-            neurone = changerTypeNeurone(neurone);
-            neurones.set(indiceNeuroneAleatoire, neurone);
-
+            for (Module module : modules) {
+                for (Neurone neurone : module.getNeurones()) {
+                    probaMutation = random.nextInt(res.getNbNeurone());
+                    if (probaMutation == 0) {
+                        n = changerTypeNeurone(neurone);
+                        index = module.getNeurones().indexOf(neurone);
+                        module.getNeurones().set(index, n);
+                    }
+                }
+            }
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -164,8 +190,10 @@ public class Neat {
      */
     public static List<Joueur> selectionnerParents(List<Joueur> population) throws Exception {
         List<Joueur> nouvellePopulation = new ArrayList<>();
+
+        List<Joueur> copiePopulation = new ArrayList<>(population);
         // On tri la population
-        Collections.sort(population, Comparator.comparingDouble(Joueur::getScore));
+        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScore).reversed());
 
         if (population.size() != 1000)
         {
@@ -175,10 +203,10 @@ public class Neat {
         // On intialise
         List<Joueur> huitMeilleurs = new ArrayList<>(population.subList(0, 8));
 
-        List<Joueur> partie2 = prendreAleatoire(new ArrayList<>(population.subList(8,57)), 12);
-        List<Joueur> partie3 = prendreAleatoire(new ArrayList<>(population.subList(57,407)), 7);
-        List<Joueur> partie4 = prendreAleatoire(new ArrayList<>(population.subList(407,907)), 3);
-        List<Joueur> partie5 = prendreAleatoire(new ArrayList<>(population.subList(907,999)), 2);
+        List<Joueur> partie2 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(8,57)), 12);
+        List<Joueur> partie3 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(57,407)), 7);
+        List<Joueur> partie4 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(407,907)), 3);
+        List<Joueur> partie5 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(907,999)), 2);
 
         nouvellePopulation.addAll(huitMeilleurs);
         nouvellePopulation.addAll(partie2);

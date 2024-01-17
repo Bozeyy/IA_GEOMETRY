@@ -39,4 +39,8 @@ public class Reseau {
     public List<Module> getModules() {
         return modules;
     }
+
+    public int getNbNeurone() {
+        return this.modules.stream().mapToInt(module -> module.getNeurones().size()).sum();
+    }
 }

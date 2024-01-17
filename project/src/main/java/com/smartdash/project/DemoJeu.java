@@ -68,6 +68,26 @@ public class DemoJeu {
         j.lancerIA();
     }
 
+    public static void test1() {
+        Neurone neurone = new NeuroneNonVide(0, -1);
+        Neurone neurone2 = new NeuronePique(1, 0);
+        Neurone neurone3 = new NeuroneNonPique(2, 0);
+
+        Neurone neurone4 = new NeuroneNonVide(3, 0);
+        Neurone neurone5 = new NeuronePique(3, 1);
+        Neurone neurone6 = new NeuronePique(1, 1);
+
+        Neurone neurone7 = new NeuroneVide(2, -2);
+        Neurone neurone8 = new NeuroneActif(1, 1);
+        Neurone neurone9 = new NeuroneNonVide(2, 0);
+        Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3}), ModuleFabrique.genererModule(new Neurone[]{neurone4, neurone5, neurone6}), ModuleFabrique.genererModule(new Neurone[]{neurone7, neurone8, neurone9})});
+
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
+        Jeu j = new Jeu(terrain, reseau);
+        j.lancerIA();
+    }
+
+
 
     public static void main(String[] args) {
 
@@ -106,6 +126,10 @@ public class DemoJeu {
             case 4:
                 System.out.println("Lancement du jeu avec une IA à deux modules");
                 lancer2ModulesPique2();
+                break;
+
+            case 6:
+                test1();
                 break;
 
         }
