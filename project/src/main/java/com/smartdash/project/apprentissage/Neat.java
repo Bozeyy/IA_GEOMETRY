@@ -93,9 +93,10 @@ public class Neat {
             }
 
             System.out.println("-------");
-            while (indiceEnfant < nbIndividu) {
-                enfants.add(parents.get(nbIndividu - indiceEnfant+1));
-                indiceEnfant++;
+            int indiceParent = 0;
+            while (enfants.size() < nbIndividu) {
+                enfants.add(parents.get(indiceParent));
+                indiceParent++;
             }
 
             population = enfants;
