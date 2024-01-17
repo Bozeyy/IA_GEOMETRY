@@ -2,57 +2,39 @@ package com.smartdash.project.apprentissage;
 
 import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
+import com.smartdash.project.apprentissage.util.Enregistrement;
+import com.smartdash.project.apprentissage.util.Statistique;
 import com.smartdash.project.modele.Joueur;
 import com.smartdash.project.modele.Terrain;
 import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.modele.Jeu;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-public class Neat {
+public class Neat{
+    private final Random random = new Random();
+    private final int maxGenerations;
 
-    private static final Random random = new Random();
-    private static final int nbIndividu = 1000;
-    private static final int maxGeneration = 100;
-
-
-    public static void main(String[] args) throws Exception {
-//        Neurone n1 = new NeuroneBloc(3, 5);
-//        Neurone n2 = new NeuroneActif(2, 1);
-//        Neurone n3 = new NeuronePique(0, 0);
-//
-//        Module m1 = ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3});
-//        Module m2 = ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3});
-//        Module m3 = ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3});
-//
-//        Module m4 = ModuleFabrique.genererModule(new Neurone[]{n3, n1, n2});
-//        Module m5 = ModuleFabrique.genererModule(new Neurone[]{n3, n1, n2});
-//        Module m6 = ModuleFabrique.genererModule(new Neurone[]{n3, n1, n2});
-//
-//        Reseau r1 = ReseauFabrique.genererReseau(new Module[]{m1,m2,m3});
-//        Reseau r2 = ReseauFabrique.genererReseau(new Module[]{m4,m5,m6});
-//
-//        Joueur j1 = new Joueur(r1);
-//        Joueur j2 = new Joueur(r2);
-//
-//        System.out.println(r1);
-//        mutation(j1);
-//        System.out.println(j1.getReseau());
-
-         lancerApprentissage();
+    public Neat()
+    {
+        this.maxGenerations = 100;
     }
 
-    public static void lancerApprentissage() throws Exception {
+    public Neat(int maxGenerations)
+    {
+        this.maxGenerations = maxGenerations;
+    }
+
+    public void lancerApprentissage() throws Exception {
         //Début de l'enregistrement, on récupère le chemin du dossier
         String pathname = Enregistrement.debutEnregistrement();
 
         // initialisation de la population
+        int nbIndividu = 1000;
         List<Joueur> population = new ArrayList<>(nbIndividu);
-
 
         // initialisation de la population pour la generation initiale
         for (int i = 0; i < nbIndividu; i++) {
@@ -65,9 +47,9 @@ public class Neat {
         List<Joueur> parents;
         List<Joueur> enfants = new ArrayList<>();
 
-        while (generation < maxGeneration) {
-            Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
 
+        while (generation < maxGenerations) {
             // calcul du score des individus
             for (Joueur j : population) {
                 evaluerPerformance(j, terrain);
@@ -76,12 +58,12 @@ public class Neat {
             // enregistrement de la population
             Enregistrement.generationEnregistrement(pathname, generation, population);
 
+            // On calcule la moyenne des 10 meilleurs
             double moyenneGeneration = Statistique.calculerMoyenne10Meilleurs(population);
             System.out.println("Moyenne de la population " + generation + " : " + moyenneGeneration);
 
-
+            // On sélectionne les parents
             parents = selectionnerParents(population);
-            int indiceEnfant = 0;
 
             for (int i =0; i < nbParents; i++) {
                 for (int j = i+1; j < nbParents; j++) {
@@ -96,11 +78,9 @@ public class Neat {
 
                     enfants.add(enfant1);
                     enfants.add(enfant2);
-                    indiceEnfant += 2;
                 }
             }
 
-            System.out.println("-------");
             int indiceParent = 0;
             while (enfants.size() < nbIndividu) {
                 enfants.add(parents.get(indiceParent));
@@ -111,6 +91,7 @@ public class Neat {
             enfants = new ArrayList<>();
 
             generation++;
+            System.out.println("-------");
         }
         System.out.println("fini");
 
@@ -120,15 +101,20 @@ public class Neat {
      * Méthode qui permet d'évaluer les performances d'un réseau
      * @param joueur joueur qu'on essaye d'évaluer
      */
-    public static void evaluerPerformance(Joueur joueur, Terrain terrain)
+    public void evaluerPerformance(Joueur joueur, Terrain terrain)
     {
-        int score = 0;
         joueur.setMap(terrain);
         Jeu jeu = new Jeu(joueur, terrain);
         jeu.evaluation();
     }
 
-    public static Joueur croisement(Joueur parent1, Joueur parent2) {
+    /**
+     * Méthode qui permet de réaliser le croisement entre deux joueurs parents
+     * @param parent1 parent 1
+     * @param parent2 parent 2
+     * @return retourne l'enfant
+     */
+    public Joueur croisement(Joueur parent1, Joueur parent2) {
         Reseau enfant = new Reseau();
         Module mod;
 
@@ -146,7 +132,11 @@ public class Neat {
         return new Joueur(enfant);
     }
 
-    public static void mutation(Joueur joueur) {
+    /**
+     * Méthode qui permet de réaliser une mutation d'un joueur
+     * @param joueur le joueur qui mute
+     */
+    public void mutation(Joueur joueur) {
         Reseau res = joueur.getReseau();
 
         int probaMutation;
@@ -166,11 +156,16 @@ public class Neat {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 
-    private static Neurone changerTypeNeurone(Neurone neurone) throws Exception {
+    /**
+     * Méthode qui permet de réaliser la mutation
+     * @param neurone le neurone qui mute
+     * @return retourne le nouveau neurone
+     */
+    private Neurone changerTypeNeurone(Neurone neurone){
         Neurone res = neurone;
         int type;
 
@@ -185,7 +180,7 @@ public class Neat {
                 case 4 -> new NeuroneNonBloc(neurone.getX(), neurone.getY());
                 case 5 -> new NeuroneNonVide(neurone.getX(), neurone.getY());
                 case 6 -> new NeuroneActif(neurone.getX(), neurone.getY());
-                default -> throw new Exception("Erreur indice du type du neurone lors de la mutation");
+                default -> throw new IllegalArgumentException("Erreur indice du type du neurone lors de la mutation");
             };
         }
 
@@ -197,7 +192,7 @@ public class Neat {
      * @param population population
      * @return retourne la liste des parents
      */
-    public static List<Joueur> selectionnerParents(List<Joueur> population) throws Exception {
+    public List<Joueur> selectionnerParents(List<Joueur> population){
         List<Joueur> nouvellePopulation = new ArrayList<>();
 
         List<Joueur> copiePopulation = new ArrayList<>(population);
@@ -206,10 +201,10 @@ public class Neat {
 
         if (population.size() != 1000)
         {
-            throw new Exception("La taille de la population n'est pas de 1000");
+            throw new IllegalStateException("La taille de la population n'est pas de 1000");
         }
 
-        // On intialise
+        // On initialise
         List<Joueur> huitMeilleurs = new ArrayList<>(copiePopulation.subList(0, 8));
 
         List<Joueur> partie2 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(8,57)), 12);
@@ -229,10 +224,10 @@ public class Neat {
     /**
      * Méthode qui permet de sélectionner aléatoirement une partie de la population
      * @param population liste de joueur
-     * @param i nombre de joueurs à sélectionern
+     * @param i nombre de joueurs à sélectionner
      * @return retourne une partie de la population aléatoire
      */
-    public static List<Joueur> prendreAleatoire(List<Joueur> population, int i) {
+    public List<Joueur> prendreAleatoire(List<Joueur> population, int i) {
         List<Joueur> individuAleatoire = new ArrayList<>();
         int j = 0;
 
@@ -249,5 +244,4 @@ public class Neat {
         // On retourne la liste d'individu aléatoire
         return  individuAleatoire;
     }
-
 }

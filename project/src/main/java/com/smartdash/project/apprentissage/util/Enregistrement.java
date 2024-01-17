@@ -1,4 +1,4 @@
-package com.smartdash.project.apprentissage;
+package com.smartdash.project.apprentissage.util;
 
 import com.smartdash.project.IA.Module;
 import com.smartdash.project.IA.Neurone;

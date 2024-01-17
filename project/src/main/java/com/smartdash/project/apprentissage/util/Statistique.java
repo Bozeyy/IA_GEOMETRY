@@ -1,4 +1,4 @@
-package com.smartdash.project.apprentissage;
+package com.smartdash.project.apprentissage.util;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.jfree.chart.*;
