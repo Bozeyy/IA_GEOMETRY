@@ -149,7 +149,7 @@ public class Jeu {
     public void updateJeu()
     {
         this.joueur.updateJoueur();
-        afficherPartie();
+//        afficherPartie();
     }
 
     public Joueur getJoueur() {
