@@ -47,7 +47,12 @@ public class Neat {
     }
 
     public static void lancerApprentissage() throws Exception {
+        //Début de l'enregistrement, on récupère le chemin du dossier
+        String pathname = Enregistrement.debutEnregistrement();
+
+        // initialisation de la population
         List<Joueur> population = new ArrayList<>(nbIndividu);
+
 
         // initialisation de la population pour la generation initiale
         for (int i = 0; i < nbIndividu; i++) {
@@ -67,6 +72,9 @@ public class Neat {
             for (Joueur j : population) {
                 evaluerPerformance(j, terrain);
             }
+
+            // enregistrement de la population
+            Enregistrement.generationEnregistrement(pathname, generation, population);
 
             double moyenneGeneration = Statistique.calculerMoyenne10Meilleurs(population);
             System.out.println("Moyenne de la population " + generation + " : " + moyenneGeneration);
