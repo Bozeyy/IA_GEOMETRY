@@ -333,4 +333,15 @@ public class  Joueur
     public void setFin(boolean fin) {
         this.fin = fin;
     }
+
+    public void renitialiser() {
+        this.x = 0;
+        this.y = 0;
+        this.reseau.renitialiser();
+        this.vY = 0;
+        this.vivant = true;
+        this.fin = false;
+        this.score = 0;
+        this.scoresListes.clear();
+    }
 }

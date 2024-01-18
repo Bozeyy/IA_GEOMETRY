@@ -4,7 +4,7 @@ import com.smartdash.project.modele.objet.Objet;
 
 import java.util.List;
 
-public abstract class Neurone {
+public abstract class Neurone implements Cloneable {
     protected int x;
     protected int y;
 
@@ -63,4 +63,16 @@ public abstract class Neurone {
     public abstract char getType();
 
 
+    @Override
+    public Neurone clone() {
+        try {
+            Neurone clone = (Neurone) super.clone();
+            clone.active = false;
+            clone.x = this.x;
+            clone.y = this.y;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

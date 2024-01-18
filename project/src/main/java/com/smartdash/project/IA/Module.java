@@ -51,10 +51,22 @@ public class Module implements Cloneable {
         return neurones;
     }
 
+
+
+    public void renitialiser() {
+        neurones.forEach(neurone -> neurone.active = false);
+    }
+
     @Override
     public Module clone() {
         try {
-            return (Module) super.clone();
+            Module clone = (Module) super.clone();
+            List<Neurone> clonedNeurones = new ArrayList<>();
+            for (Neurone n : neurones) {
+                clonedNeurones.add(n.clone());
+            }
+            clone.neurones = clonedNeurones;
+            return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }

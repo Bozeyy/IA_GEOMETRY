@@ -3,7 +3,6 @@ package com.smartdash.project.apprentissage.util;
 import java.awt.image.BufferedImage;
 
 import com.smartdash.project.IA.Reseau;
-import com.smartdash.project.modele.Jeu;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;

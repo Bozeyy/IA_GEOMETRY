@@ -5,7 +5,7 @@ import com.smartdash.project.modele.objet.Objet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reseau {
+public class Reseau implements Cloneable {
     private List<Module> modules;
     
     public Reseau() {
@@ -43,4 +43,27 @@ public class Reseau {
     public int getNbNeurone() {
         return this.modules.stream().mapToInt(module -> module.getNeurones().size()).sum();
     }
+
+    public void renitialiser() {
+        modules.forEach(Module::renitialiser);
+
+    }
+
+    @Override
+    public Reseau clone() {
+        try {
+            Reseau clone = (Reseau) super.clone();
+            List<Module> clonedModules = new ArrayList<>();
+
+            for (Module module : modules) {
+                clonedModules.add(module.clone());
+            }
+
+            clone.modules = clonedModules;  // Remplacez l'ancienne liste par la nouvelle
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
 }

@@ -67,7 +67,7 @@ public class Neat{
 
             // enregistrement de la population
             Enregistrement.generationEnregistrement(pathname, generation, population);
-            stat.addGeneration(population);
+            stat.addGeneration(new ArrayList<>(population));
 
             // On calcule la moyenne des 10 meilleurs
             double moyenneGeneration = Statistique.calculerMoyenne10Meilleurs(population);
@@ -94,7 +94,9 @@ public class Neat{
 
             int indiceParent = 0;
             while (enfants.size() < nbIndividu) {
-                enfants.add(parents.get(indiceParent));
+                Joueur parent = parents.get(indiceParent);
+                Joueur copieParent = new Joueur(parent.getReseau().clone());
+                enfants.add(copieParent);
                 indiceParent++;
             }
 
@@ -159,7 +161,7 @@ public class Neat{
         try {
             for (Module module : modules) {
                 for (Neurone neurone : module.getNeurones()) {
-                    probaMutation = random.nextInt(res.getNbNeurone());
+                    probaMutation = random.nextInt(res.getNbNeurone()-1);
                     if (probaMutation == 0) {
                         n = changerTypeNeurone(neurone);
                         index = module.getNeurones().indexOf(neurone);
