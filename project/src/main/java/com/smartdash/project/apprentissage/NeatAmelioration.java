@@ -113,7 +113,6 @@ public class NeatAmelioration extends Neat
         jeu.evaluationPlusieurs();
     }
 
-
     @Override
     public List<Joueur> selectionnerParents(List<Joueur> population){
         List<Joueur> nouvellePopulation = new ArrayList<>();

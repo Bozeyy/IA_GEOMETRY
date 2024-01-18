@@ -6,7 +6,7 @@ import com.smartdash.project.apprentissage.NeatAmelioration;
 public class Main
 {
     public static void main(String[] args) {
-        Neat neat = new Neat(1000);
+        Neat neat = new Neat(10);
         NeatAmelioration neatAmelioration = new NeatAmelioration(100);
 
         try {

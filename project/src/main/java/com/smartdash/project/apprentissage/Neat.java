@@ -67,7 +67,7 @@ public class Neat{
 
             // enregistrement de la population
             Enregistrement.generationEnregistrement(pathname, generation, population);
-            stat.addGeneration(new ArrayList<>(population));
+            stat.addGeneration(population);
 
             // On calcule la moyenne des 10 meilleurs
             double moyenneGeneration = Statistique.calculerMoyenne10Meilleurs(population);

@@ -8,6 +8,8 @@ import com.smartdash.project.modele.Joueur;
 import com.smartdash.project.modele.Terrain;
 import com.smartdash.project.modele.objet.Bloc;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class DemoJeu {
@@ -72,17 +74,17 @@ public class DemoJeu {
     }
 
     public static void test1() {
-        Neurone neurone = new NeuroneNonPique(0, -1);
-        Neurone neurone2 = new NeuroneBloc(1, 0);
-        Neurone neurone3 = new NeuroneBloc(2, 0);
+        Neurone neurone = new NeuroneNonVide(0, -1);
+        Neurone neurone2 = new NeuroneNonBloc(1, 0);
+        Neurone neurone3 = new NeuroneVide(2, 0);
 
-        Neurone neurone4 = new NeuroneVide(3, 0);
-        Neurone neurone5 = new NeuroneNonPique(3, 1);
-        Neurone neurone6 = new NeuroneNonBloc(1, 1);
+        Neurone neurone4 = new NeuroneNonPique(3, 0);
+        Neurone neurone5 = new NeuroneNonBloc(3, 1);
+        Neurone neurone6 = new NeuroneVide(1, 1);
 
         Neurone neurone7 = new NeuroneNonPique(2, -2);
-        Neurone neurone8 = new NeuroneNonVide(1, 1);
-        Neurone neurone9 = new NeuronePique(2, 0);
+        Neurone neurone8 = new NeuroneActif(1, 1);
+        Neurone neurone9 = new NeuroneVide(2, 0);
         Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3}), ModuleFabrique.genererModule(new Neurone[]{neurone4, neurone5, neurone6}), ModuleFabrique.genererModule(new Neurone[]{neurone7, neurone8, neurone9})});
 
         Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
@@ -146,6 +148,9 @@ public class DemoJeu {
             case 8:
                 testMutation();
                 break;
+            case 9:
+                testSelectionParents();
+                break;
         }
     }
 
@@ -163,10 +168,14 @@ public class DemoJeu {
 
         Reseau reseau1 = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3}), ModuleFabrique.genererModule(new Neurone[]{neurone4, neurone5, neurone6}), ModuleFabrique.genererModule(new Neurone[]{neurone7, neurone8, neurone9})});
         Joueur j1 = new Joueur(reseau1);
+
         System.out.println("Reseau du joueur :");
         System.out.println(reseau1);
         System.out.println("------------------");
+
         neat.mutation(j1);
+
+
         System.out.println("Reseau muté :");
         System.out.println(j1.getReseau());
 
@@ -216,5 +225,38 @@ public class DemoJeu {
         System.out.println("Reseau enfant : ");
         System.out.println(enfant.getReseau());
 
+    }
+
+    public static void testSelectionParents()
+    {
+        Neat neat = new Neat();
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
+        List<Joueur> population = new ArrayList<>();
+
+        for (int i = 0; i < 1000; i++) {
+            Reseau r = ReseauFabrique.genererReseau();
+            population.add(new Joueur(r));
+        }
+
+        for (Joueur joueur : population)
+        {
+            joueur.setMap(terrain);
+            Jeu jeu = new Jeu(joueur, terrain);
+            jeu.evaluationUnJoueur();
+        }
+
+        for (int i=0; i<11; i++)
+        {
+            System.out.println("Joueur " + i + " : score de : " + population.get(i).getScore());
+        }
+
+        System.out.println(" ");
+
+        List<Joueur> parents = neat.selectionnerParents(population);
+
+        for (int i=0; i<11; i++)
+        {
+            System.out.println("Joueur " + i + " : score de : " + parents.get(i).getScore());
+        }
     }
 }
