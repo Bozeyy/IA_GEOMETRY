@@ -25,4 +25,12 @@ public class ReseauFabrique {
         }
         return reseau;
     }
+
+    public static Reseau genererReseauPosAleatoire() {
+        Reseau reseau = new Reseau();
+        for (int i = 1; i <= Constantes.NB_MODULES_PAR_RESEAU; i++) {
+            reseau.addModule(ModuleFabrique.genererModulePosAleatoire());
+        }
+        return reseau;
+    }
 }

@@ -13,9 +13,11 @@ public class ModuleFabrique {
         List<Integer> numeros;
         Module module = new Module();
         switch (numero) {
-            case 1 -> numeros = List.of(0,-1,1,0,2,0);
-            case 2 -> numeros = List.of(3,0,3,1,1,1);
+            case 1 -> numeros = List.of(0,-1,1,0,2,0,2,-2,2,1);
+            case 2 -> numeros = List.of(3,0,3,1,1,1,0,-2,4,0);
             case 3 -> numeros = List.of(2,-2,1,1,2,0);
+            case 4 -> numeros = List.of(2, -1, 1,0, 2,0, 0,-1, 2, -2);
+            case 5 -> numeros = List.of(4,-3,3,2,2,-1,2,-2, 1,1);
             default -> throw new IllegalArgumentException("Numero de module invalide");
         }
         for (int i = 0; i < numeros.size(); i+=2) {
@@ -33,6 +35,15 @@ public class ModuleFabrique {
         Module module = new Module();
         for (Neurone n : neurone) {
             module.addNeurone(n);
+        }
+        return module;
+    }
+
+    public static Module genererModulePosAleatoire() {
+        Module module = new Module();
+        for (int i = 1; i <= Constantes.NB_NEURONES_PAR_MODULES; i++) {
+            Neurone neurone = NeuroneFabrique.genererNeuronneAleatoire();
+            module.addNeurone(neurone);
         }
         return module;
     }

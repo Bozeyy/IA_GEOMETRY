@@ -56,13 +56,17 @@ public class Neat{
         List<Joueur> parents;
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
+        boolean stop = false;
 
         Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
 
-        while (generation < maxGenerations) {
+        while (generation < maxGenerations && !stop) {
             // calcul du score des individus
             for (Joueur j : population) {
                 evaluerPerformance(j, terrain);
+                if (j.getScore() == 100) {
+                    stop = true;
+                }
             }
 
             // enregistrement de la population

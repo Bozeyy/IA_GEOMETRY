@@ -18,4 +18,12 @@ public class NeuroneFabrique {
             default -> null;
         };
     }
+
+    public static Neurone genererNeuronneAleatoire() {
+        Random rand = new Random();
+
+        int x = rand.nextInt((Constantes.X_NEURONES_MAX - Constantes.X_NEURONES_MIN) + 1) + Constantes.X_NEURONES_MIN;
+
+
+    }
 }
