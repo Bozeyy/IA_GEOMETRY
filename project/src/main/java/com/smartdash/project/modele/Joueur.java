@@ -22,7 +22,6 @@ public class  Joueur
     protected double score;
     protected ArrayList<Double> scoresListes;
     protected double scoreMoyen;
-    protected int nbScore = 0;
 
     /**
      * Constructeur avec cordonnées
@@ -261,6 +260,25 @@ public class  Joueur
         }
     }
 
+    public void addScore(double score)
+    {
+        if(score >0)
+        {
+          scoresListes.add(score);
+        }
+    }
+
+    /**
+     * Méthode qui permet de réinitialiser le joueur à 0 pour recommencer une partie
+     */
+    public void renitialiser() {
+        // On met à jour le joueur
+        this.vivant = true;
+        this.fin = false;
+        this.x = 0;
+        this.y = this.map.getLargeur()-2;
+    }
+
     // GETTER et SETTER
     public int getX() {
         return x;
@@ -287,9 +305,6 @@ public class  Joueur
     public double getScore() {
         return score;
     }
-    public double getNbScore() {
-        return  this.nbScore;
-    }
     public double getScoreMoyen()
     {
         return this.scoreMoyen;
@@ -309,11 +324,6 @@ public class  Joueur
         this.y = map.getLargeur()-2;
     }
 
-    public void setNbScore() {
-        this.nbScore++;
-    }
-
-
     public void setScoreMoyen(double scoreMoyen) {
         this.scoreMoyen = scoreMoyen;
     }
@@ -326,22 +336,5 @@ public class  Joueur
         this.y = y;
     }
 
-    public void setVivant(boolean vivant) {
-        this.vivant = vivant;
-    }
 
-    public void setFin(boolean fin) {
-        this.fin = fin;
-    }
-
-    public void renitialiser() {
-        this.x = 0;
-        this.y = 0;
-        this.reseau.renitialiser();
-        this.vY = 0;
-        this.vivant = true;
-        this.fin = false;
-        this.score = 0;
-        this.scoresListes.clear();
-    }
 }

@@ -51,27 +51,16 @@ public class Jeu {
      */
     public void evaluationPlusieurs()
     {
-        // On mets à jours le joueur
-        this.joueur.setVivant(true);
-        this.joueur.setFin(false);
-        this.joueur.setX(0);
-        this.joueur.setY(this.joueur.getMap().getLargeur()-2);
-
-        double scoreMoyen = 0.0;
+        this.joueur.renitialiser();
 
         lancerEvaluation(false);
 
-        this.joueur.setNbScore();
-        this.joueur.setScore(joueur.getX() + 1);
-        this.joueur.getScoresListes().add(this.joueur.getScore());
+        this.joueur.addScore(this.joueur.getX() +1);
 
-        scoreMoyen = joueur.getScoresListes().stream().mapToDouble(Double::doubleValue).sum();
-
-        if (this.joueur.getNbScore() > 0) {
-            scoreMoyen = scoreMoyen / this.joueur.getNbScore();
-        }
-
-        this.joueur.setScoreMoyen(scoreMoyen);
+        this.joueur.setScoreMoyen(this.joueur.getScoresListes().stream()
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .orElse(0.0));
     }
 
     public void lancerEvaluation(boolean afficher) {
@@ -90,8 +79,6 @@ public class Jeu {
             updateJeu(afficher);
         }
     }
-
-
 
     /**
      * Méthode qui permet de lancer le jeu en utilisant un réseau d'IA

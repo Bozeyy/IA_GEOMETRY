@@ -17,15 +17,23 @@ import java.util.Random;
 public class Neat{
     protected final Random random = new Random();
     protected int maxGenerations;
+    protected Terrain terrain;
 
     public Neat()
     {
         this.maxGenerations = 100;
+        terrain = new Terrain(3);
     }
 
     public Neat(int maxGenerations)
     {
         this.maxGenerations = maxGenerations;
+    }
+
+    public Neat(int maxGenerations, Terrain terrain)
+    {
+        this.maxGenerations = maxGenerations;
+        this.terrain = terrain;
     }
 
     public static void main(String[] args) throws Exception {
@@ -39,7 +47,7 @@ public class Neat{
      */
     public void lancerApprentissage() throws Exception {
         //Début de l'enregistrement, on récupère le chemin du dossier
-        String pathname = Enregistrement.debutEnregistrement();
+        //String pathname = Enregistrement.debutEnregistrement();
 
         // initialisation de la population
         int nbIndividu = 1000;
@@ -58,20 +66,19 @@ public class Neat{
         Statistique stat = new Statistique();
         boolean stop = false;
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
-
         while (generation < maxGenerations && !stop) {
             // calcul du score des individus
             for (Joueur j : population) {
                 evaluerPerformance(j, terrain);
+
                 if (j.getScore() == 100) {
                     stop = true;
                 }
             }
 
             // enregistrement de la population
-            Enregistrement.generationEnregistrement(pathname, generation, population);
-            stat.addGeneration(population);
+            //Enregistrement.generationEnregistrement(pathname, generation, population);
+            //stat.addGeneration(population);
 
             // On calcule la moyenne des 10 meilleurs
             double moyenneGeneration = Statistique.calculerMoyenne10Meilleurs(population);
@@ -111,7 +118,7 @@ public class Neat{
 
             System.out.println("-------");
         }
-        stat.genererPDF();
+        //stat.genererPDF();
         System.out.println("fini");
     }
 

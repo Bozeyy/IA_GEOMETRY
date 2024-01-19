@@ -27,7 +27,12 @@ public class Statistique {
 
     private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-    // Méthode pour calculer la moyenne des scores des joueurs dans une liste
+    /**
+     * Méthode pour calculer la moyenne des scores des joueurs dans une liste
+     * @param joueurs liste des joueurs
+     * @return retourne la moyenne
+     * @throws Exception renvoie une exception si le joueur est inexistant
+     */
     public static double calculerMoyenneDesScores(List<Joueur> joueurs) throws Exception {
         if (joueurs == null || joueurs.isEmpty()) {
             throw new Exception("Joueur null existant");
@@ -43,6 +48,12 @@ public class Statistique {
         return (sommeDesScores) / (joueurs.size());
     }
 
+    /**
+     * Méthode qui permet de calculer la moyenne des 10 meilleurs
+     * @param joueurs liste de joueurs
+     * @return renvoie la moyenne en double
+     * @throws Exception retourne une exception si le joueur est null
+     */
     public static double calculerMoyenne10Meilleurs(List<Joueur> joueurs) throws Exception {
 
         List<Joueur> copieJoueurs = new ArrayList<>(joueurs);
@@ -64,16 +75,16 @@ public class Statistique {
      * Méthode qui permet de calculer les 10 meilleurs scores moyen
      * @param joueurs joueur
      * @return retourne un double qui est la moyenne
-     * @throws Exception
      */
-    public static double calculerMoyenne10MeilleursScoreMoyen(List<Joueur> joueurs) throws Exception {
+    public static double calculerMoyenne10MeilleursScoreMoyen(List<Joueur> joueurs){
 
         List<Joueur> copieJoueurs = new ArrayList<>(joueurs);
         copieJoueurs.sort(Comparator.comparingDouble(Joueur::getScoreMoyen).reversed());
 
 
-        double sommeDesScoresMoyen = 0;
+        //double sommeDesScoresMoyen = 0;
 
+        /**
         for (int i = 0; i < 10; i++) {
             Joueur joueur = copieJoueurs.get(i);
 
@@ -83,9 +94,16 @@ public class Statistique {
             System.out.println("Score : "+joueur.getScoreMoyen());
             //System.out.println(joueur.getReseau());
             //System.out.println(joueur.getScore());
-        }
+        }*/
 
-        return (sommeDesScoresMoyen) / (10);
+        return copieJoueurs.stream()
+                .limit(10)
+                .peek(joueur -> {
+                    if (joueur.getScoreMoyen() < 0) throw new RuntimeException("Score inférieur à 0");
+                })
+                .mapToDouble(Joueur::getScoreMoyen)
+                .average()
+                .orElse(0.0);
     }
 
     public void addGeneration (List<Joueur> joueurs) {
@@ -239,7 +257,4 @@ public class Statistique {
 
         return chart;
     }
-
-
-
 }

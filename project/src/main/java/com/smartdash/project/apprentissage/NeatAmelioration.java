@@ -14,15 +14,18 @@ import java.util.List;
 
 public class NeatAmelioration extends Neat
 {
+    protected int nbTerrains;
+
     public NeatAmelioration()
     {
         super();
     }
 
-    public NeatAmelioration(int maxGenerations)
+    public NeatAmelioration(int maxGenerations, int nbTerrains)
     {
         super();
         this.maxGenerations = maxGenerations;
+        this.nbTerrains = nbTerrains;
     }
 
     @Override
@@ -40,34 +43,41 @@ public class NeatAmelioration extends Neat
             population.add(new Joueur(r));
         }
 
+        // Moyenne de la génération (score moyen)
+        double moyenneGeneration = 0.0;
+
         int generation = 0;
         int nbParents = 32;
         List<Joueur> parents;
         List<Joueur> enfants = new ArrayList<>();
+        Statistique stat = new Statistique();
 
-        List<Terrain> listesTerrains = new ArrayList<>();
 
-        for(int i = 0; i<5; i++){
+        List<Terrain> listesTerrain = new ArrayList<>();
+        for(int i = 0; i<nbTerrains ; i++)
+        {
             Terrain terrainAleatoire = new Terrain(3);
-            listesTerrains.add(terrainAleatoire);
+            listesTerrain.add(terrainAleatoire);
         }
 
         while (generation < maxGenerations) {
-
             // calcul du score des individus
-            for (Joueur j : population) {
-                for (Terrain terrain : listesTerrains)
+            for (Joueur joueur : population) {
+                for (Terrain terrain : listesTerrain)
                 {
-                    evaluerPerformance(j,terrain);
+                    evaluerPerformance(joueur, terrain);
                 }
             }
 
             // enregistrement de la population
             //Enregistrement.generationEnregistrement(pathname, generation, population);
+            //stat.addGeneration(population);
 
             // On calcule la moyenne des 10 meilleurs
-            double moyenneGeneration = Statistique.calculerMoyenne10MeilleursScoreMoyen(population);
-            System.out.println("Moyenne de la population " + generation + " : " + moyenneGeneration);
+
+            // MODDDIF
+            moyenneGeneration = Statistique.calculerMoyenne10MeilleursScoreMoyen(population);
+            System.out.println("Moyenne des 10 premiers de la population " + generation + " : " + moyenneGeneration);
 
             // On sélectionne les parents
             parents = selectionnerParents(population);
@@ -89,9 +99,10 @@ public class NeatAmelioration extends Neat
             }
 
             int indiceParent = 0;
-            System.out.println("Le meilleur parent : " + parents.get(0).getScoreMoyen());
             while (enfants.size() < nbIndividu) {
-                enfants.add(parents.get(indiceParent));
+                Joueur parent = parents.get(indiceParent);
+                Joueur copieParent = new Joueur(parent.getReseau().clone());
+                enfants.add(copieParent);
                 indiceParent++;
             }
 
@@ -102,8 +113,10 @@ public class NeatAmelioration extends Neat
 
             System.out.println("-------");
         }
+        //stat.genererPDF();
         System.out.println("fini");
     }
+
 
     @Override
     public void evaluerPerformance(Joueur joueur, Terrain terrain)
@@ -142,5 +155,4 @@ public class NeatAmelioration extends Neat
 
         return nouvellePopulation;
     }
-
 }

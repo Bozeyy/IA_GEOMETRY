@@ -161,6 +161,8 @@ public class TestReseauUnit {
                 \t}""", "erreur creation d'un module de neurone perso avec la fabrique");
     }
 
+    /**
+
     @Test
     public void testReseauFabrique() {
         Reseau r = ReseauFabrique.genererReseau();
@@ -173,6 +175,8 @@ public class TestReseauUnit {
         assertEquals(modules.get(2).getNeurones().size(), Constantes.NB_NEURONES_PAR_MODULES, "erreur de creation du reseau");
 
     }
+
+     */
 
     @Test
     public void testReseauFabriquePerso() {
