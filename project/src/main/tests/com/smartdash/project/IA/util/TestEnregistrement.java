@@ -16,8 +16,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestEnregistrement {
-
-    String pathname = "src/main/resources/enregistrement/17-01-2024_12-12-01";
+    String pathname = "src/main/resources/enregistrement/enregistrement_test";
 
     @Test
     public void test_stringToPopulation_taille() throws IOException {
