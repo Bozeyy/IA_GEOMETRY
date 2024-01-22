@@ -19,11 +19,25 @@ public class NeuroneFabrique {
         };
     }
 
+    public static Neurone genererNeuronneType(int x, int y, char type) {
+        return switch (type) {
+            case 'p' -> new NeuronePique(x, y);
+            case 'q' -> new NeuroneNonPique(x, y);
+            case 'b' -> new NeuroneBloc(x, y);
+            case 'd' -> new NeuroneNonBloc(x, y);
+            case 'v' -> new NeuroneVide(x, y);
+            case 'w' -> new NeuroneNonVide(x, y);
+            case 'a' -> new NeuroneActif(x, y);
+            default -> null;
+        };
+    }
+
     public static Neurone genererNeuronneAleatoire() {
         Random rand = new Random();
 
         int x = rand.nextInt((Constantes.X_NEURONES_MAX - Constantes.X_NEURONES_MIN) + 1) + Constantes.X_NEURONES_MIN;
 
+        return genererNeuronne(x, 0);
 
     }
 }
