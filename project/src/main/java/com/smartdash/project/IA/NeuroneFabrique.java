@@ -36,8 +36,11 @@ public class NeuroneFabrique {
         Random rand = new Random();
 
         int x = rand.nextInt((Constantes.X_NEURONES_MAX - Constantes.X_NEURONES_MIN) + 1) + Constantes.X_NEURONES_MIN;
+        int y = rand.nextInt((Constantes.Y_NEURONES_MAX - Constantes.Y_NEURONES_MIN) + 1) + Constantes.Y_NEURONES_MIN;
 
-        return genererNeuronne(x, 0);
+        System.out.println(x);
+        System.out.println(y);
 
+        return genererNeuronne(x,y);
     }
 }

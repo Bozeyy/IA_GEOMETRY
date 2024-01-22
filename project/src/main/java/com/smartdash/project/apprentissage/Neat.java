@@ -9,10 +9,7 @@ import com.smartdash.project.modele.Terrain;
 import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.modele.Jeu;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Neat{
     protected final Random random = new Random();
@@ -64,16 +61,13 @@ public class Neat{
         List<Joueur> parents;
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
-        boolean stop = false;
 
-        while (generation < maxGenerations && !stop) {
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain8.txt");
+
+        while (generation < maxGenerations) {
             // calcul du score des individus
             for (Joueur j : population) {
                 evaluerPerformance(j, terrain);
-
-                if (j.getScore() == 100) {
-                    stop = true;
-                }
             }
 
             // enregistrement de la population
@@ -94,9 +88,9 @@ public class Neat{
 
                     // 2 enfants par couple
                     Joueur enfant1 = croisement(parent1, parent2);
-                    mutation(enfant1);
+                    mutationParModule(enfant1);
                     Joueur enfant2 = croisement(parent1, parent2);
-                    mutation(enfant2);
+                    mutationParModule(enfant2);
 
                     enfants.add(enfant1);
                     enfants.add(enfant2);
@@ -118,7 +112,7 @@ public class Neat{
 
             System.out.println("-------");
         }
-        //stat.genererPDF();
+        stat.genererPDF();
         System.out.println("fini");
     }
 
@@ -142,16 +136,26 @@ public class Neat{
     public Joueur croisement(Joueur parent1, Joueur parent2) {
         Reseau enfant = new Reseau();
         Module mod;
+        boolean arret = false;
 
-        for (int i = 0; i < Constantes.NB_MODULES_PAR_RESEAU; i++) {
-            boolean boolAleatoire = random.nextBoolean();
 
-            if (boolAleatoire) {
-                mod = parent1.getReseau().getModules().get(i).clone();
-                enfant.addModule(mod);
-            } else {
-                mod = parent2.getReseau().getModules().get(i).clone();
-                enfant.addModule(mod);
+        while (!arret) {
+            arret = true;
+
+            for (int i = 0; i < Constantes.NB_MODULES_PAR_RESEAU; i++) {
+                boolean boolAleatoire = random.nextBoolean();
+
+                if (boolAleatoire) {
+                    mod = parent1.getReseau().getModules().get(i).clone();
+                    enfant.addModule(mod);
+                } else {
+                    mod = parent2.getReseau().getModules().get(i).clone();
+                    enfant.addModule(mod);
+                }
+            }
+            if (Objects.equals(enfant.toString(), parent1.getReseau().toString()) || Objects.equals(enfant.toString(), parent2.getReseau().toString())) {
+                arret = false;
+                enfant = new Reseau();
             }
         }
         return new Joueur(enfant);
@@ -180,6 +184,35 @@ public class Neat{
                     }
                 }
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void mutationParModule(Joueur joueur) {
+        Reseau res = joueur.getReseau();
+
+        for (Module mod : res.getModules()) {
+            mutationModule(mod);
+        }
+    }
+
+    private void mutationModule(Module module) {
+
+        int probaMutation;
+        Neurone n;
+        int index;
+
+        try {
+                for (Neurone neurone : module.getNeurones()) {
+                    probaMutation = random.nextInt(module.getNeurones().size());
+                    if (probaMutation == 0) {
+                        n = changerTypeNeurone(neurone);
+                        index = module.getNeurones().indexOf(neurone);
+                        module.getNeurones().set(index, n);
+                    }
+                }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

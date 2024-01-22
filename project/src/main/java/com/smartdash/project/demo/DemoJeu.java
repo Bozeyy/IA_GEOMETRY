@@ -87,7 +87,7 @@ public class DemoJeu {
         Neurone neurone9 = new NeuroneVide(2, 0);
         Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3}), ModuleFabrique.genererModule(new Neurone[]{neurone4, neurone5, neurone6}), ModuleFabrique.genererModule(new Neurone[]{neurone7, neurone8, neurone9})});
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain3.txt");
         Joueur j = new Joueur(reseau);
         Neat n = new Neat();
         n.evaluerPerformance(j, terrain);
@@ -173,7 +173,7 @@ public class DemoJeu {
         System.out.println(reseau1);
         System.out.println("------------------");
 
-        neat.mutation(j1);
+        neat.mutationParModule(j1);
 
 
         System.out.println("Reseau muté :");
@@ -186,30 +186,36 @@ public class DemoJeu {
         Neurone neurone = new NeuroneVide(0, -1);
         Neurone neurone2 = new NeuroneVide(1, 0);
         Neurone neurone3 = new NeuroneVide(2, 0);
-
-        Neurone neurone4 = new NeuronePique(3, 0);
-        Neurone neurone5 = new NeuronePique(3, 1);
-        Neurone neurone6 = new NeuronePique(1, 1);
-
-        Neurone neurone7 = new NeuroneBloc(2, -2);
-        Neurone neurone8 = new NeuroneBloc(1, 1);
-        Neurone neurone9 = new NeuroneBloc(2, 0);
+        Neurone neurone4 = new NeuroneVide(2, 0);
+        Neurone neurone5 = new NeuroneVide(2, 0);
 
 
-        Neurone neurone10 = new NeuroneNonVide(0, -1);
-        Neurone neurone11 = new NeuroneNonVide(1, 0);
-        Neurone neurone12 = new NeuroneNonVide(2, 0);
+        Neurone neurone6 = new NeuronePique(3, 0);
+        Neurone neurone7 = new NeuronePique(3, 1);
+        Neurone neurone8 = new NeuronePique(1, 1);
+        Neurone neurone9 = new NeuronePique(3, 0);
+        Neurone neurone10 = new NeuronePique(3, 1);
 
-        Neurone neurone13 = new NeuroneNonPique(3, 0);
-        Neurone neurone14 = new NeuroneNonPique(3, 1);
-        Neurone neurone15 = new NeuroneNonPique(1, 1);
 
-        Neurone neurone16 = new NeuroneNonBloc(2, -2);
-        Neurone neurone17 = new NeuroneNonBloc(1, 1);
-        Neurone neurone18 = new NeuroneNonBloc(2, 0);
 
-        Reseau reseau1 = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3}), ModuleFabrique.genererModule(new Neurone[]{neurone4, neurone5, neurone6}), ModuleFabrique.genererModule(new Neurone[]{neurone7, neurone8, neurone9})});
-        Reseau reseau2 = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone10, neurone11, neurone12}), ModuleFabrique.genererModule(new Neurone[]{neurone13, neurone14, neurone15}), ModuleFabrique.genererModule(new Neurone[]{neurone16, neurone17, neurone18})});
+
+        Module m1 = ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3, neurone4, neurone5});
+        Module m2 = ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3, neurone4, neurone5});
+        Module m3 = ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3, neurone4, neurone5});
+        Module m4 = ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3, neurone4, neurone5});
+        Module m5 = ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3, neurone4, neurone5});
+
+        Reseau reseau1 = ReseauFabrique.genererReseau(new Module[]{m1,m2,m3,m4,m5});
+
+        Module m6 = ModuleFabrique.genererModule(new Neurone[]{neurone6, neurone7, neurone8, neurone9, neurone10});
+        Module m7 = ModuleFabrique.genererModule(new Neurone[]{neurone6, neurone7, neurone8, neurone9, neurone10});
+        Module m8 = ModuleFabrique.genererModule(new Neurone[]{neurone6, neurone7, neurone8, neurone9, neurone10});
+        Module m9 = ModuleFabrique.genererModule(new Neurone[]{neurone6, neurone7, neurone8, neurone9, neurone10});
+        Module m10 = ModuleFabrique.genererModule(new Neurone[]{neurone6, neurone7, neurone8, neurone9, neurone10});
+
+
+        Reseau reseau2 = ReseauFabrique.genererReseau(new Module[]{m6,m7,m8,m9,m10});
+//        Reseau reseau2 = reseau1.clone();
 
         Joueur j1 = new Joueur(reseau1);
         Joueur j2 = new Joueur(reseau2);
