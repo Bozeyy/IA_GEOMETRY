@@ -1,5 +1,6 @@
 package com.smartdash.project.modele;
 
+import com.smartdash.project.IA.Constantes;
 import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.modele.objet.Bloc;
 import com.smartdash.project.modele.objet.Objet;
@@ -90,7 +91,7 @@ public class  Joueur
             int distanceY = Math.abs(objet.getY() - this.getY());
 
             // Récupération des objets dans une zone de 3x3 autour du joueur
-            if (distanceX <= 4 && distanceY <= 4 && distanceX >= 0 && distanceY >= -4) {
+            if (distanceX <= Constantes.X_NEURONES_MAX && distanceY <= Constantes.Y_NEURONES_MAX && distanceX >= Constantes.X_NEURONES_MIN && distanceY >= Constantes.Y_NEURONES_MIN) {
                 objets.add(objet);
             }
         }
