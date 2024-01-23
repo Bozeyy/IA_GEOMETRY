@@ -118,6 +118,16 @@ public class  Joueur
     }
 
     /**
+     * Méthode qui permet de renvoyer les objets autour du personnage
+     * @return retourne une liste d'objet autours du personnage
+     */
+    public List<Objet> getObjetsAutour(int longueur, int hauteur) {
+        return this.map.getMap().stream()
+                .filter(objet -> Math.abs(this.getX() - objet.getX()) < longueur && Math.abs(this.getY() - objet.getY()) < hauteur)
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Méthode qui permet d'actualiser le personnage
      */
     public void updateJoueur()
