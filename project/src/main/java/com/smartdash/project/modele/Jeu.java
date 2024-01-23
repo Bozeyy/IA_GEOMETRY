@@ -6,15 +6,19 @@ import com.smartdash.project.IA.Module;
 import com.smartdash.project.modele.objet.Bloc;
 import com.smartdash.project.modele.objet.Pique;
 import com.smartdash.project.modele.objet.Vide;
+import com.smartdash.project.vue.Observateur;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Jeu {
+public class Jeu implements Sujet{
     // Attributs
     private Joueur joueur;
     private Terrain terrain;
+
+    private List<Observateur> observateurs;
 
 
     /**
@@ -215,6 +219,26 @@ public class Jeu {
         return this.joueur;
     }
 
+    @Override
+    public void enregistrerObservateur(Observateur observateur) {
+        if(!observateurs.contains(observateur))
+        {
+            observateurs.add(observateur);
+        }
+    }
+
+    @Override
+    public void supprimerObservateur(Observateur observateur) {
+        observateurs.remove(observateur);
+    }
+
+    @Override
+    public void notifierObservateurs() {
+        for(Observateur observateur : observateurs)
+        {
+            observateur.actualiser(this);
+        }
+    }
 
     public static void main(String[] args) {
         Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain5.txt");
