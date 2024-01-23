@@ -18,7 +18,7 @@ public class Neat{
 
     public Neat()
     {
-        this.maxGenerations = 100;
+        this.maxGenerations = 150;
         terrain = new Terrain(3);
     }
 
