@@ -41,7 +41,7 @@ public class Jeu {
     }
 
     public void evaluationUnJoueur() {
-        lancerEvaluation(false);
+        lancerEvaluation(true);
         this.joueur.setScore(joueur.getX() + 1);
     }
 
