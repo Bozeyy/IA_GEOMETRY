@@ -27,14 +27,14 @@ public class Module implements Cloneable {
         }
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Module && this.neurones.size() == ((Module) obj).neurones.size()) {
-            Module module = (Module) obj;
-            return module.neurones.stream().allMatch(neurone -> neurone.equals(((Module) obj).neurones.get(module.neurones.indexOf(neurone))));
-        }
-        return false;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj instanceof Module && this.neurones.size() == ((Module) obj).neurones.size()) {
+//            Module module = (Module) obj;
+//            return module.neurones.stream().allMatch(neurone -> neurone.equals(((Module) obj).neurones.get(module.neurones.indexOf(neurone))));
+//        }
+//        return false;
+//    }
 
     @Override
     public String toString() {

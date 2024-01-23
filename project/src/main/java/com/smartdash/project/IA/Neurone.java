@@ -38,14 +38,14 @@ public abstract class Neurone implements Cloneable {
      */
     public abstract void setActive(int x, int y, String type);
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Neurone) {
-            Neurone neurone = (Neurone) obj;
-            return this.x == neurone.x && this.y == neurone.y;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj instanceof Neurone) {
+//            Neurone neurone = (Neurone) obj;
+//            return this.x == neurone.x && this.y == neurone.y;
+//        }
+//        return false;
+//    }
 
     @Override
     public String toString() {
@@ -74,5 +74,13 @@ public abstract class Neurone implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

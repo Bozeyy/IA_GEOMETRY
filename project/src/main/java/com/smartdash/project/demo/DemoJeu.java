@@ -3,6 +3,8 @@ package com.smartdash.project.demo;
 import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
 import com.smartdash.project.apprentissage.Neat;
+import com.smartdash.project.apprentissage.NeatPosition;
+import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.modele.Jeu;
 import com.smartdash.project.modele.Joueur;
 import com.smartdash.project.modele.Terrain;
@@ -73,32 +75,21 @@ public class DemoJeu {
         j.lancerIA();
     }
 
-    public static void test1() {
-        Neurone neurone = new NeuroneNonVide(0, -1);
-        Neurone neurone2 = new NeuroneNonBloc(1, 0);
-        Neurone neurone3 = new NeuroneVide(2, 0);
+    public static void test1() throws Exception {
 
-        Neurone neurone4 = new NeuroneNonPique(3, 0);
-        Neurone neurone5 = new NeuroneNonBloc(3, 1);
-        Neurone neurone6 = new NeuroneVide(1, 1);
-
-        Neurone neurone7 = new NeuroneNonPique(2, -2);
-        Neurone neurone8 = new NeuroneActif(1, 1);
-        Neurone neurone9 = new NeuroneVide(2, 0);
-        Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3}), ModuleFabrique.genererModule(new Neurone[]{neurone4, neurone5, neurone6}), ModuleFabrique.genererModule(new Neurone[]{neurone7, neurone8, neurone9})});
-
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain3.txt");
-        Joueur j = new Joueur(reseau);
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain8.txt");
+        Joueur j = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/22-01-2024_16-07-03/generation_99.txt", 0);
         Neat n = new Neat();
         n.evaluerPerformance(j, terrain);
+        System.out.println(j.getReseau());
         System.out.println("score : " + j.getScore());
-        Jeu jeu = new Jeu(terrain, reseau);
+        Jeu jeu = new Jeu(terrain, j.getReseau());
         jeu.lancerIA();
     }
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Scanner sc = new Scanner(System.in);
         int val = 0;
@@ -151,6 +142,9 @@ public class DemoJeu {
             case 9:
                 testSelectionParents();
                 break;
+            case 10:
+                testMutationPosition();
+                break;
         }
     }
 
@@ -159,14 +153,8 @@ public class DemoJeu {
         Neurone neurone = new NeuroneVide(0, -1);
         Neurone neurone2 = new NeuroneVide(1, 0);
         Neurone neurone3 = new NeuroneVide(2, 0);
-        Neurone neurone4 = new NeuroneVide(0, -1);
-        Neurone neurone5 = new NeuroneVide(1, 0);
-        Neurone neurone6 = new NeuroneVide(2, 0);
-        Neurone neurone7 = new NeuroneVide(0, -1);
-        Neurone neurone8 = new NeuroneVide(1, 0);
-        Neurone neurone9 = new NeuroneVide(2, 0);
 
-        Reseau reseau1 = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3}), ModuleFabrique.genererModule(new Neurone[]{neurone4, neurone5, neurone6}), ModuleFabrique.genererModule(new Neurone[]{neurone7, neurone8, neurone9})});
+        Reseau reseau1 = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone}), ModuleFabrique.genererModule(new Neurone[]{neurone2}), ModuleFabrique.genererModule(new Neurone[]{neurone3})});
         Joueur j1 = new Joueur(reseau1);
 
         System.out.println("Reseau du joueur :");
@@ -265,4 +253,33 @@ public class DemoJeu {
             System.out.println("Joueur " + i + " : score de : " + parents.get(i).getScore());
         }
     }
+
+    private static void testMutationPosition() {
+        NeatPosition neat = new NeatPosition();
+        Neurone neurone = new NeuroneVide(0, 0);
+        Neurone neurone2 = new NeuroneVide(0, 0);
+        Neurone neurone3 = new NeuroneVide(0, 0);
+        Neurone neurone4 = new NeuroneVide(0, 0);
+        Neurone neurone5 = new NeuroneVide(0, 0);
+        Neurone neurone6 = new NeuroneVide(0, 0);
+        Neurone neurone7 = new NeuroneVide(0, 0);
+        Neurone neurone8 = new NeuroneVide(0, 0);
+        Neurone neurone9 = new NeuroneVide(0, 0);
+
+        Reseau reseau1 = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3}), ModuleFabrique.genererModule(new Neurone[]{neurone4, neurone5, neurone6}), ModuleFabrique.genererModule(new Neurone[]{neurone7, neurone8, neurone9})});
+        Joueur j1 = new Joueur(reseau1);
+
+        System.out.println("Reseau du joueur :");
+        System.out.println(reseau1);
+        System.out.println("------------------");
+
+        neat.mutationPosition(j1);
+
+
+        System.out.println("Reseau muté :");
+        System.out.println(j1.getReseau());
+
+    }
+
+
 }

@@ -44,7 +44,7 @@ public class Neat{
      */
     public void lancerApprentissage() throws Exception {
         //Début de l'enregistrement, on récupère le chemin du dossier
-        //String pathname = Enregistrement.debutEnregistrement();
+        String pathname = Enregistrement.debutEnregistrement();
 
         // initialisation de la population
         int nbIndividu = 1000;
@@ -71,8 +71,8 @@ public class Neat{
             }
 
             // enregistrement de la population
-            //Enregistrement.generationEnregistrement(pathname, generation, population);
-            //stat.addGeneration(population);
+            Enregistrement.generationEnregistrement(pathname, generation, population);
+            stat.addGeneration(population);
 
             // On calcule la moyenne des 10 meilleurs
             double moyenneGeneration = Statistique.calculerMoyenne10Meilleurs(population);
