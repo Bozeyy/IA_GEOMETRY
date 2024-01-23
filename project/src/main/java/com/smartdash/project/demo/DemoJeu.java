@@ -3,12 +3,10 @@ package com.smartdash.project.demo;
 import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
 import com.smartdash.project.apprentissage.Neat;
-import com.smartdash.project.apprentissage.NeatPosition;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.modele.Jeu;
 import com.smartdash.project.modele.Joueur;
 import com.smartdash.project.modele.Terrain;
-import com.smartdash.project.modele.objet.Bloc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +75,8 @@ public class DemoJeu {
 
     public static void test1() throws Exception {
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain15.txt");
-        Joueur j = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/23-01-2024_14-21-08/generation_149.txt", 0);
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain11.txt");
+        Joueur j = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/23-01-2024_16-25-02/generation_99.txt", 0);
         Neat n = new Neat();
         n.evaluerPerformance(j, terrain);
         System.out.println(j.getReseau());
@@ -255,7 +253,7 @@ public class DemoJeu {
     }
 
     private static void testMutationPosition() {
-        NeatPosition neat = new NeatPosition();
+        Neat neat = new Neat();
         Neurone neurone = new NeuroneVide(0, 0);
         Neurone neurone2 = new NeuroneVide(0, 0);
         Neurone neurone3 = new NeuroneVide(0, 0);
@@ -273,7 +271,7 @@ public class DemoJeu {
         System.out.println(reseau1);
         System.out.println("------------------");
 
-        neat.mutationPosition(j1);
+        neat.mutationParModule(j1);
 
 
         System.out.println("Reseau muté :");

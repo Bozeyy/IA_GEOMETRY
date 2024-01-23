@@ -4,14 +4,13 @@ package com.smartdash.project.modele;
 import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
 import com.smartdash.project.modele.objet.Bloc;
+import com.smartdash.project.modele.objet.Objet;
 import com.smartdash.project.modele.objet.Pique;
 import com.smartdash.project.modele.objet.Vide;
 import com.smartdash.project.vue.Observateur;
+import com.smartdash.project.vue.VueJeu;
 
-import java.util.List;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class Jeu implements Sujet{
     // Attributs
@@ -31,6 +30,10 @@ public class Jeu implements Sujet{
         //this.joueur = new Joueur(0,0, terrain, reseau);
         this.terrain = terrain;
         this.joueur = new Joueur(terrain, reseau);
+
+        //Partie mvc
+        this.observateurs = new ArrayList<>();
+        this.enregistrerObservateur(new VueJeu(this));
     }
 
     /**
@@ -42,6 +45,8 @@ public class Jeu implements Sujet{
         this.joueur = joueur;
         this.joueur.setMap(terrain);
         this.terrain = terrain;
+        this.observateurs = new ArrayList<>();
+        this.enregistrerObservateur(new VueJeu(this));
     }
 
     public void evaluationUnJoueur() {
@@ -238,6 +243,16 @@ public class Jeu implements Sujet{
         {
             observateur.actualiser(this);
         }
+    }
+
+    public void genererTerrainGraphique(){
+        List<Objet> objets = terrain.getMap();
+        //TODO
+    }
+
+    public Observateur getVueJeu(){
+        //Retourne la vue du jeu
+        return this.observateurs.stream().filter(o -> o instanceof VueJeu).toList().getFirst();
     }
 
     public static void main(String[] args) {
