@@ -18,7 +18,7 @@ public class Neat{
 
     public Neat()
     {
-        this.maxGenerations = 150;
+        this.maxGenerations = 500;
         terrain = new Terrain(3);
     }
 
@@ -52,7 +52,7 @@ public class Neat{
 
         // initialisation de la population pour la generation initiale
         for (int i = 0; i < nbIndividu; i++) {
-            Reseau r = ReseauFabrique.genererReseau();
+            Reseau r = ReseauFabrique.genererReseauPosAleatoire();
             population.add(new Joueur(r));
         }
 
@@ -62,7 +62,7 @@ public class Neat{
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain15.txt");
 
         while (generation < maxGenerations) {
             // calcul du score des individus

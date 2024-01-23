@@ -37,7 +37,7 @@ public class NeatPosition extends Neat{
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain15.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain11.txt");
         while (generation < maxGenerations) {
             // calcul du score des individus
             for (Joueur j : population) {
@@ -94,28 +94,28 @@ public class NeatPosition extends Neat{
 
     public void mutationPosition(Joueur joueur) {
 
-            Reseau res = joueur.getReseau();
+        Reseau res = joueur.getReseau();
 
-            int probaMutation;
-            int nouvelleValeurX;
-            int nouvelleValeurY;
+        int probaMutation;
+        int nouvelleValeurX;
+        int nouvelleValeurY;
 
-            List<Module> modules = res.getModules();
-            try {
-                for (Module module : modules) {
-                    for (Neurone neurone : module.getNeurones()) {
-                        probaMutation = random.nextInt(res.getNbNeurone());
-                        if (probaMutation == 0) {
-                            // Mutation des coordonnées du neurone
-                            nouvelleValeurX = random.nextInt((Constantes.X_NEURONES_MAX - Constantes.X_NEURONES_MIN) + 1) + Constantes.X_NEURONES_MIN;
-                            nouvelleValeurY = random.nextInt((Constantes.Y_NEURONES_MAX - Constantes.Y_NEURONES_MIN) + 1) + Constantes.Y_NEURONES_MIN;
-                            neurone.setX(nouvelleValeurX);
-                            neurone.setY(nouvelleValeurY);
-                        }
+        List<Module> modules = res.getModules();
+        try {
+            for (Module module : modules) {
+                for (Neurone neurone : module.getNeurones()) {
+                    probaMutation = random.nextInt(res.getNbNeurone());
+                    if (probaMutation == 0) {
+                        // Mutation des coordonnées du neurone
+                        nouvelleValeurX = random.nextInt((Constantes.X_NEURONES_MAX - Constantes.X_NEURONES_MIN) + 1) + Constantes.X_NEURONES_MIN;
+                        nouvelleValeurY = random.nextInt((Constantes.Y_NEURONES_MAX - Constantes.Y_NEURONES_MIN) + 1) + Constantes.Y_NEURONES_MIN;
+                        neurone.setX(nouvelleValeurX);
+                        neurone.setY(nouvelleValeurY);
                     }
                 }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+    }
 }
