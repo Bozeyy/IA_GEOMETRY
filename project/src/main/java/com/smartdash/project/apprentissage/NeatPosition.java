@@ -27,7 +27,7 @@ public class NeatPosition extends Neat{
 
         // initialisation de la population pour la generation initiale
         for (int i = 0; i < nbIndividu; i++) {
-            Reseau r = ReseauFabrique.genererReseau();
+            Reseau r = ReseauFabrique.genererReseauPosAleatoire();
             population.add(new Joueur(r));
         }
 
@@ -37,8 +37,7 @@ public class NeatPosition extends Neat{
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain9.txt");
-
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain15.txt");
         while (generation < maxGenerations) {
             // calcul du score des individus
             for (Joueur j : population) {

@@ -62,7 +62,7 @@ public class Neat{
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain8.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
 
         while (generation < maxGenerations) {
             // calcul du score des individus
