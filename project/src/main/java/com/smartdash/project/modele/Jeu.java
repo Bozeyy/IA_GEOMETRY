@@ -45,7 +45,7 @@ public class Jeu implements Sujet{
     }
 
     public void evaluationUnJoueur() {
-        lancerEvaluation(false);
+        lancerEvaluation(true);
         this.joueur.setScore(joueur.getX() + 1);
     }
 
