@@ -1,4 +1,4 @@
-package com.smartdash.project;
+package com.smartdash.project.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
