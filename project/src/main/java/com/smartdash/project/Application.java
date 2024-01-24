@@ -23,11 +23,15 @@ public class Application extends javafx.application.Application {
 
         Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain1.txt"), new Reseau());
 
-        borderPane.setCenter((Node)jeu.getVueJeu());
+        VueJeu vueJeu = new VueJeu(jeu);
+        jeu.enregistrerObservateur(vueJeu);
+        borderPane.setCenter(vueJeu);
 
         /*Rectangle r = new Rectangle(50,50,35,35);
         r.setFill(new ImagePattern(new Image("pique.png")));
         vueJeu.getChildren().add(r);*/
+
+        jeu.notifierObservateurs();
 
 
         Scene scene = new Scene(borderPane);

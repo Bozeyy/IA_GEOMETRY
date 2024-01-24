@@ -16,6 +16,8 @@ public class Jeu implements Sujet{
     private Joueur joueur;
     private Terrain terrain;
 
+    private int tailleCase = 30;
+
     private List<Observateur> observateurs;
 
 
@@ -207,6 +209,14 @@ public class Jeu implements Sujet{
 
     public Joueur getJoueur() {
         return this.joueur;
+    }
+
+    public Terrain getTerrain() {
+        return this.terrain;
+    }
+
+    public int getTailleCase() {
+        return tailleCase;
     }
 
     @Override
