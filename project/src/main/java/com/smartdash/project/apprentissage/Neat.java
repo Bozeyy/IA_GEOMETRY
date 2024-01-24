@@ -18,7 +18,7 @@ public class Neat{
 
     public Neat()
     {
-        this.maxGenerations = 500;
+        this.maxGenerations = 20;
         terrain = new Terrain(3);
     }
 
@@ -72,7 +72,7 @@ public class Neat{
 
             // enregistrement de la population
             Enregistrement.generationEnregistrement(pathname, generation, population);
-            stat.addGeneration(population);
+            stat.addMoyennes(population);
 
             // On calcule la moyenne des 10 meilleurs
             double moyenneGeneration = stat.calculerMoyenne10Meilleurs(population);

@@ -51,28 +51,32 @@ public class NeatAmelioration extends NeatPosition
         int nbParents = 32;
         List<Joueur> parents;
         List<Joueur> enfants = new ArrayList<>();
-        Statistique stat = new StatistiquePlusieursTerrain();
+        Statistique stat = new Statistique();
 
 
         List<Terrain> listesTerrain = new ArrayList<>();
-        for(int i = 0; i<nbTerrains ; i++)
-        {
-            Terrain terrainAleatoire = new Terrain(3);
-            listesTerrain.add(terrainAleatoire);
-        }
+        listesTerrain.add(new Terrain("src/main/resources/apprentissage/terrain1.txt"));
+//        for(int i = 0; i<nbTerrains ; i++)
+//        {
+//            Terrain terrainAleatoire = new Terrain(3);
+//            listesTerrain.add(terrainAleatoire);
+//        }
 
         while (generation < maxGenerations) {
             // calcul du score des individus
             for (Joueur joueur : population) {
+                double score = 0;
                 for (Terrain terrain : listesTerrain)
                 {
                     evaluerPerformance(joueur, terrain);
+                    score += joueur.getScore();
                 }
+                joueur.setScore((int) (score/listesTerrain.size()));
             }
 
             // enregistrement de la population
             Enregistrement.generationEnregistrement(pathname, generation, population);
-            stat.addGeneration(population);
+            stat.addMoyennes(population);
 
             // On calcule la moyenne des 10 meilleurs
 
@@ -121,41 +125,41 @@ public class NeatAmelioration extends NeatPosition
     }
 
 
-    @Override
-    public void evaluerPerformance(Joueur joueur, Terrain terrain)
-    {
-        joueur.setMap(terrain);
-        Jeu jeu = new Jeu(joueur, terrain);
-        jeu.evaluationPlusieurs();
-    }
+//    @Override
+//    public void evaluerPerformance(Joueur joueur, Terrain terrain)
+//    {
+//        joueur.setMap(terrain);
+//        Jeu jeu = new Jeu(joueur, terrain);
+//        jeu.evaluationPlusieurs();
+//    }
 
-    @Override
-    public List<Joueur> selectionnerParents(List<Joueur> population){
-        List<Joueur> nouvellePopulation = new ArrayList<>();
-
-        List<Joueur> copiePopulation = new ArrayList<>(population);
-        // On tri la population
-        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScoreMoyen).reversed());
-
-        if (population.size() != 1000)
-        {
-            throw new IllegalStateException("La taille de la population n'est pas de 1000");
-        }
-
-        // On initialise
-        List<Joueur> huitMeilleurs = new ArrayList<>(copiePopulation.subList(0, 8));
-
-        List<Joueur> partie2 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(8,57)), 12);
-        List<Joueur> partie3 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(57,407)), 7);
-        List<Joueur> partie4 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(407,907)), 3);
-        List<Joueur> partie5 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(907,999)), 2);
-
-        nouvellePopulation.addAll(huitMeilleurs);
-        nouvellePopulation.addAll(partie2);
-        nouvellePopulation.addAll(partie3);
-        nouvellePopulation.addAll(partie4);
-        nouvellePopulation.addAll(partie5);
-
-        return nouvellePopulation;
-    }
+//    @Override
+//    public List<Joueur> selectionnerParents(List<Joueur> population){
+//        List<Joueur> nouvellePopulation = new ArrayList<>();
+//
+//        List<Joueur> copiePopulation = new ArrayList<>(population);
+//        // On tri la population
+//        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScoreMoyen).reversed());
+//
+//        if (population.size() != 1000)
+//        {
+//            throw new IllegalStateException("La taille de la population n'est pas de 1000");
+//        }
+//
+//        // On initialise
+//        List<Joueur> huitMeilleurs = new ArrayList<>(copiePopulation.subList(0, 8));
+//
+//        List<Joueur> partie2 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(8,57)), 12);
+//        List<Joueur> partie3 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(57,407)), 7);
+//        List<Joueur> partie4 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(407,907)), 3);
+//        List<Joueur> partie5 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(907,999)), 2);
+//
+//        nouvellePopulation.addAll(huitMeilleurs);
+//        nouvellePopulation.addAll(partie2);
+//        nouvellePopulation.addAll(partie3);
+//        nouvellePopulation.addAll(partie4);
+//        nouvellePopulation.addAll(partie5);
+//
+//        return nouvellePopulation;
+//    }
 }

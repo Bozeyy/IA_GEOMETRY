@@ -57,7 +57,7 @@ public class  Joueur
         this.vivant = true;
         this.fin = false;
         this.x = 0;
-        this.y = mapJeu.getLargeur()-6;
+        this.y = mapJeu.getLargeur()-2;
         this.score = 0;
         this.scoreMoyen = 0;
         this.scoresListes = new ArrayList<>();
@@ -288,6 +288,7 @@ public class  Joueur
         this.fin = false;
         this.x = 0;
         this.y = this.map.getLargeur()-2;
+        this.reseau.renitialiser();
     }
 
     // GETTER et SETTER
@@ -332,7 +333,7 @@ public class  Joueur
     public void setMap(Terrain terrain)
     {
         this.map = terrain;
-        this.y = map.getLargeur()-6;
+        this.y = map.getLargeur()-2;
     }
 
     public void setScoreMoyen(double scoreMoyen) {

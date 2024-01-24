@@ -37,7 +37,7 @@ public class NeatPosition extends Neat{
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain11.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
         while (generation < maxGenerations) {
             // calcul du score des individus
             for (Joueur j : population) {
@@ -46,7 +46,7 @@ public class NeatPosition extends Neat{
 
             // enregistrement de la population
             Enregistrement.generationEnregistrement(pathname, generation, population);
-            stat.addGeneration(population);
+            stat.addMoyennes(population);
 
             // On calcule la moyenne des 10 meilleurs
             double moyenneGeneration = stat.calculerMoyenne10Meilleurs(population);

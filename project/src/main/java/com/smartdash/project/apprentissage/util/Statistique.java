@@ -20,10 +20,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Statistique {
 
-    private List<List<Joueur>> generations = new ArrayList<>();
+    private List<Double> moyenne = new ArrayList<>();
+
+    private List<Double> moyenne10 = new ArrayList<>();
 
     private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -71,15 +74,16 @@ public class Statistique {
         return (sommeDesScores) / (10);
     }
 
-    public void addGeneration (List<Joueur> joueurs) {
-        this.generations.add(joueurs);
+    public void addMoyennes (List<Joueur> joueurs) throws Exception {
+        this.moyenne.add(calculerMoyenneDesScores(joueurs));
+        this.moyenne10.add(calculerMoyenne10Meilleurs(joueurs));
     }
 
     public void genererPDF () {
         try {
             PDDocument document = new PDDocument();
 
-            for (int i = 0; i < generations.size(); i++) {
+            for (int i = 0; i < moyenne.size(); i++) {
                 PDPage page = new PDPage();
                 document.addPage(page);
 
@@ -100,7 +104,8 @@ public class Statistique {
     }
 
     private void genererPageGeneration(PDDocument document, PDPage page, int numGeneration) {
-        List<Joueur> generation = this.generations.get(numGeneration);
+        double moyenne = this.moyenne.get(numGeneration);
+        double moyenne10 = this.moyenne10.get(numGeneration);
 
         try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 24);
@@ -118,19 +123,19 @@ public class Statistique {
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(100, 650);
-            contentStream.showText("Moyenne du score de la population: " + calculerMoyenneDesScores(generation));
+            contentStream.showText("Moyenne du score de la population: " + moyenne);
             contentStream.newLine();
             contentStream.endText();
 
             // Afficher la moyenne des 10 meilleurs
             contentStream.beginText();
             contentStream.newLineAtOffset(100, 630);  // Ajustez la position verticale en fonction de votre besoin
-            contentStream.showText("Moyenne des 10 meilleurs: " + calculerMoyenne10Meilleurs(generation));
+            contentStream.showText("Moyenne des 10 meilleurs: " + moyenne10);
             contentStream.newLine();
             contentStream.endText();
 
             // Ajouter les informations des réseaux de neurones
-            genererMeilleurReseauPDF(contentStream, generation);
+//            genererMeilleurReseauPDF(contentStream, generation);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -177,9 +182,9 @@ public class Statistique {
 
             // Créer un graphique JFreeChart
             // Ajouter les données au dataset
-            for (int i = 0; i < this.generations.size(); i++) {
-                double moyennePop = calculerMoyenneDesScores(generations.get(i));
-                double moyenneMeilleurs = calculerMoyenne10Meilleurs(generations.get(i));
+            for (int i = 0; i < this.moyenne.size(); i++) {
+                double moyennePop = moyenne.get(i);
+                double moyenneMeilleurs = moyenne10.get(i);
 
                 dataset.addValue(moyennePop, "Moyenne générale", Integer.toString(i));
                 dataset.addValue(moyenneMeilleurs, "Moyenne des 10 meilleurs", Integer.toString(i));
