@@ -53,5 +53,6 @@ public class VueJeu extends Pane implements Observateur {
         //On met à jour la position du joueur
         VueJoueur joueur = (VueJoueur) getChildren().getFirst();
         joueur.setX(donnees.getJoueur().getX() * donnees.getTailleCase());
+        joueur.setY(donnees.getJoueur().getY() * donnees.getTailleCase());
     }
 }
