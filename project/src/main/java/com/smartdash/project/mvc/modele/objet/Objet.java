@@ -1,6 +1,6 @@
-package com.smartdash.project.modele.objet;
+package com.smartdash.project.mvc.modele.objet;
 
-import com.smartdash.project.modele.Joueur;
+import com.smartdash.project.mvc.modele.Joueur;
 
 import java.util.Objects;
 

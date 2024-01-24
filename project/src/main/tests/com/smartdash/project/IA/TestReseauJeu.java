@@ -1,8 +1,9 @@
 package com.smartdash.project.IA;
 
-import com.smartdash.project.modele.Joueur;
-import com.smartdash.project.modele.Terrain;
-import com.smartdash.project.modele.objet.Objet;
+import com.smartdash.project.IA.neurones.*;
+import com.smartdash.project.mvc.modele.Joueur;
+import com.smartdash.project.mvc.modele.Terrain;
+import com.smartdash.project.mvc.modele.objet.Objet;
 import org.junit.jupiter.api.*;
 
 import java.util.List;

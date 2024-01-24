@@ -1,5 +1,7 @@
 package com.smartdash.project.IA;
 
+import com.smartdash.project.IA.neurones.Neurone;
+
 import java.util.List;
 
 public class ModuleFabrique {

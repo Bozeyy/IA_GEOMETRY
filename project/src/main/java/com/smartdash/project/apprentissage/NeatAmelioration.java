@@ -3,8 +3,8 @@ package com.smartdash.project.apprentissage;
 import com.smartdash.project.IA.*;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.apprentissage.util.Statistique;
-import com.smartdash.project.modele.Joueur;
-import com.smartdash.project.modele.Terrain;
+import com.smartdash.project.mvc.modele.Joueur;
+import com.smartdash.project.mvc.modele.Terrain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,6 @@ public class NeatAmelioration extends NeatPosition
         for(int i = 1; i<=nbTerrains ; i++)
         {
             Terrain terrainAleatoire = new Terrain("src/main/resources/apprentissage/terrain"+i+".txt");
-            System.out.println(i);
             listesTerrain.add(terrainAleatoire);
         }
 
@@ -114,6 +113,6 @@ public class NeatAmelioration extends NeatPosition
             evaluerPerformance(joueur, terrain);
             scoreMoyenne += joueur.getScore();
         }
-        joueur.setScore((scoreMoyenne/ listesTerrain.size()));
+        joueur.setScore((scoreMoyenne/ nbTerrains));
     }
 }

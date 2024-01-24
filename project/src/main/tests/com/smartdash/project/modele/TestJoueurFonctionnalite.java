@@ -2,6 +2,8 @@ package com.smartdash.project.modele;
 
 import static org.junit.jupiter.api.Assertions.*;
 import com.smartdash.project.IA.Reseau;
+import com.smartdash.project.mvc.modele.Joueur;
+import com.smartdash.project.mvc.modele.Terrain;
 import org.junit.jupiter.api.*;
 
 public class TestJoueurFonctionnalite

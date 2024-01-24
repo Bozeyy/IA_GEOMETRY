@@ -1,5 +1,6 @@
 package com.smartdash.project.modele;
 
+import com.smartdash.project.mvc.modele.Terrain;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

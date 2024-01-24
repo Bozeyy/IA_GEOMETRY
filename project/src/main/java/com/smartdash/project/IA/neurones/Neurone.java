@@ -1,14 +1,10 @@
-package com.smartdash.project.IA;
-
-import com.smartdash.project.modele.objet.Objet;
-
-import java.util.List;
+package com.smartdash.project.IA.neurones;
 
 public abstract class Neurone implements Cloneable {
     protected int x;
     protected int y;
 
-    protected boolean active;
+    public boolean active;
 
     public Neurone(int x, int y) {
         this.x = x;

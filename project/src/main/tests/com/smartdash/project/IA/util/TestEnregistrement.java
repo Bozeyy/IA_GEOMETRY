@@ -2,9 +2,7 @@ package com.smartdash.project.IA.util;
 
 import com.smartdash.project.IA.ReseauFabrique;
 import com.smartdash.project.apprentissage.util.Enregistrement;
-import com.smartdash.project.modele.Joueur;
-import com.smartdash.project.modele.Terrain;
-import org.junit.jupiter.api.BeforeAll;
+import com.smartdash.project.mvc.modele.Joueur;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -19,14 +17,14 @@ public class TestEnregistrement {
     String pathname = "src/main/resources/enregistrement/enregistrement_test";
 
     @Test
-    public void test_stringToPopulation_taille() throws IOException {
+    public void test_stringToPopulation_taille() throws Exception {
         List<Joueur> population = Enregistrement.stringToPopulation(pathname + "/generation_0.txt");
 
         assertEquals(1000, population.size());
     }
 
     @Test
-    public void test_stringToPopulation_wrong_pathname() throws IOException {
+    public void test_stringToPopulation_wrong_pathname() throws Exception {
         List<Joueur> population = Enregistrement.stringToPopulation(pathname + "/generation_1111.txt");
 
         assertNull(population);
@@ -34,7 +32,7 @@ public class TestEnregistrement {
     }
 
     @Test
-    public void test_stringToPopulation_wrong_pathname2() throws IOException {
+    public void test_stringToPopulation_wrong_pathname2() throws Exception {
         List<Joueur> population = Enregistrement.stringToPopulation(pathname + "/generation_0");
 
         assertNull(population);

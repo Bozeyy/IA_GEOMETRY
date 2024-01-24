@@ -1,8 +1,4 @@
-package com.smartdash.project.modele.objet;
-
-import com.smartdash.project.modele.Joueur;
-
-import java.util.Objects;
+package com.smartdash.project.mvc.modele.objet;
 
 public class Bloc extends Objet{
     public Bloc(int x, int y){

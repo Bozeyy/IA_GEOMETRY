@@ -2,11 +2,15 @@ package com.smartdash.project.demo;
 
 import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
+import com.smartdash.project.IA.neurones.Neurone;
+import com.smartdash.project.IA.neurones.NeuroneNonPique;
+import com.smartdash.project.IA.neurones.NeuronePique;
+import com.smartdash.project.IA.neurones.NeuroneVide;
 import com.smartdash.project.apprentissage.Neat;
 import com.smartdash.project.apprentissage.util.Enregistrement;
-import com.smartdash.project.modele.Jeu;
-import com.smartdash.project.modele.Joueur;
-import com.smartdash.project.modele.Terrain;
+import com.smartdash.project.mvc.modele.Jeu;
+import com.smartdash.project.mvc.modele.Joueur;
+import com.smartdash.project.mvc.modele.Terrain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,8 +79,8 @@ public class DemoJeu {
 
     public static void test1() throws Exception {
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
-        Joueur j = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/24-01-2024_15-39-17/generation_99.txt", 0);
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain10.txt");
+        Joueur j = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/24-01-2024_16-46-37/generation_49.txt", 0);
 
         Neat n = new Neat();
         n.evaluerPerformance(j, terrain);

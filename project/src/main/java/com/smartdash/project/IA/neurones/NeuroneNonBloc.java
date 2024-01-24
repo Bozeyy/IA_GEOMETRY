@@ -1,10 +1,4 @@
-package com.smartdash.project.IA;
-
-import com.smartdash.project.modele.objet.Bloc;
-import com.smartdash.project.modele.objet.Objet;
-
-import java.util.List;
-import java.util.Optional;
+package com.smartdash.project.IA.neurones;
 
 public class NeuroneNonBloc extends Neurone{
     public NeuroneNonBloc(int x, int y) {

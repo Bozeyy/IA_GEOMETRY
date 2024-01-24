@@ -1,14 +1,13 @@
-package com.smartdash.project.modele;
+package com.smartdash.project.mvc.modele;
 
 
 import com.smartdash.project.IA.*;
-import com.smartdash.project.modele.objet.Bloc;
-import com.smartdash.project.modele.objet.Objet;
-import com.smartdash.project.modele.objet.Pique;
-import com.smartdash.project.modele.objet.Vide;
-import com.smartdash.project.vue.Observateur;
-import com.smartdash.project.vue.VueJeu;
-import javafx.animation.AnimationTimer;
+import com.smartdash.project.mvc.modele.objet.Bloc;
+import com.smartdash.project.mvc.modele.objet.Objet;
+import com.smartdash.project.mvc.modele.objet.Pique;
+import com.smartdash.project.mvc.modele.objet.Vide;
+import com.smartdash.project.mvc.vue.Observateur;
+import com.smartdash.project.mvc.vue.VueJeu;
 
 import java.util.*;
 
@@ -146,7 +145,6 @@ public class Jeu implements Sujet{
                     }
 
                     updateJeu(true);
-                    notifierObservateurs();
                 }
             }
         };
@@ -156,23 +154,8 @@ public class Jeu implements Sujet{
         timer.scheduleAtFixedRate(task,0,200);
     }
 
-    public void lancerHumainGraphique() {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                if (!joueur.getVivant()) {
-                    System.out.println("Vous avez perdu");
-                    timer.cancel();
-                } else if (joueur.fin) {
-                    System.out.println("Vous avez gagné");
-                    timer.cancel();
-                }
-                updateJeu(false);
-                notifierObservateurs();
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 200);
+    public void lancerJeu() {
+
     }
 
     /**

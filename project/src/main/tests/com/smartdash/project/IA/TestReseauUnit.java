@@ -1,8 +1,7 @@
 package com.smartdash.project.IA;
 
+import com.smartdash.project.IA.neurones.*;
 import org.junit.jupiter.api.*;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

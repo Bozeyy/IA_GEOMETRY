@@ -1,8 +1,4 @@
-package com.smartdash.project.IA;
-
-import com.smartdash.project.modele.objet.Objet;
-
-import java.util.List;
+package com.smartdash.project.IA.neurones;
 
 public class NeuroneActif extends Neurone{
     public NeuroneActif(int x, int y) {

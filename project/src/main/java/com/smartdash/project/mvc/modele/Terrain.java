@@ -1,9 +1,9 @@
-package com.smartdash.project.modele;
+package com.smartdash.project.mvc.modele;
 
-import com.smartdash.project.modele.objet.Bloc;
-import com.smartdash.project.modele.objet.Objet;
-import com.smartdash.project.modele.objet.Pique;
-import com.smartdash.project.modele.objet.Vide;
+import com.smartdash.project.mvc.modele.objet.Bloc;
+import com.smartdash.project.mvc.modele.objet.Objet;
+import com.smartdash.project.mvc.modele.objet.Pique;
+import com.smartdash.project.mvc.modele.objet.Vide;
 
 import java.io.BufferedReader;
 import java.io.File;

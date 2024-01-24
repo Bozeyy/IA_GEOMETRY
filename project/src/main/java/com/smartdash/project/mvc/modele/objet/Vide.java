@@ -1,4 +1,4 @@
-package com.smartdash.project.modele.objet;
+package com.smartdash.project.mvc.modele.objet;
 
 public class Vide extends Objet
 {

@@ -2,12 +2,13 @@ package com.smartdash.project.apprentissage;
 
 import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
+import com.smartdash.project.IA.neurones.*;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.apprentissage.util.Statistique;
-import com.smartdash.project.modele.Joueur;
-import com.smartdash.project.modele.Terrain;
+import com.smartdash.project.mvc.modele.Joueur;
+import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.IA.Reseau;
-import com.smartdash.project.modele.Jeu;
+import com.smartdash.project.mvc.modele.Jeu;
 
 import java.util.*;
 

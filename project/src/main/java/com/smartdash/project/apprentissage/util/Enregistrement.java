@@ -1,10 +1,10 @@
 package com.smartdash.project.apprentissage.util;
 
 import com.smartdash.project.IA.Module;
-import com.smartdash.project.IA.Neurone;
+import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.IA.NeuroneFabrique;
 import com.smartdash.project.IA.Reseau;
-import com.smartdash.project.modele.Joueur;
+import com.smartdash.project.mvc.modele.Joueur;
 
 import java.io.*;
 import java.text.DateFormat;

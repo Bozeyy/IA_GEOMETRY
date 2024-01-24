@@ -1,7 +1,7 @@
-package com.smartdash.project.vue;
+package com.smartdash.project.mvc.vue;
 
-import com.smartdash.project.modele.Jeu;
-import com.smartdash.project.modele.Sujet;
+import com.smartdash.project.mvc.modele.Jeu;
+import com.smartdash.project.mvc.modele.Sujet;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;

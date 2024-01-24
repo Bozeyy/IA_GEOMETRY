@@ -1,6 +1,6 @@
 package com.smartdash.project.IA;
 
-import com.smartdash.project.modele.objet.Objet;
+import com.smartdash.project.IA.neurones.Neurone;
 
 import java.util.ArrayList;
 import java.util.List;

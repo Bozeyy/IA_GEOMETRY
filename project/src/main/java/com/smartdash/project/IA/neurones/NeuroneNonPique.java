@@ -1,11 +1,4 @@
-package com.smartdash.project.IA;
-
-import com.smartdash.project.modele.objet.Bloc;
-import com.smartdash.project.modele.objet.Objet;
-import com.smartdash.project.modele.objet.Pique;
-
-import java.util.List;
-import java.util.Optional;
+package com.smartdash.project.IA.neurones;
 
 public class NeuroneNonPique extends Neurone{
     public NeuroneNonPique(int x, int y) {

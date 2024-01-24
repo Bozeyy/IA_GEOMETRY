@@ -1,7 +1,4 @@
-package com.smartdash.project.IA;
-
-import com.smartdash.project.modele.objet.Objet;
-import com.smartdash.project.modele.objet.Vide;
+package com.smartdash.project.IA.neurones;
 
 public class NeuroneVide extends Neurone{
     public NeuroneVide(int x, int y) {

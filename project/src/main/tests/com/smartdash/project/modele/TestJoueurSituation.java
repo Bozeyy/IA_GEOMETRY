@@ -1,6 +1,8 @@
 package com.smartdash.project.modele;
 
 import com.smartdash.project.IA.Reseau;
+import com.smartdash.project.mvc.modele.Joueur;
+import com.smartdash.project.mvc.modele.Terrain;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 

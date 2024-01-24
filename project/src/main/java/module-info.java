@@ -9,11 +9,11 @@ module com.smartdash.project {
     opens com.smartdash.project to javafx.fxml;
     exports com.smartdash.project.demo;
     opens com.smartdash.project.demo to javafx.fxml;
-    exports com.smartdash.project.vue;
-    opens com.smartdash.project.vue to javafx.fxml;
-    exports com.smartdash.project.modele;
-    opens com.smartdash.project.modele to javafx.fxml;
-    exports com.smartdash.project.controller;
-    opens com.smartdash.project.controller to javafx.fxml;
+    exports com.smartdash.project.mvc.vue;
+    opens com.smartdash.project.mvc.vue to javafx.fxml;
+    exports com.smartdash.project.mvc.modele;
+    opens com.smartdash.project.mvc.modele to javafx.fxml;
+    exports com.smartdash.project.mvc.controller;
+    opens com.smartdash.project.mvc.controller to javafx.fxml;
     exports com.smartdash.project;
 }

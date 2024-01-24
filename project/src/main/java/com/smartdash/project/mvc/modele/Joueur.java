@@ -1,11 +1,11 @@
-package com.smartdash.project.modele;
+package com.smartdash.project.mvc.modele;
 
 import com.smartdash.project.IA.Constantes;
 import com.smartdash.project.IA.Reseau;
-import com.smartdash.project.modele.objet.Bloc;
-import com.smartdash.project.modele.objet.Objet;
-import com.smartdash.project.modele.objet.Pique;
-import com.smartdash.project.modele.objet.Vide;
+import com.smartdash.project.mvc.modele.objet.Bloc;
+import com.smartdash.project.mvc.modele.objet.Objet;
+import com.smartdash.project.mvc.modele.objet.Pique;
+import com.smartdash.project.mvc.modele.objet.Vide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class  Joueur
         this.vivant = true;
         this.fin = false;
         this.x = 0;
-        this.y = mapJeu.getLargeur()-2;
+        this.y = mapJeu.getLargeur()-7;
         this.score = 0;
         this.scoreMoyen = 0;
         this.scoresListes = new ArrayList<>();
@@ -287,7 +287,7 @@ public class  Joueur
         this.vivant = true;
         this.fin = false;
         this.x = 0;
-        this.y = this.map.getLargeur()-2;
+        this.y = this.map.getLargeur()-7;
         this.reseau.renitialiser();
     }
 
@@ -333,7 +333,7 @@ public class  Joueur
     public void setMap(Terrain terrain)
     {
         this.map = terrain;
-        this.y = map.getLargeur()-2;
+        this.y = map.getLargeur()-7;
     }
 
     public void setScoreMoyen(double scoreMoyen) {

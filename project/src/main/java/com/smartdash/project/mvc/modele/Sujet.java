@@ -1,6 +1,6 @@
-package com.smartdash.project.modele;
+package com.smartdash.project.mvc.modele;
 
-import com.smartdash.project.vue.Observateur;
+import com.smartdash.project.mvc.vue.Observateur;
 
 public interface Sujet {
     public void enregistrerObservateur(Observateur observateur);

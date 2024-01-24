@@ -1,5 +1,7 @@
 package com.smartdash.project.IA;
 
+import com.smartdash.project.IA.neurones.*;
+
 import java.util.Random;
 
 public class NeuroneFabrique {
