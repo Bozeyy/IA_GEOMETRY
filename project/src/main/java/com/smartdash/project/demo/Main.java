@@ -44,7 +44,7 @@ public class Main
 
     public static void lancerNormal()
     {
-        NeatAmelioration neatAmelioration = new NeatAmelioration(20, 5);
+        NeatAmelioration neatAmelioration = new NeatAmelioration(100, 15);
 
         try {
             neatAmelioration.lancerApprentissage();

@@ -327,7 +327,7 @@ public class  Joueur
         return scoresListes;
     }
 
-    public void setScore(int x) {
+    public void setScore(double x) {
         this.score = x;
     }
     public void setMap(Terrain terrain)

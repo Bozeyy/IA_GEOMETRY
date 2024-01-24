@@ -59,11 +59,18 @@ public class Enregistrement {
         String popToStrong = populationToString(population);
 
         //On écrit dans le fichier
-        FileWriter writer = new FileWriter(fichier);
-        writer.write(popToStrong);
+        try(FileWriter writer = new FileWriter(fichier))
+        {
+            writer.write(popToStrong);
 
-        //On ferme le fichier
-        writer.close();
+            //On ferme le fichier
+            writer.close();
+        }
+        catch (IOException e)
+        {
+            throw new Exception("Erreur lors de l'écriture dans le fichier");
+        }
+
 
     }
 
@@ -79,17 +86,15 @@ public class Enregistrement {
         }
         else
             throw new IllegalArgumentException("Le joueur n'a pas été trouvé");
-
     }
 
-    public static List<Joueur> stringToPopulation(String pathname) throws IOException {
+    public static List<Joueur> stringToPopulation(String pathname) throws Exception {
 
-        try {
-
+        try(BufferedReader r = new BufferedReader(new FileReader(pathname))){
             //On récupère le fichier
-            BufferedReader r = new BufferedReader(new FileReader(pathname));
 
-            //On créer la population
+
+            //On crée la population
             List<Joueur> population = new ArrayList<>();
 
             //On lit la première ligne
@@ -146,14 +151,12 @@ public class Enregistrement {
             //On retourne la population
             return population;
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            throw new Exception("Le fichier n'a pas été trouvé : " + pathname, e);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
+            throw new Exception("Erreur lors de la lecture du fichier : " + pathname, e);
+        } catch (Exception e) {
+            throw new Exception("Une erreur s'est produite lors de la lecture du fichier : " + pathname, e);
         }
-
-        return null;
     }
 
     public static String populationToString(List<Joueur> population) {

@@ -49,6 +49,7 @@ public class Jeu implements Sujet{
     }
 
     public void evaluationUnJoueur() {
+        this.joueur.renitialiser();
         lancerEvaluation(false);
         this.joueur.setScore(joueur.getX() + 1);
     }
@@ -91,8 +92,10 @@ public class Jeu implements Sujet{
     /**
      * Méthode qui permet de lancer le jeu en utilisant un réseau d'IA
      */
-    public void lancerIA()
+    public void lancerIA(boolean affiche)
     {
+        if (affiche) afficherPartie();
+
         while (joueur.getVivant() && !joueur.fin)
         {
             joueur.initialiserReseauActive();
@@ -102,12 +105,11 @@ public class Jeu implements Sujet{
             {
                 joueur.sauter();
             }
-            updateJeu(true);
+            updateJeu(affiche);
 
         }
 
         this.joueur.setScore(joueur.getX() + 1);
-        // On affiche une première fois le jeu
     }
 
     /**

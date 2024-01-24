@@ -34,7 +34,7 @@ public class DemoJeu {
         Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone})});
 
         Jeu j = new Jeu(new Terrain("src/main/resources/terrains_demo/test_map2.txt"), reseau);
-        j.lancerIA();
+        j.lancerIA(true);
     }
 
     public static void lancerNeuronePique2() {
@@ -42,7 +42,7 @@ public class DemoJeu {
         Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone})});
 
         Jeu j = new Jeu(new Terrain("src/main/resources/terrains_demo/test_map1.txt"), reseau);
-        j.lancerIA();
+        j.lancerIA(true);
     }
 
     public static void lancer2ModulesPique() {
@@ -51,7 +51,7 @@ public class DemoJeu {
         Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone}), ModuleFabrique.genererModule(new Neurone[]{neurone2})});
 
         Jeu j = new Jeu(new Terrain("src/main/resources/terrains_demo/test_map1.txt"), reseau);
-        j.lancerIA();
+        j.lancerIA(true);
     }
 
     public static void lancer2ModulesPique2() {
@@ -60,7 +60,7 @@ public class DemoJeu {
         Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone}), ModuleFabrique.genererModule(new Neurone[]{neurone2})});
 
         Jeu j = new Jeu(new Terrain("src/main/resources/terrains_demo/test_map3.txt"), reseau);
-        j.lancerIA();
+        j.lancerIA(true);
     }
 
     public static void lancer2ModulesPiqueBloc() {
@@ -70,19 +70,27 @@ public class DemoJeu {
         Reseau reseau = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone}), ModuleFabrique.genererModule(new Neurone[]{neurone2, neurone3})});
 
         Jeu j = new Jeu(new Terrain("src/main/resources/terrains_demo/test_map3.txt"), reseau);
-        j.lancerIA();
+        j.lancerIA(true);
     }
 
     public static void test1() throws Exception {
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
-        Joueur j = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/24-01-2024_15-04-37/generation_19.txt", 0);
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
+        Joueur j = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/24-01-2024_15-39-17/generation_99.txt", 0);
+
         Neat n = new Neat();
-        System.out.println(j.getReseau());
         n.evaluerPerformance(j, terrain);
-        System.out.println("score : " + j.getScore());
-        Jeu jeu = new Jeu(terrain, j.getReseau());
-        jeu.lancerIA();
+        System.out.println(j.getReseau());
+        System.out.println("score  1: " + j.getScore());
+
+
+        Joueur j2 = new Joueur(j.getReseau().clone());
+        Jeu jeu = new Jeu(j2, terrain);
+        jeu.lancerIA(false);
+
+        System.out.println(jeu.getJoueur().getReseau());
+        System.out.println("score  2 : " + jeu.getJoueur().getScore());
+
     }
 
 

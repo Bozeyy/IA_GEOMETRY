@@ -15,6 +15,12 @@ public class Neat{
     protected final Random random = new Random();
     protected int maxGenerations;
     protected Terrain terrain;
+    protected final int NB_MEILLEURS = 8;
+    protected final int NB_PARTIE_2 = 12;
+    protected final int NB_PARTIE_3 = 7;
+    protected final int NB_PARTIE_4 = 3;
+    protected final int NB_PARTIE_5 = 2;
+
 
     public Neat()
     {
@@ -251,8 +257,6 @@ public class Neat{
      * @return retourne la liste des parents
      */
     public List<Joueur> selectionnerParents(List<Joueur> population){
-        List<Joueur> nouvellePopulation = new ArrayList<>();
-
         List<Joueur> copiePopulation = new ArrayList<>(population);
         // On tri la population
         copiePopulation.sort(Comparator.comparingDouble(Joueur::getScore).reversed());
@@ -263,18 +267,11 @@ public class Neat{
         }
 
         // On initialise
-        List<Joueur> huitMeilleurs = new ArrayList<>(copiePopulation.subList(0, 8));
-
-        List<Joueur> partie2 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(8,57)), 12);
-        List<Joueur> partie3 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(57,407)), 7);
-        List<Joueur> partie4 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(407,907)), 3);
-        List<Joueur> partie5 = prendreAleatoire(new ArrayList<>(copiePopulation.subList(907,999)), 2);
-
-        nouvellePopulation.addAll(huitMeilleurs);
-        nouvellePopulation.addAll(partie2);
-        nouvellePopulation.addAll(partie3);
-        nouvellePopulation.addAll(partie4);
-        nouvellePopulation.addAll(partie5);
+        List<Joueur> nouvellePopulation = new ArrayList<>(copiePopulation.subList(0, NB_MEILLEURS));
+        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(8,57),NB_PARTIE_2));
+        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(57,407),NB_PARTIE_3));
+        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(407,907),NB_PARTIE_4));
+        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(8,57),NB_PARTIE_5));
 
         return nouvellePopulation;
     }
