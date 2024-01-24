@@ -8,6 +8,7 @@ import com.smartdash.project.modele.objet.Pique;
 import com.smartdash.project.modele.objet.Vide;
 import com.smartdash.project.vue.Observateur;
 import com.smartdash.project.vue.VueJeu;
+import javafx.animation.AnimationTimer;
 
 import java.util.*;
 
@@ -145,6 +146,7 @@ public class Jeu implements Sujet{
                     }
 
                     updateJeu(true);
+                    notifierObservateurs();
                 }
             }
         };
@@ -152,6 +154,25 @@ public class Jeu implements Sujet{
         // On affiche une première fois le jeu
         afficherPartie();
         timer.scheduleAtFixedRate(task,0,200);
+    }
+
+    public void lancerHumainGraphique() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (!joueur.getVivant()) {
+                    System.out.println("Vous avez perdu");
+                    timer.cancel();
+                } else if (joueur.fin) {
+                    System.out.println("Vous avez gagné");
+                    timer.cancel();
+                }
+                updateJeu(false);
+                notifierObservateurs();
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 200);
     }
 
     /**
