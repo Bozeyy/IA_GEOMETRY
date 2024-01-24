@@ -3,11 +3,11 @@ package com.smartdash.project.apprentissage.util;
 import java.awt.image.BufferedImage;
 
 import com.smartdash.project.IA.Reseau;
+import com.smartdash.project.mvc.modele.Joueur;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.jfree.chart.*;
-import com.smartdash.project.mvc.modele.Joueur;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -15,16 +15,20 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Statistique {
 
     private List<Double> moyenne = new ArrayList<>();
 
     private List<Double> moyenne10 = new ArrayList<>();
+
+    private Joueur meilleurJoueur;
 
     private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -92,13 +96,30 @@ public class Statistique {
             document.addPage(page);
             genererPageGraphique(document, page);
 
-            document.save("src/main/resources/statistiques.pdf");
+            String nom = debutStatistique();
+
+            System.out.println(nom);
+            document.save("src/main/resources/stats/" + nom + ".pdf");
             document.close();
 
             System.out.println("PDF géréré");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    public static String debutStatistique() throws Exception {
+        //On vérifie si le dossier <enregistrement> existe
+        if(!new File("src/main/resources/stats").exists()) new File("src/main/resources/stats").mkdir();
+
+        //Récupération de la date et du temps ou le programme a été lancé
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+        Date date = new Date();
+
+
+        return format.format(date);
     }
 
     private void genererPageGeneration(PDDocument document, PDPage page, int numGeneration) {

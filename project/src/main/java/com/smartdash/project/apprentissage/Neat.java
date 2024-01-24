@@ -25,7 +25,7 @@ public class Neat{
 
     public Neat()
     {
-        this.maxGenerations = 20;
+        this.maxGenerations = 100;
         terrain = new Terrain(3);
     }
 
@@ -69,7 +69,7 @@ public class Neat{
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain15.txt");
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain2.txt");
 
         while (generation < maxGenerations) {
             // calcul du score des individus

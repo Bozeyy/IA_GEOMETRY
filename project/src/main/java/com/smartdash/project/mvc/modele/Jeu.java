@@ -253,4 +253,23 @@ public class Jeu implements Sujet{
         //Retourne la vue du jeu
         return this.observateurs.stream().filter(o -> o instanceof VueJeu).toList().getFirst();
     }
+
+    public void lancerHumainGraphique() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (!joueur.getVivant()) {
+                    System.out.println("Vous avez perdu");
+                    timer.cancel();
+                } else if (joueur.fin) {
+                    System.out.println("Vous avez gagné");
+                    timer.cancel();
+                }
+                updateJeu(false);
+                notifierObservateurs();
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 200);
+    }
 }
