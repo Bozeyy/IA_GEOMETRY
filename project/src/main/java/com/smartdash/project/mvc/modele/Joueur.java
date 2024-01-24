@@ -31,7 +31,7 @@ public class  Joueur
      * @param mapJeu, terrain autour du joueur
      * @param reseau, réseau de neurone du joueur
      */
-    protected Joueur(int x, int y, Terrain mapJeu, Reseau reseau)
+    public Joueur(int x, int y, Terrain mapJeu, Reseau reseau)
     {
         this.x = x;
         this.y = y;

@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Application extends javafx.application.Application {
-
     AnimationTimer timer;
 
     @Override
@@ -33,11 +32,12 @@ public class Application extends javafx.application.Application {
         Scene scene = new Scene(borderPane);
         scene.setOnKeyPressed(new ControllerClavier(jeu));
         scene.setOnMouseClicked(new ControllerSouris(jeu));
+
         stage.setTitle("SmartDash");
         stage.setScene(scene);
         stage.show();
 
-
+        jeu.lancerJeu();
     }
 
     public static void main(String[] args) {

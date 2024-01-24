@@ -14,7 +14,10 @@ public class Camera
 
     public void update(Joueur joueur)
     {
-        
+        this.x = joueur.x * METRE - 5 * METRE;
+        if (joueur.y < 0) {
+            this.y = joueur.y;
+        }
     }
 
     public int getX() {

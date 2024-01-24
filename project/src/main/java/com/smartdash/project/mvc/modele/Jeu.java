@@ -8,6 +8,9 @@ import com.smartdash.project.mvc.modele.objet.Pique;
 import com.smartdash.project.mvc.modele.objet.Vide;
 import com.smartdash.project.mvc.vue.Observateur;
 import com.smartdash.project.mvc.vue.VueJeu;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.util.*;
 
@@ -15,6 +18,8 @@ public class Jeu implements Sujet{
     // Attributs
     private Joueur joueur;
     private Terrain terrain;
+    private Camera camera;
+
 
     private int tailleCase = 30;
 
@@ -31,6 +36,7 @@ public class Jeu implements Sujet{
         //this.joueur = new Joueur(0,0, terrain, reseau);
         this.terrain = terrain;
         this.joueur = new Joueur(terrain, reseau);
+        this.camera = new Camera(this.joueur.getX(), this.joueur.getY());
 
         //Partie mvc
         this.observateurs = new ArrayList<>();
@@ -46,6 +52,7 @@ public class Jeu implements Sujet{
         this.joueur = joueur;
         this.joueur.setMap(terrain);
         this.terrain = terrain;
+        this.camera = new Camera(this.joueur.getX(), this.joueur.getY());
         this.observateurs = new ArrayList<>();
         //this.enregistrerObservateur(new VueJeu(this));
     }
@@ -54,24 +61,6 @@ public class Jeu implements Sujet{
         this.joueur.renitialiser();
         lancerEvaluation(false);
         this.joueur.setScore(joueur.getX() + 1);
-    }
-
-    /**
-     * Méthode qui permet d'évaluer une partie
-     * retourne le score de la partie
-     */
-    public void evaluationPlusieurs()
-    {
-        this.joueur.renitialiser();
-
-        lancerEvaluation(false);
-
-        this.joueur.addScore(this.joueur.getX() +1);
-
-        this.joueur.setScoreMoyen(this.joueur.getScoresListes().stream()
-                .mapToDouble(Double::doubleValue)
-                .average()
-                .orElse(0.0));
     }
 
     public void lancerEvaluation(boolean afficher) {
@@ -154,8 +143,46 @@ public class Jeu implements Sujet{
         timer.scheduleAtFixedRate(task,0,200);
     }
 
-    public void lancerJeu() {
+    public void lancerHumainGraphique() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (!joueur.getVivant()) {
+                    System.out.println("Vous avez perdu");
+                    timer.cancel();
+                } else if (joueur.fin) {
+                    System.out.println("Vous avez gagné");
+                    timer.cancel();
+                }
+                updateJeu(false);
+                notifierObservateurs();
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 200);
+    }
 
+    public void lancerJeu() {
+        Timeline timer = new Timeline(
+                new KeyFrame(Duration.millis(500.0), evt -> {
+
+                    if(joueur.getVivant() && !joueur.fin)
+                    {
+                        joueur.initialiserReseauActive();
+                        boolean sauter = joueur.getReseau().isActive();
+
+                        if(sauter)
+                        {
+                            joueur.sauter();
+                        }
+
+                        updateJeu(true);
+                    }
+
+                })
+        );
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
     }
 
     /**
@@ -164,6 +191,8 @@ public class Jeu implements Sujet{
     public void updateJeu(boolean afficher)
     {
         this.joueur.updateJoueur();
+        this.camera.update(this.joueur);
+        this.notifierObservateurs();
         if(afficher)
         {
             afficherPartie();
@@ -252,24 +281,5 @@ public class Jeu implements Sujet{
     public Observateur getVueJeu(){
         //Retourne la vue du jeu
         return this.observateurs.stream().filter(o -> o instanceof VueJeu).toList().getFirst();
-    }
-
-    public void lancerHumainGraphique() {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                if (!joueur.getVivant()) {
-                    System.out.println("Vous avez perdu");
-                    timer.cancel();
-                } else if (joueur.fin) {
-                    System.out.println("Vous avez gagné");
-                    timer.cancel();
-                }
-                updateJeu(false);
-                notifierObservateurs();
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 200);
     }
 }
