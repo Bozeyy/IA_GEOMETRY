@@ -49,7 +49,7 @@ public class NeatPosition extends Neat{
             stat.addGeneration(population);
 
             // On calcule la moyenne des 10 meilleurs
-            double moyenneGeneration = Statistique.calculerMoyenne10Meilleurs(population);
+            double moyenneGeneration = stat.calculerMoyenne10Meilleurs(population);
             System.out.println("Moyenne de la population " + generation + " : " + moyenneGeneration);
 
             // On sélectionne les parents

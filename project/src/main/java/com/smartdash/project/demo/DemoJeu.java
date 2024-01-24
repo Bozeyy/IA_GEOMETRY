@@ -75,14 +75,22 @@ public class DemoJeu {
 
     public static void test1() throws Exception {
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain11.txt");
-        Joueur j = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/23-01-2024_16-25-02/generation_99.txt", 0);
+        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain4.txt");
+        Joueur j = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/23-01-2024_23-42-22/generation_2590.txt", 0);
+
         Neat n = new Neat();
         n.evaluerPerformance(j, terrain);
         System.out.println(j.getReseau());
-        System.out.println("score : " + j.getScore());
-        Jeu jeu = new Jeu(terrain, j.getReseau());
+        System.out.println("score  1: " + j.getScore());
+
+
+        Joueur j2 = new Joueur(j.getReseau().clone());
+        Jeu jeu = new Jeu(j2, terrain);
         jeu.lancerIA();
+
+        System.out.println(jeu.getJoueur().getReseau());
+        System.out.println("score  2 : " + jeu.getJoueur().getScore());
+
     }
 
 

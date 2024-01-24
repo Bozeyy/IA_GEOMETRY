@@ -4,6 +4,7 @@ import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.apprentissage.util.Statistique;
+import com.smartdash.project.apprentissage.util.StatistiquePlusieursTerrain;
 import com.smartdash.project.modele.Jeu;
 import com.smartdash.project.modele.Joueur;
 import com.smartdash.project.modele.Terrain;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class NeatAmelioration extends Neat
+public class NeatAmelioration extends NeatPosition
 {
     protected int nbTerrains;
 
@@ -31,7 +32,7 @@ public class NeatAmelioration extends Neat
     @Override
     public void lancerApprentissage() throws Exception {
         //Début de l'enregistrement, on récupère le chemin du dossier
-        //String pathname = Enregistrement.debutEnregistrement();
+        String pathname = Enregistrement.debutEnregistrement();
 
         // initialisation de la population
         int nbIndividu = 1000;
@@ -39,7 +40,7 @@ public class NeatAmelioration extends Neat
 
         // initialisation de la population pour la generation initiale
         for (int i = 0; i < nbIndividu; i++) {
-            Reseau r = ReseauFabrique.genererReseau();
+            Reseau r = ReseauFabrique.genererReseauPosAleatoire();
             population.add(new Joueur(r));
         }
 
@@ -50,7 +51,7 @@ public class NeatAmelioration extends Neat
         int nbParents = 32;
         List<Joueur> parents;
         List<Joueur> enfants = new ArrayList<>();
-        Statistique stat = new Statistique();
+        Statistique stat = new StatistiquePlusieursTerrain();
 
 
         List<Terrain> listesTerrain = new ArrayList<>();
@@ -70,13 +71,13 @@ public class NeatAmelioration extends Neat
             }
 
             // enregistrement de la population
-            //Enregistrement.generationEnregistrement(pathname, generation, population);
-            //stat.addGeneration(population);
+            Enregistrement.generationEnregistrement(pathname, generation, population);
+            stat.addGeneration(population);
 
             // On calcule la moyenne des 10 meilleurs
 
             // MODDDIF
-            moyenneGeneration = Statistique.calculerMoyenne10MeilleursScoreMoyen(population);
+            moyenneGeneration = stat.calculerMoyenne10Meilleurs(population);
             System.out.println("Moyenne des 10 premiers de la population " + generation + " : " + moyenneGeneration);
 
             // On sélectionne les parents
@@ -89,9 +90,11 @@ public class NeatAmelioration extends Neat
 
                     // 2 enfants par couple
                     Joueur enfant1 = croisement(parent1, parent2);
-                    mutation(enfant1);
+                    mutationParModule(enfant1);
+                    mutationPosition(enfant1);
                     Joueur enfant2 = croisement(parent1, parent2);
-                    mutation(enfant2);
+                    mutationParModule(enfant2);
+                    mutationPosition(enfant2);
 
                     enfants.add(enfant1);
                     enfants.add(enfant2);
@@ -113,7 +116,7 @@ public class NeatAmelioration extends Neat
 
             System.out.println("-------");
         }
-        //stat.genererPDF();
+        stat.genererPDF();
         System.out.println("fini");
     }
 

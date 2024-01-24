@@ -33,7 +33,7 @@ public class Statistique {
      * @return retourne la moyenne
      * @throws Exception renvoie une exception si le joueur est inexistant
      */
-    public static double calculerMoyenneDesScores(List<Joueur> joueurs) throws Exception {
+    public double calculerMoyenneDesScores(List<Joueur> joueurs) throws Exception {
         if (joueurs == null || joueurs.isEmpty()) {
             throw new Exception("Joueur null existant");
         }
@@ -54,7 +54,7 @@ public class Statistique {
      * @return renvoie la moyenne en double
      * @throws Exception retourne une exception si le joueur est null
      */
-    public static double calculerMoyenne10Meilleurs(List<Joueur> joueurs) throws Exception {
+    public double calculerMoyenne10Meilleurs(List<Joueur> joueurs) throws Exception {
 
         List<Joueur> copieJoueurs = new ArrayList<>(joueurs);
         copieJoueurs.sort(Comparator.comparingDouble(Joueur::getScore).reversed());
@@ -69,41 +69,6 @@ public class Statistique {
         }
 
         return (sommeDesScores) / (10);
-    }
-
-    /**
-     * Méthode qui permet de calculer les 10 meilleurs scores moyen
-     * @param joueurs joueur
-     * @return retourne un double qui est la moyenne
-     */
-    public static double calculerMoyenne10MeilleursScoreMoyen(List<Joueur> joueurs){
-
-        List<Joueur> copieJoueurs = new ArrayList<>(joueurs);
-        copieJoueurs.sort(Comparator.comparingDouble(Joueur::getScoreMoyen).reversed());
-
-
-        //double sommeDesScoresMoyen = 0;
-
-        /**
-        for (int i = 0; i < 10; i++) {
-            Joueur joueur = copieJoueurs.get(i);
-
-            if(joueur.getScoreMoyen()<0) throw new Exception("Score inférieur à 0");
-
-            sommeDesScoresMoyen += joueur.getScoreMoyen();
-            System.out.println("Score : "+joueur.getScoreMoyen());
-            //System.out.println(joueur.getReseau());
-            //System.out.println(joueur.getScore());
-        }*/
-
-        return copieJoueurs.stream()
-                .limit(10)
-                .peek(joueur -> {
-                    if (joueur.getScoreMoyen() < 0) throw new RuntimeException("Score inférieur à 0");
-                })
-                .mapToDouble(Joueur::getScoreMoyen)
-                .average()
-                .orElse(0.0);
     }
 
     public void addGeneration (List<Joueur> joueurs) {

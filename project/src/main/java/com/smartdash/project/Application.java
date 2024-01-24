@@ -20,6 +20,7 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         BorderPane borderPane = new BorderPane();
         borderPane.setPrefSize(1000, 600);
+
         Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain1.txt"), new Reseau());
 
         borderPane.setCenter((Node)jeu.getVueJeu());

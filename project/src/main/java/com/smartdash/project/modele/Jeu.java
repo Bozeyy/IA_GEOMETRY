@@ -2,7 +2,6 @@ package com.smartdash.project.modele;
 
 
 import com.smartdash.project.IA.*;
-import com.smartdash.project.IA.Module;
 import com.smartdash.project.modele.objet.Bloc;
 import com.smartdash.project.modele.objet.Objet;
 import com.smartdash.project.modele.objet.Pique;
@@ -33,7 +32,7 @@ public class Jeu implements Sujet{
 
         //Partie mvc
         this.observateurs = new ArrayList<>();
-        this.enregistrerObservateur(new VueJeu(this));
+        //this.enregistrerObservateur(new VueJeu(this));
     }
 
     /**
@@ -46,7 +45,7 @@ public class Jeu implements Sujet{
         this.joueur.setMap(terrain);
         this.terrain = terrain;
         this.observateurs = new ArrayList<>();
-        this.enregistrerObservateur(new VueJeu(this));
+        //this.enregistrerObservateur(new VueJeu(this));
     }
 
     public void evaluationUnJoueur() {
@@ -94,37 +93,21 @@ public class Jeu implements Sujet{
      */
     public void lancerIA()
     {
-        Timer timer = new Timer();
+        while (joueur.getVivant() && !joueur.fin)
+        {
+            joueur.initialiserReseauActive();
+            boolean sauter = joueur.getReseau().isActive();
 
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                if(!joueur.getVivant())
-                {
-                    System.out.println("Vous avez perdu");
-                    timer.cancel();
-                } else if (joueur.fin) {
-                    System.out.println("Vous avez gagné");
-                    timer.cancel();
-                }
-                else
-                {
-                    joueur.initialiserReseauActive();
-                    boolean sauter = joueur.getReseau().isActive();
-
-                    if(sauter)
-                    {
-                        joueur.sauter();
-                    }
-
-                    updateJeu(true);
-                }
+            if(sauter)
+            {
+                joueur.sauter();
             }
-        };
+            updateJeu(true);
 
+        }
+
+        this.joueur.setScore(joueur.getX() + 1);
         // On affiche une première fois le jeu
-        afficherPartie();
-        timer.scheduleAtFixedRate(task,0,200);
     }
 
     /**
@@ -254,24 +237,4 @@ public class Jeu implements Sujet{
         //Retourne la vue du jeu
         return this.observateurs.stream().filter(o -> o instanceof VueJeu).toList().getFirst();
     }
-
-    public static void main(String[] args) {
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain5.txt");
-
-        Neurone n1 = new NeuroneBloc(2, -3);
-        Neurone n2 = new NeuroneNonVide(3, -3);
-        Neurone n3 = new NeuronePique(4, -3);
-
-        Neurone n4 = new NeuroneBloc(2, -4);
-        Neurone n5 = new NeuroneNonVide(3, -4);
-
-        Neurone n6 = new NeuronePique(1,0);
-        Reseau r = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{n1, n2, n3}), ModuleFabrique.genererModule(new Neurone[]{n4, n5}), ModuleFabrique.genererModule(new Neurone[]{n6})});
-
-        Jeu jeu = new Jeu(terrain, r);
-
-        jeu.lancerHuamin();
-    }
-
-
 }
