@@ -18,7 +18,7 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain1.txt"), new Reseau());
+        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain12.txt"), new Reseau());
 
         BorderPane borderPane = new BorderPane();
         //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());

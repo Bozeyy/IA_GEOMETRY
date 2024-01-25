@@ -164,7 +164,7 @@ public class Jeu implements Sujet{
 
     public void lancerJeu() {
         Timeline timer = new Timeline(
-                new KeyFrame(Duration.millis(500.0), evt -> {
+                new KeyFrame(Duration.millis(300.0), evt -> {
 
                     if(joueur.getVivant() && !joueur.fin)
                     {
