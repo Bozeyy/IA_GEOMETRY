@@ -1,9 +1,11 @@
 package com.smartdash.project;
 
 import com.smartdash.project.IA.Reseau;
+import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.mvc.controller.ControllerClavier;
 import com.smartdash.project.mvc.controller.ControllerSouris;
 import com.smartdash.project.mvc.modele.Jeu;
+import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.vue.VueJeu;
 import javafx.animation.AnimationTimer;
@@ -17,8 +19,9 @@ public class Application extends javafx.application.Application {
     AnimationTimer timer;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain12.txt"), new Reseau());
+    public void start(Stage stage) throws Exception {
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/24-01-2024_17-57-57/generation_99.txt", 0);
+        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain1.txt"), joueur.getReseau());
 
         BorderPane borderPane = new BorderPane();
         //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());
