@@ -102,7 +102,7 @@ public class NeatAmelioration extends NeatPosition
 
             System.out.println("-------");
         }
-        stat.genererPDF();
+        stat.genererPDF(pathname);
         System.out.println("fini");
     }
 

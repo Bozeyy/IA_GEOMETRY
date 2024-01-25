@@ -89,7 +89,7 @@ public class NeatPosition extends Neat{
 
             System.out.println("-------");
         }
-        stat.genererPDF();
+        stat.genererPDF(pathname);
         System.out.println("fini");
     }
 

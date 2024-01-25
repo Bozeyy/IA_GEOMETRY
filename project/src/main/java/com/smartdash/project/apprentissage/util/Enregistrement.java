@@ -9,12 +9,10 @@ import com.smartdash.project.mvc.modele.Joueur;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Enregistrement {
+    private static Random random = new Random();
 
     public static String debutEnregistrement() throws Exception {
         //On vérifie si le dossier <enregistrement> existe
@@ -28,7 +26,7 @@ public class Enregistrement {
         System.out.println("Date de début d'apprentissage : " + dateHeureCourante);
 
         //création du dossier de sauvegarde de l'apprentissage
-        String pathname = "src/main/resources/enregistrement/" + dateHeureCourante;
+        String pathname = "src/main/resources/enregistrement/" + dateHeureCourante + "_id" + random.nextInt(1000);
         File dossier = new File(pathname);
 
         try {

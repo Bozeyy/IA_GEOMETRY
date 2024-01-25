@@ -81,7 +81,9 @@ public class Statistique {
         this.moyenne10.add(calculerMoyenne10Meilleurs(joueurs));
     }
 
-    public void genererPDF () {
+    public void genererPDF (String pathName) {
+        String newPath = pathName.replace("enregistrement", "statistiques");
+
         try {
             PDDocument document = new PDDocument();
 
@@ -96,10 +98,10 @@ public class Statistique {
             document.addPage(page);
             genererPageGraphique(document, page);
 
-            String nom = debutStatistique();
+            //String nom = debutStatistique();
 
-            System.out.println(nom);
-            document.save("src/main/resources/stats/" + nom + ".pdf");
+            //System.out.println(nom);
+            document.save(newPath + ".pdf");
             document.close();
 
             System.out.println("PDF géréré");
@@ -160,7 +162,7 @@ public class Statistique {
         }
     }
 
-
+    /**
     private static void genererMeilleurReseauPDF(PDPageContentStream contentStream, List<Joueur> generation) throws IOException {
         contentStream.setFont(PDType1Font.HELVETICA_BOLD, 10);
         contentStream.beginText();
@@ -187,7 +189,7 @@ public class Statistique {
         }
 
         contentStream.endText();
-    }
+    }*/
 
     private void genererPageGraphique(PDDocument document, PDPage page) throws IOException {
         try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {

@@ -8,13 +8,11 @@ import java.util.List;
 public class Main
 {
     public static void main(String[] args) {
-        lancerNormal();
+        lancerThread(5);
     }
 
-    public static void lancerThread()
+    public static void lancerThread(int nombreInstances)
     {
-        int nombreInstances = 5; // Nombre d'instances de NeatAmelioration à créer
-
         List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < nombreInstances; i++) {
@@ -44,7 +42,7 @@ public class Main
 
     public static void lancerNormal()
     {
-        NeatAmelioration neatAmelioration = new NeatAmelioration(2000, 15);
+        NeatAmelioration neatAmelioration = new NeatAmelioration(5, 1);
 
         try {
             neatAmelioration.lancerApprentissage();
