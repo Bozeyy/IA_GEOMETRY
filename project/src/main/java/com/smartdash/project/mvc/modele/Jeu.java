@@ -25,6 +25,8 @@ public class Jeu implements Sujet{
 
     private List<Observateur> observateurs;
 
+    private boolean jouer;
+
 
     /**
      * Constructeur avec terrain et un reseau
@@ -40,7 +42,7 @@ public class Jeu implements Sujet{
 
         //Partie mvc
         this.observateurs = new ArrayList<>();
-        //this.enregistrerObservateur(new VueJeu(this));
+        jouer = false;
     }
 
     /**
@@ -54,7 +56,7 @@ public class Jeu implements Sujet{
         this.terrain = terrain;
         this.camera = new Camera(this.joueur.getX(), this.joueur.getY());
         this.observateurs = new ArrayList<>();
-        //this.enregistrerObservateur(new VueJeu(this));
+        jouer = false;
     }
 
     public void evaluationUnJoueur() {
@@ -144,6 +146,7 @@ public class Jeu implements Sujet{
     }
 
     public void lancerHumainGraphique() {
+        jouer = true;
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -162,11 +165,12 @@ public class Jeu implements Sujet{
         timer.scheduleAtFixedRate(task, 0, 200);
     }
 
-    public void lancerJeu() {
+    public Timeline lancerJeu(boolean afficher,double millis) {
+        jouer = true;
         Timeline timer = new Timeline(
-                new KeyFrame(Duration.millis(300.0), evt -> {
+                new KeyFrame(Duration.millis(millis), evt -> {
 
-                    if(joueur.getVivant() && !joueur.fin)
+                    if(joueur.getVivant() && !joueur.fin && jouer)
                     {
                         joueur.initialiserReseauActive();
                         boolean sauter = joueur.getReseau().isActive();
@@ -176,13 +180,13 @@ public class Jeu implements Sujet{
                             joueur.sauter();
                         }
 
-                        updateJeu(true);
+                        updateJeu(afficher);
                     }
 
                 })
         );
         timer.setCycleCount(Timeline.INDEFINITE);
-        timer.play();
+        return timer;
     }
 
     /**
@@ -281,5 +285,14 @@ public class Jeu implements Sujet{
     public Observateur getVueJeu(){
         //Retourne la vue du jeu
         return this.observateurs.stream().filter(o -> o instanceof VueJeu).toList().getFirst();
+    }
+
+    public void reinitialiser() {
+        this.joueur.renitialiser();
+        this.jouer = false;
+    }
+
+    public boolean isJouer() {
+        return jouer;
     }
 }

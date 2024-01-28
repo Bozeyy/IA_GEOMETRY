@@ -348,5 +348,7 @@ public class  Joueur
         this.y = y;
     }
 
-
+    public int getVY() {
+        return vY;
+    }
 }

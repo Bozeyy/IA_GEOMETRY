@@ -24,4 +24,7 @@ public class VueJoueur extends Rectangle implements Observateur {
     public void actualiser(Sujet sujet) {
 
     }
+    public void animationSaut() {
+        setRotate(getRotate() + 90);
+    }
 }

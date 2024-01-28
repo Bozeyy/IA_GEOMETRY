@@ -13,6 +13,7 @@ public class VueJeu extends Pane implements Observateur {
     private Jeu donnees;
 
     public VueJeu(Jeu donnees) {
+
         this.donnees = donnees;
 
         //Taille de base de la fenêtre de jeu
@@ -23,8 +24,7 @@ public class VueJeu extends Pane implements Observateur {
 
         //Ajout du background en Image
         setBackground(new Background(new BackgroundImage(new Image("background2.png"), BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
-
-
+        setBorder(new Border(new BorderStroke(null, BorderStrokeStyle.SOLID, null, null)));
     }
 
     public void init(){
@@ -32,7 +32,8 @@ public class VueJeu extends Pane implements Observateur {
         getChildren().clear();
 
         //On ajoute le joueur
-        getChildren().add(new VueJoueur(donnees, donnees.getJoueur().getX(), donnees.getJoueur().getY()));
+        VueJoueur joueur = new VueJoueur(donnees, donnees.getJoueur().getX(), donnees.getJoueur().getY());
+        getChildren().add(joueur);
 
         //On ajoute les blocs
         this.donnees.getTerrain().getMap().forEach(objet -> {
@@ -47,13 +48,39 @@ public class VueJeu extends Pane implements Observateur {
 
             }
         });
+
+        //On met à jour la caméra
+        joueur.translateXProperty().addListener((obs, old, newValue) -> {
+            int offset = newValue.intValue();
+            System.out.println();
+            if (offset > 400 && offset < (donnees.getTerrain().getLongueur() * donnees.getTailleCase()) - 400) {
+                setTranslateX(-(offset - 400));
+            } else if (offset < 400) {
+                setTranslateX(0);
+            } else {
+                setTranslateX(-(donnees.getTerrain().getLongueur() * donnees.getTailleCase() - 800));
+            }
+        });
+
+        //On met à jour la rotation du joueur
+        joueur.yProperty().addListener((obs, old, newValue) -> {
+            animationSaut();
+        });
+    }
+
+    public void animationSaut(){
+        VueJoueur joueur = (VueJoueur) getChildren().getFirst();
+        joueur.animationSaut();
     }
 
     @Override
     public void actualiser(Sujet sujet) {
         //On met à jour la position du joueur
         VueJoueur joueur = (VueJoueur) getChildren().getFirst();
-        joueur.setX(donnees.getJoueur().getX() * donnees.getTailleCase());
+        joueur.setTranslateX(donnees.getJoueur().getX() * donnees.getTailleCase());
         joueur.setY(donnees.getJoueur().getY() * donnees.getTailleCase());
+        if(!donnees.isJouer()){
+            joueur.setRotate(0);
+        }
     }
 }
