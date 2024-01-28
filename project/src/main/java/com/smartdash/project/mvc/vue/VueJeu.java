@@ -82,12 +82,12 @@ public class VueJeu extends Pane implements Observateur {
         if(!modele.isJouer()){
             joueur.setRotate(0);
         }
-        VueJoueur vueJoueur = (VueJoueur) getChildren().getFirst();
+        /*VueJoueur vueJoueur = (VueJoueur) getChildren().getFirst();
 
         vueJoueur.setX(modele.getJoueur().getX() * modele.getTailleCase());
         vueJoueur.setY(modele.getJoueur().getY() * modele.getTailleCase());
 
         this.setTranslateX(-this.modele.getCamera().getX());
-        this.setTranslateY(-this.modele.getCamera().getY());
+        this.setTranslateY(-this.modele.getCamera().getY());*/
     }
 }
