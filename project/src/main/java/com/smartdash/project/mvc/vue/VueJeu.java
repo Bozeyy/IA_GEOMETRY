@@ -10,21 +10,21 @@ import javafx.scene.layout.*;
 
 public class VueJeu extends Pane implements Observateur {
 
-    private Jeu donnees;
+    private Jeu modele;
 
     public VueJeu(Jeu donnees) {
-
-        this.donnees = donnees;
+        this.modele = donnees;
 
         //Taille de base de la fenêtre de jeu
-        setPrefSize(donnees.getTerrain().getLongueur() * this.donnees.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
+        setPrefSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
 
         //Taille maximale de la fenêtre de jeu
-        setMaxSize(donnees.getTerrain().getLongueur() * this.donnees.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
+        setMaxSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
 
         //Ajout du background en Image
         setBackground(new Background(new BackgroundImage(new Image("background2.png"), BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
-        setBorder(new Border(new BorderStroke(null, BorderStrokeStyle.SOLID, null, null)));
+
+
     }
 
     public void init(){
@@ -32,19 +32,19 @@ public class VueJeu extends Pane implements Observateur {
         getChildren().clear();
 
         //On ajoute le joueur
-        VueJoueur joueur = new VueJoueur(donnees, donnees.getJoueur().getX(), donnees.getJoueur().getY());
+        VueJoueur joueur = new VueJoueur(modele, modele.getJoueur().getX(), modele.getJoueur().getY());
         getChildren().add(joueur);
 
         //On ajoute les blocs
-        this.donnees.getTerrain().getMap().forEach(objet -> {
+        this.modele.getTerrain().getMap().forEach(objet -> {
 
             if (objet instanceof Bloc) {
 
-                getChildren().add(new VueBloc(donnees, objet.getX(), objet.getY()));
+                getChildren().add(new VueBloc(modele, objet.getX(), objet.getY()));
 
             } else if(objet instanceof Pique){
 
-                getChildren().add(new VuePique(donnees, objet.getX(), objet.getY()));
+                getChildren().add(new VuePique(modele, objet.getX(), objet.getY()));
 
             }
         });
@@ -53,12 +53,12 @@ public class VueJeu extends Pane implements Observateur {
         joueur.translateXProperty().addListener((obs, old, newValue) -> {
             int offset = newValue.intValue();
             System.out.println();
-            if (offset > 400 && offset < (donnees.getTerrain().getLongueur() * donnees.getTailleCase()) - 400) {
+            if (offset > 400 && offset < (modele.getTerrain().getLongueur() * modele.getTailleCase()) - 400) {
                 setTranslateX(-(offset - 400));
             } else if (offset < 400) {
                 setTranslateX(0);
             } else {
-                setTranslateX(-(donnees.getTerrain().getLongueur() * donnees.getTailleCase() - 800));
+                setTranslateX(-(modele.getTerrain().getLongueur() * modele.getTailleCase() - 800));
             }
         });
 
@@ -77,10 +77,17 @@ public class VueJeu extends Pane implements Observateur {
     public void actualiser(Sujet sujet) {
         //On met à jour la position du joueur
         VueJoueur joueur = (VueJoueur) getChildren().getFirst();
-        joueur.setTranslateX(donnees.getJoueur().getX() * donnees.getTailleCase());
-        joueur.setY(donnees.getJoueur().getY() * donnees.getTailleCase());
-        if(!donnees.isJouer()){
+        joueur.setTranslateX(modele.getJoueur().getX() * modele.getTailleCase());
+        joueur.setY(modele.getJoueur().getY() * modele.getTailleCase());
+        if(!modele.isJouer()){
             joueur.setRotate(0);
         }
+        VueJoueur vueJoueur = (VueJoueur) getChildren().getFirst();
+
+        vueJoueur.setX(modele.getJoueur().getX() * modele.getTailleCase());
+        vueJoueur.setY(modele.getJoueur().getY() * modele.getTailleCase());
+
+        this.setTranslateX(-this.modele.getCamera().getX());
+        this.setTranslateY(-this.modele.getCamera().getY());
     }
 }

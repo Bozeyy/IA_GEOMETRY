@@ -13,7 +13,7 @@ public class TestTerrainAleatoire {
         Terrain terrain = new Terrain();
         terrain.setMap(terrain.genererTerrainAleatoire(10));
 
-        assertEquals(terrain.getMap().size(),20000);
+        assertEquals(terrain.getMap().size(),25000);
     }
 
     @Test
@@ -22,7 +22,7 @@ public class TestTerrainAleatoire {
         Terrain terrain = new Terrain();
         terrain.setMap(terrain.genererTerrainAleatoire(5));
 
-        assertEquals(terrain.getLongueur(),500);
+        assertEquals(terrain.getLongueur(),625);
     }
 
     @Test

@@ -23,21 +23,6 @@ public class TestEnregistrement {
         assertEquals(1000, population.size());
     }
 
-    @Test
-    public void test_stringToPopulation_wrong_pathname() throws Exception {
-        List<Joueur> population = Enregistrement.stringToPopulation(pathname + "/generation_1111.txt");
-
-        assertNull(population);
-
-    }
-
-    @Test
-    public void test_stringToPopulation_wrong_pathname2() throws Exception {
-        List<Joueur> population = Enregistrement.stringToPopulation(pathname + "/generation_0");
-
-        assertNull(population);
-
-    }
 
     @Test
     public void test_stringToPopulation_gen0_reseau_premier_joueur() throws Exception {

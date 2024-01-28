@@ -83,6 +83,7 @@ public class TestReseauJeu {
         boolean vivant = joueur.getVivant();
 
 
+
         assertEquals(saut, 0, "le joueur saute");
         assertTrue(vivant, "le joueur est vivant");
     }

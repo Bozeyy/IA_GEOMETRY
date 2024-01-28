@@ -251,6 +251,10 @@ public class Jeu implements Sujet{
     public Terrain getTerrain() {
         return this.terrain;
     }
+    public Camera getCamera()
+    {
+        return this.camera;
+    }
 
     public int getTailleCase() {
         return tailleCase;
