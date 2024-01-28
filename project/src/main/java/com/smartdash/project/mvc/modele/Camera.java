@@ -4,7 +4,7 @@ public class Camera
 {
     private int x;
     private int y;
-    private final int METRE = 40;
+    private final int METRE = 30;
 
     public Camera(int x, int y)
     {

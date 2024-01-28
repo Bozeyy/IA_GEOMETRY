@@ -10,16 +10,16 @@ import javafx.scene.layout.*;
 
 public class VueJeu extends Pane implements Observateur {
 
-    private Jeu donnees;
+    private Jeu modele;
 
     public VueJeu(Jeu donnees) {
-        this.donnees = donnees;
+        this.modele = donnees;
 
         //Taille de base de la fenêtre de jeu
-        setPrefSize(donnees.getTerrain().getLongueur() * this.donnees.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
+        setPrefSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
 
         //Taille maximale de la fenêtre de jeu
-        setMaxSize(donnees.getTerrain().getLongueur() * this.donnees.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
+        setMaxSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
 
         //Ajout du background en Image
         setBackground(new Background(new BackgroundImage(new Image("background2.png"), BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
@@ -32,18 +32,18 @@ public class VueJeu extends Pane implements Observateur {
         getChildren().clear();
 
         //On ajoute le joueur
-        getChildren().add(new VueJoueur(donnees, donnees.getJoueur().getX(), donnees.getJoueur().getY()));
+        getChildren().add(new VueJoueur(modele, modele.getJoueur().getX(), modele.getJoueur().getY()));
 
         //On ajoute les blocs
-        this.donnees.getTerrain().getMap().forEach(objet -> {
+        this.modele.getTerrain().getMap().forEach(objet -> {
 
             if (objet instanceof Bloc) {
 
-                getChildren().add(new VueBloc(donnees, objet.getX(), objet.getY()));
+                getChildren().add(new VueBloc(modele, objet.getX(), objet.getY()));
 
             } else if(objet instanceof Pique){
 
-                getChildren().add(new VuePique(donnees, objet.getX(), objet.getY()));
+                getChildren().add(new VuePique(modele, objet.getX(), objet.getY()));
 
             }
         });
@@ -52,8 +52,12 @@ public class VueJeu extends Pane implements Observateur {
     @Override
     public void actualiser(Sujet sujet) {
         //On met à jour la position du joueur
-        VueJoueur joueur = (VueJoueur) getChildren().getFirst();
-        joueur.setX(donnees.getJoueur().getX() * donnees.getTailleCase());
-        joueur.setY(donnees.getJoueur().getY() * donnees.getTailleCase());
+        VueJoueur vueJoueur = (VueJoueur) getChildren().getFirst();
+
+        vueJoueur.setX(modele.getJoueur().getX() * modele.getTailleCase());
+        vueJoueur.setY(modele.getJoueur().getY() * modele.getTailleCase());
+
+        this.setTranslateX(-this.modele.getCamera().getX());
+        this.setTranslateY(-this.modele.getCamera().getY());
     }
 }

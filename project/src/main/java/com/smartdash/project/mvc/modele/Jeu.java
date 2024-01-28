@@ -164,7 +164,7 @@ public class Jeu implements Sujet{
 
     public void lancerJeu() {
         Timeline timer = new Timeline(
-                new KeyFrame(Duration.millis(300.0), evt -> {
+                new KeyFrame(Duration.millis(150.0), evt -> {
 
                     if(joueur.getVivant() && !joueur.fin)
                     {
@@ -246,6 +246,10 @@ public class Jeu implements Sujet{
 
     public Terrain getTerrain() {
         return this.terrain;
+    }
+    public Camera getCamera()
+    {
+        return this.camera;
     }
 
     public int getTailleCase() {
