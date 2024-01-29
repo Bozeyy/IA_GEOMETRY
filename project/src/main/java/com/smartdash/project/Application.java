@@ -9,6 +9,7 @@ import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.vue.VueInformationApp;
 import com.smartdash.project.mvc.vue.VueJeu;
+import com.smartdash.project.mvc.vue.VueReseau;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;

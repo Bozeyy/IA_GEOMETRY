@@ -3,6 +3,7 @@ package com.smartdash.project.mvc.vue;
 
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Sujet;
+import com.smartdash.project.mvc.modele.neurone.NeuroneVue;
 import com.smartdash.project.mvc.modele.objet.Bloc;
 import com.smartdash.project.mvc.modele.objet.piques.Pique;
 import com.smartdash.project.mvc.modele.objet.piques.PiqueDroit;
@@ -20,8 +21,12 @@ public class VueJeu extends Pane implements Observateur {
 
     private Jeu modele;
 
-    public VueJeu(Jeu donnees) {
+    private VueReseau vueReseau;
+
+    public VueJeu(Jeu donnees) throws Exception {
         this.modele = donnees;
+        this.vueReseau = new VueReseau(modele);
+
 
         //Taille de base de la fenêtre de jeu
         setPrefSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
@@ -90,6 +95,11 @@ public class VueJeu extends Pane implements Observateur {
         joueur.yProperty().addListener((obs, old, newValue) -> {
             animationSaut();
         });
+
+        // ajout des neurone au pane
+        for (NeuroneVue neuroneVue : vueReseau.getNeurones()) {
+            this.getChildren().add(neuroneVue.getShape());
+        }
     }
 
     public void animationSaut(){
@@ -105,5 +115,6 @@ public class VueJeu extends Pane implements Observateur {
     public void actualiser(Sujet sujet) {
         VueJoueur vueJoueur = (VueJoueur) getChildren().get(1);
         vueJoueur.actualiser();
+        vueReseau.actualiser(sujet);
     }
 }

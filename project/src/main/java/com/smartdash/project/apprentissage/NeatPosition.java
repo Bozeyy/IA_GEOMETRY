@@ -74,6 +74,7 @@ public class NeatPosition extends Neat{
                     Joueur enfant1 = croisement(parent1, parent2);
                     mutationParModule(enfant1);
                     mutationPosition(enfant1);
+
                     Joueur enfant2 = croisement(parent1, parent2);
                     mutationParModule(enfant2);
                     mutationPosition(enfant2);
