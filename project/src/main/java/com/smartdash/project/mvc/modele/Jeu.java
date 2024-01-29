@@ -4,7 +4,7 @@ package com.smartdash.project.mvc.modele;
 import com.smartdash.project.IA.*;
 import com.smartdash.project.mvc.modele.objet.Bloc;
 import com.smartdash.project.mvc.modele.objet.Objet;
-import com.smartdash.project.mvc.modele.objet.Pique;
+import com.smartdash.project.mvc.modele.objet.piques.Pique;
 import com.smartdash.project.mvc.modele.objet.Vide;
 import com.smartdash.project.mvc.vue.Observateur;
 import com.smartdash.project.mvc.vue.VueJeu;
@@ -166,11 +166,9 @@ public class Jeu implements Sujet{
     }
 
     public Timeline lancerJeu(boolean afficher,double millis) {
-        jouer = true;
         Timeline timer = new Timeline(
                 new KeyFrame(Duration.millis(millis), evt -> {
-
-                    if(joueur.getVivant() && !joueur.fin && jouer)
+                    if(joueur.getVivant() && !joueur.fin)
                     {
                         joueur.initialiserReseauActive();
                         boolean sauter = joueur.getReseau().isActive();
@@ -182,9 +180,9 @@ public class Jeu implements Sujet{
 
                         updateJeu(afficher);
                     }
-
                 })
         );
+
         timer.setCycleCount(Timeline.INDEFINITE);
         return timer;
     }
@@ -196,11 +194,14 @@ public class Jeu implements Sujet{
     {
         this.joueur.updateJoueur();
         this.camera.update(this.joueur);
-        this.notifierObservateurs();
+
+
         if(afficher)
         {
             afficherPartie();
         }
+
+        this.notifierObservateurs();
     }
 
     /**
@@ -299,4 +300,5 @@ public class Jeu implements Sujet{
     public boolean isJouer() {
         return jouer;
     }
+
 }

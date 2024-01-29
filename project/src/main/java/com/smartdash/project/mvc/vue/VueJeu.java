@@ -4,9 +4,19 @@ package com.smartdash.project.mvc.vue;
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Sujet;
 import com.smartdash.project.mvc.modele.objet.Bloc;
-import com.smartdash.project.mvc.modele.objet.Pique;
+import com.smartdash.project.mvc.modele.objet.piques.Pique;
+import com.smartdash.project.mvc.modele.objet.piques.PiqueDroit;
+import com.smartdash.project.mvc.modele.objet.piques.PiqueGauche;
+import com.smartdash.project.mvc.modele.objet.piques.PiqueRetourne;
+import com.smartdash.project.mvc.vue.VuePique.VuePique;
+import com.smartdash.project.mvc.vue.VuePique.VuePiqueDroit;
+import com.smartdash.project.mvc.vue.VuePique.VuePiqueGauche;
+import com.smartdash.project.mvc.vue.VuePique.VuePiqueRetourne;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class VueJeu extends Pane implements Observateur {
 
@@ -24,14 +34,23 @@ public class VueJeu extends Pane implements Observateur {
         setMaxSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
 
         //Ajout du background en Image
-        setBackground(new Background(new BackgroundImage(new Image("background2.png"), BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
+        //setBackground(new Background(new BackgroundImage(new Image("background2.png"), BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
 
 
     }
 
+    /**
+     * Méthode qui permet de tout initialiser
+     */
     public void init(){
         //On vide la fenêtre de jeu
         getChildren().clear();
+
+        Rectangle background = new Rectangle(10000, 10000);
+        background.setFill(Color.web("#4567FF"));
+
+        // Ajouter le Rectangle et l'ImageView à la scène
+        getChildren().addAll(background);
 
         //On ajoute le joueur
         VueJoueur joueur = new VueJoueur(modele, modele.getJoueur().getX(), modele.getJoueur().getY());
@@ -39,11 +58,16 @@ public class VueJeu extends Pane implements Observateur {
 
         //On ajoute les blocs
         this.modele.getTerrain().getMap().forEach(objet -> {
-
             if (objet instanceof Bloc) {
-
                 getChildren().add(new VueBloc(modele, objet.getX(), objet.getY()));
-
+            }
+            else if(objet instanceof PiqueRetourne)
+            {
+                getChildren().add(new VuePiqueRetourne(modele, objet.getX(), objet.getY()));
+            } else if (objet instanceof PiqueGauche) {
+                getChildren().add(new VuePiqueGauche(modele, objet.getX(), objet.getY()));
+            } else if (objet instanceof PiqueDroit) {
+                getChildren().add(new VuePiqueDroit(modele, objet.getX(), objet.getY()));
             } else if(objet instanceof Pique){
 
                 getChildren().add(new VuePique(modele, objet.getX(), objet.getY()));
@@ -71,26 +95,17 @@ public class VueJeu extends Pane implements Observateur {
     }
 
     public void animationSaut(){
-        VueJoueur joueur = (VueJoueur) getChildren().getFirst();
+        VueJoueur joueur = (VueJoueur) getChildren().get(1);
         joueur.animationSaut();
     }
 
+    /**
+     * Méthode qui permet d'actualiser à chaque temps
+     * @param sujet le modele
+     */
     @Override
     public void actualiser(Sujet sujet) {
-        //On met à jour la position du joueur
-        VueJoueur joueur = (VueJoueur) getChildren().getFirst();
-        joueur.setTranslateX(modele.getJoueur().getX() * modele.getTailleCase());
-        joueur.setY(modele.getJoueur().getY() * modele.getTailleCase());
-        if(!modele.isJouer()){
-            joueur.setRotate(0);
-        }
-        System.out.println(getPrefWidth() + " " + getPrefHeight());
-        /*VueJoueur vueJoueur = (VueJoueur) getChildren().getFirst();
-
-        vueJoueur.setX(modele.getJoueur().getX() * modele.getTailleCase());
-        vueJoueur.setY(modele.getJoueur().getY() * modele.getTailleCase());
-
-        this.setTranslateX(-this.modele.getCamera().getX());
-        this.setTranslateY(-this.modele.getCamera().getY());*/
+        VueJoueur vueJoueur = (VueJoueur) getChildren().get(1);
+        vueJoueur.actualiser();
     }
 }

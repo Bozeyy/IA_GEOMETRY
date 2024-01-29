@@ -12,10 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NeatPosition extends Neat{
+    public NeatPosition()
+    {
+        this.terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
+    }
 
-    public static void main(String[] args) throws Exception {
-        NeatPosition np = new NeatPosition();
-        np.lancerApprentissage();
+    public NeatPosition(Terrain terrain)
+    {
+        this.terrain = terrain;
+    }
+    public NeatPosition(Terrain terrain, int nbGene)
+    {
+        this.terrain = terrain;
+        this.maxGenerations = nbGene;
     }
 
     public void lancerApprentissage() throws Exception {
@@ -38,7 +47,7 @@ public class NeatPosition extends Neat{
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
 
-        Terrain terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
+
         while (generation < maxGenerations) {
             // calcul du score des individus
             for (Joueur j : population) {

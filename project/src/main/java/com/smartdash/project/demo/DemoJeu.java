@@ -266,7 +266,7 @@ public class DemoJeu {
     }
 
     private static void testMutationPosition() {
-        NeatPosition neat = new NeatPosition();
+        NeatPosition neat = new NeatPosition(new Terrain("src/main/resources/apprentissage/terrain1.txt"));
         Neurone neurone = new NeuroneVide(0, 0);
         Neurone neurone2 = new NeuroneVide(0, 0);
         Neurone neurone3 = new NeuroneVide(0, 0);

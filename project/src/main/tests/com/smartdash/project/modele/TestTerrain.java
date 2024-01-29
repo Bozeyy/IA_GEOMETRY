@@ -3,7 +3,7 @@ package com.smartdash.project.modele;
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.modele.objet.Bloc;
 import com.smartdash.project.mvc.modele.objet.Objet;
-import com.smartdash.project.mvc.modele.objet.Pique;
+import com.smartdash.project.mvc.modele.objet.piques.Pique;
 import com.smartdash.project.mvc.modele.objet.Vide;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;

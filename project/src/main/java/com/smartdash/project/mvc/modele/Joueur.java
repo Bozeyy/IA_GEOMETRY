@@ -4,7 +4,7 @@ import com.smartdash.project.IA.Constantes;
 import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.mvc.modele.objet.Bloc;
 import com.smartdash.project.mvc.modele.objet.Objet;
-import com.smartdash.project.mvc.modele.objet.Pique;
+import com.smartdash.project.mvc.modele.objet.piques.Pique;
 import com.smartdash.project.mvc.modele.objet.Vide;
 
 import java.util.ArrayList;

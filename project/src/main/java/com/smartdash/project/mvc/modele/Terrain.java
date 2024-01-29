@@ -1,9 +1,10 @@
 package com.smartdash.project.mvc.modele;
 
-import com.smartdash.project.mvc.modele.objet.Bloc;
-import com.smartdash.project.mvc.modele.objet.Objet;
-import com.smartdash.project.mvc.modele.objet.Pique;
-import com.smartdash.project.mvc.modele.objet.Vide;
+import com.smartdash.project.mvc.modele.objet.*;
+import com.smartdash.project.mvc.modele.objet.piques.Pique;
+import com.smartdash.project.mvc.modele.objet.piques.PiqueDroit;
+import com.smartdash.project.mvc.modele.objet.piques.PiqueGauche;
+import com.smartdash.project.mvc.modele.objet.piques.PiqueRetourne;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -90,6 +91,22 @@ public class Terrain {
                     {
                         Pique pique = new Pique(x,y);
                         objets.add(pique);
+                    }
+                    if (c == 'R')
+                    {
+
+                        PiqueRetourne piqueRetourne = new PiqueRetourne(x,y);
+                        objets.add(piqueRetourne);
+                    }
+                    if(c == 'G')
+                    {
+                        PiqueGauche piqueGauche = new PiqueGauche(x,y);
+                        objets.add(piqueGauche);
+                    }
+                    if(c=='D')
+                    {
+                        PiqueDroit piqueDroit = new PiqueDroit(x,y);
+                        objets.add(piqueDroit);
                     }
                     if(c == '.')
                     {

@@ -47,7 +47,7 @@ public class ControllerClavier implements EventHandler<KeyEvent> {
 
             case A -> {
                 if(timeline == null){
-                    timeline = donnees.lancerJeu(false,100);
+                    timeline = donnees.lancerJeu(false,150);
                 }
                 timeline.play();
             }

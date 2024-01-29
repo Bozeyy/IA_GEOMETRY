@@ -1,4 +1,6 @@
-package com.smartdash.project.mvc.modele.objet;
+package com.smartdash.project.mvc.modele.objet.piques;
+
+import com.smartdash.project.mvc.modele.objet.Objet;
 
 public class Pique extends Objet
 {

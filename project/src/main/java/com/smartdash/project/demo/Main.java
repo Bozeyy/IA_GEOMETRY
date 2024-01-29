@@ -44,7 +44,7 @@ public class Main
 
     public static void lancerNormal()
     {
-         NeatPosition neatAmelioration = new NeatPosition();
+         NeatPosition neatAmelioration = new NeatPosition(new Terrain("src/main/resources/apprentissage/terrain15.txt"),150);
 
         try {
             neatAmelioration.lancerApprentissage();
