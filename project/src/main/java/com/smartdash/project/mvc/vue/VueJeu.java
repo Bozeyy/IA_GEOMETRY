@@ -12,8 +12,6 @@ import com.smartdash.project.mvc.vue.VuePique.VuePique;
 import com.smartdash.project.mvc.vue.VuePique.VuePiqueDroit;
 import com.smartdash.project.mvc.vue.VuePique.VuePiqueGauche;
 import com.smartdash.project.mvc.vue.VuePique.VuePiqueRetourne;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -47,7 +45,7 @@ public class VueJeu extends Pane implements Observateur {
         getChildren().clear();
 
         Rectangle background = new Rectangle(10000, 10000);
-        background.setFill(Color.web("#4567FF"));
+        background.setFill(Color.web("#565656"));
 
         // Ajouter le Rectangle et l'ImageView à la scène
         getChildren().addAll(background);

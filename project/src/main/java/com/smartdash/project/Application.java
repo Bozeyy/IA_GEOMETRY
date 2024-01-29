@@ -19,15 +19,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Application extends javafx.application.Application {
-    AnimationTimer timer;
     final int longueurFenetre = 800;
-    final int hauteurVueInformation = 180;
+    final int hauteurVueInformation = 200;
     int hauteurFenetre;
 
     @Override
     public void start(Stage stage) throws Exception {
         Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/terrain14/generation_20.txt", 0);
-
         Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain14.txt"), joueur.getReseau());
         //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain4.txt"), new Reseau());
 
@@ -40,12 +38,13 @@ public class Application extends javafx.application.Application {
         borderPane.setCenter(vueJeu);
         vueJeu.init();
 
-/**
+
+
         VueInformationApp vueInformationApp = new VueInformationApp(jeu, (int) vueJeu.getPrefWidth(), hauteurVueInformation);
         jeu.enregistrerObservateur(vueInformationApp);
         borderPane.setBottom(vueInformationApp);
         vueInformationApp.init();
-*/
+
 
         Scene scene = new Scene(borderPane);
         scene.setOnKeyPressed(new ControllerClavier(jeu));
