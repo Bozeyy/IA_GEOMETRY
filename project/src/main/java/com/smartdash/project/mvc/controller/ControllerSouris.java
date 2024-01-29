@@ -19,11 +19,10 @@ public class ControllerSouris implements EventHandler<MouseEvent> {
         MouseButton bouton = mouseEvent.getButton();
         switch (bouton){
             case PRIMARY -> {
-                donnees.getJoueur().sauter();
-                break;
+
             }
             case SECONDARY -> {
-                donnees.lancerHumainGraphique();
+
             }
         }
     }

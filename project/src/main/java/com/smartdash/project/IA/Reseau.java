@@ -64,4 +64,8 @@ public class Reseau implements Cloneable {
         }
     }
 
+    public int nbModulesActifs() {
+        return (int) this.modules.stream().filter(Module::isActive).count();
+    }
+
 }

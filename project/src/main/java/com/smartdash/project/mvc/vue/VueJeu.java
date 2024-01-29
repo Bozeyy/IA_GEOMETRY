@@ -18,6 +18,8 @@ public class VueJeu extends Pane implements Observateur {
         //Taille de base de la fenêtre de jeu
         setPrefSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
 
+        //setMinSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
+
         //Taille maximale de la fenêtre de jeu
         setMaxSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
 
@@ -82,6 +84,7 @@ public class VueJeu extends Pane implements Observateur {
         if(!modele.isJouer()){
             joueur.setRotate(0);
         }
+        System.out.println(getPrefWidth() + " " + getPrefHeight());
         /*VueJoueur vueJoueur = (VueJoueur) getChildren().getFirst();
 
         vueJoueur.setX(modele.getJoueur().getX() * modele.getTailleCase());

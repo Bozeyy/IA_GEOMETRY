@@ -18,6 +18,8 @@ public class Terrain {
     private int longueur = 0;
     private int largeur = 0;
 
+    private String nomFichier = "";
+
     /**
      * Constructeur qui permet de construire un terrain avec pleins de petit terrain
      * @param nbTerrain nombre de terrains que l'on va générer
@@ -50,6 +52,7 @@ public class Terrain {
     {
         //On charge la map avec la méthode chargerMap
         this.map = chargerMap(fileName);
+        this.nomFichier = fileName;
     }
 
     /**
@@ -218,5 +221,13 @@ public class Terrain {
 
     public void setMap(ArrayList<Objet> map) {
         this.map = map;
+    }
+
+    public String getNomFichier() {
+        return nomFichier;
+    }
+
+    public void setNomFichier(String nomFichier) {
+        this.nomFichier = nomFichier;
     }
 }

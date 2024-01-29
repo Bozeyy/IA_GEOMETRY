@@ -288,6 +288,7 @@ public class  Joueur
         this.fin = false;
         this.x = 0;
         this.y = this.map.getLargeur()-7;
+        this.vY = 0;
         this.reseau.renitialiser();
     }
 
