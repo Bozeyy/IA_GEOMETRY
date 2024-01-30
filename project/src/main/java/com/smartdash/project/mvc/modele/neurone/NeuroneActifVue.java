@@ -27,17 +27,19 @@ public class NeuroneActifVue extends NeuroneVue{
     }
 
     @Override
-    public void updateView() {
+    public void updateView(boolean actif) {
         double x = (jeu.getJoueur().getX() + neurone.getX() + 0.5) * jeu.getTailleCase();
         double y = (jeu.getJoueur().getY() + neurone.getY() + 0.5) * jeu.getTailleCase();
 
         shape.setLayoutX(x);
         shape.setLayoutY(y);
 
-        if(neurone.isActive()) {
+        if(actif) {
             shape.setStyle("-fx-fill: cyan;");
+            shape.setVisible(true);
         } else {
             shape.setStyle("-fx-fill: grey;");
+            shape.setVisible(false);
         }
     }
 }

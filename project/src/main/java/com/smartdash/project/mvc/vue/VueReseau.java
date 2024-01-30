@@ -14,12 +14,15 @@ import java.util.List;
 
 public class VueReseau extends Pane implements Observateur {
 
-    private final List<NeuroneVue> neurones;
+    private final List<List<NeuroneVue>> reseau;
 
     public VueReseau(Jeu jeu) throws Exception {
-        this.neurones = new ArrayList<>();
-        for (Module mod : jeu.getJoueur().getReseau().getModules()) {
-            for (Neurone neurone : mod.getNeurones()) {
+        this.reseau = new ArrayList<>();
+        for (int i = 0; i < jeu.getJoueur().getReseau().getModules().size(); i++) {
+            Module mod = jeu.getJoueur().getReseau().getModules().get(i);
+            List<NeuroneVue> moduleVue = new ArrayList<>();
+            for (int j = 0; j < mod.getNeurones().size(); j++) {
+                Neurone neurone = mod.getNeurones().get(j);
                 NeuroneVue neuroneVue;
                 switch (neurone.getType()) {
                     case 'v':
@@ -46,20 +49,29 @@ public class VueReseau extends Pane implements Observateur {
                     default:
                         throw new Exception("neurone non reconnu");
                 }
-                neurones.add(neuroneVue);
+                moduleVue.add(neuroneVue);
             }
+            this.reseau.add(moduleVue);
         }
     }
 
     @Override
     public void actualiser(Sujet sujet) {
-        for (NeuroneVue neuroneVue : this.neurones) {
-            neuroneVue.updateView();
+        for (int i = 0; i < this.reseau.size(); i++) {
+            List<NeuroneVue> module = reseau.get(i);
+            boolean actif = ((Jeu)sujet).getJoueur().getReseau().getModules().get(i).isActive();
+            for (NeuroneVue neuroneVue : module) {
+                neuroneVue.updateView(actif);
+            }
         }
 
     }
 
     public List<NeuroneVue> getNeurones() {
-        return neurones;
+        List<NeuroneVue> res = new ArrayList<>();
+        for (List<NeuroneVue> mod : reseau) {
+            res.addAll(mod);
+        }
+        return res;
     }
 }

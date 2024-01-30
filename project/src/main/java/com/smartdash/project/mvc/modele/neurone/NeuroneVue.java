@@ -2,10 +2,7 @@ package com.smartdash.project.mvc.modele.neurone;
 
 import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.mvc.modele.Jeu;
-import com.smartdash.project.mvc.modele.Joueur;
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 public abstract class NeuroneVue {
 
@@ -24,7 +21,7 @@ public abstract class NeuroneVue {
     protected abstract Node createNeuroneShape();
 
 
-    public abstract void updateView();
+    public abstract void updateView(boolean actif);
 
     public Node getShape() {
         return shape;
