@@ -66,20 +66,20 @@ public class NeatAmelioration extends NeatPosition
             stat.addMoyennes(population);
 
             // on ajoute un neurone aleatoirement si le meilleur reseau ne progresse pas
-            if (generation%50 == 0) {
-                meilleurScoreGen = recupererScoreMeilleurIndividu(population);
-                System.out.println("meilleur score : " + meilleurScore);
-                System.out.println("meilleur scoreGen : " + meilleurScoreGen);
-                if (meilleurScoreGen <= meilleurScore) {
-                    System.out.println("ajout neurone");
-                    for (Joueur joueur : population) {
-                        joueur.getReseau().ajouterNeuroneAleatoire();
-                    }
-                } else {
-                    meilleurScore = meilleurScoreGen;
-                }
-
-            }
+//            if (generation%50 == 0) {
+//                meilleurScoreGen = recupererScoreMeilleurIndividu(population);
+//                System.out.println("meilleur score : " + meilleurScore);
+//                System.out.println("meilleur scoreGen : " + meilleurScoreGen);
+//                if (meilleurScoreGen <= meilleurScore) {
+//                    System.out.println("ajout neurone");
+//                    for (Joueur joueur : population) {
+//                        joueur.getReseau().ajouterNeuroneAleatoire();
+//                    }
+//                } else {
+//                    meilleurScore = meilleurScoreGen;
+//                }
+//
+//            }
 
             // On calcule la moyenne des 10 meilleurs
             moyenneGeneration = stat.calculerMoyenne10Meilleurs(population);
