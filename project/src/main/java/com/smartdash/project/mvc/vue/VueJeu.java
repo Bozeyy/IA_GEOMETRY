@@ -22,6 +22,7 @@ public class VueJeu extends Pane implements Observateur {
     private Jeu modele;
 
     private VueReseau vueReseau;
+    private VueJoueur vueJoueur;
 
     public VueJeu(Jeu donnees) throws Exception {
         this.modele = donnees;
@@ -56,8 +57,8 @@ public class VueJeu extends Pane implements Observateur {
         getChildren().addAll(background);
 
         //On ajoute le joueur
-        VueJoueur joueur = new VueJoueur(modele, modele.getJoueur().getX(), modele.getJoueur().getY());
-        getChildren().add(joueur);
+        vueJoueur = new VueJoueur(modele, modele.getJoueur().getX(), modele.getJoueur().getY());
+        getChildren().add(vueJoueur);
 
         //On ajoute les blocs
         this.modele.getTerrain().getMap().forEach(objet -> {
@@ -79,7 +80,7 @@ public class VueJeu extends Pane implements Observateur {
         });
 
         //On met à jour la caméra
-        joueur.translateXProperty().addListener((obs, old, newValue) -> {
+        vueJoueur.translateXProperty().addListener((obs, old, newValue) -> {
             int offset = newValue.intValue();
             System.out.println();
             if (offset > 400 && offset < (modele.getTerrain().getLongueur() * modele.getTailleCase()) - 400) {
@@ -92,7 +93,7 @@ public class VueJeu extends Pane implements Observateur {
         });
 
         //On met à jour la rotation du joueur
-        joueur.yProperty().addListener((obs, old, newValue) -> {
+        vueJoueur.yProperty().addListener((obs, old, newValue) -> {
             animationSaut();
         });
 
@@ -103,8 +104,7 @@ public class VueJeu extends Pane implements Observateur {
     }
 
     public void animationSaut(){
-        VueJoueur joueur = (VueJoueur) getChildren().get(1);
-        joueur.animationSaut();
+        vueJoueur.animationSaut();
     }
 
     /**
@@ -113,7 +113,6 @@ public class VueJeu extends Pane implements Observateur {
      */
     @Override
     public void actualiser(Sujet sujet) {
-        VueJoueur vueJoueur = (VueJoueur) getChildren().get(1);
         vueJoueur.actualiser();
         vueReseau.actualiser(sujet);
     }

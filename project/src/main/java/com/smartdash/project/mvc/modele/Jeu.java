@@ -87,6 +87,7 @@ public class Jeu implements Sujet{
      */
     public void lancerIA(boolean affiche)
     {
+        jouer = true;
         if (affiche) afficherPartie();
 
         while (joueur.getVivant() && !joueur.fin)
@@ -166,6 +167,7 @@ public class Jeu implements Sujet{
     }
 
     public Timeline lancerJeu(boolean afficher,double millis) {
+        jouer = true;
         Timeline timer = new Timeline(
                 new KeyFrame(Duration.millis(millis), evt -> {
                     if(joueur.getVivant() && !joueur.fin)
