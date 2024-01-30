@@ -14,7 +14,7 @@ public class NeuroneNonVideVue extends NeuroneVue {
 
     @Override
     protected Node createNeuroneShape() {
-        Circle circle = new Circle(10, Color.BLACK);
+        Circle circle = new Circle(10, Color.WHITE);
         double x = (jeu.getJoueur().getX() + neurone.getX() + 0.5) * jeu.getTailleCase();
         double y = (jeu.getJoueur().getY() + neurone.getY() + 0.5) * jeu.getTailleCase();
 
@@ -27,17 +27,19 @@ public class NeuroneNonVideVue extends NeuroneVue {
     }
 
     @Override
-    public void updateView() {
+    public void updateView(boolean actif) {
         double x = (jeu.getJoueur().getX() + neurone.getX() + 0.5) * jeu.getTailleCase();
         double y = (jeu.getJoueur().getY() + neurone.getY() + 0.5) * jeu.getTailleCase();
 
         shape.setLayoutX(x);
         shape.setLayoutY(y);
 
-        if(neurone.isActive()) {
+        if(actif) {
             shape.setStyle("-fx-fill: red;");
+            shape.setVisible(true);
         } else {
-            shape.setStyle("-fx-fill: black;");
+            shape.setStyle("-fx-fill: white;");
+            shape.setVisible(false);
         }
     }
 }

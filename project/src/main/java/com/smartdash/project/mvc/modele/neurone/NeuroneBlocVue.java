@@ -2,10 +2,8 @@ package com.smartdash.project.mvc.modele.neurone;
 
 import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.mvc.modele.Jeu;
-import com.smartdash.project.mvc.modele.Joueur;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public class NeuroneBlocVue extends NeuroneVue{
@@ -18,8 +16,8 @@ public class NeuroneBlocVue extends NeuroneVue{
     protected Node createNeuroneShape() {
         Rectangle rectangle = new Rectangle(20, 20, Color.GREY); // Exemple : un rectangle rouge pour les neurones Bloc
         // Ajoutez d'autres propriétés de forme ou de style en fonction de vos besoins
-        double x = (jeu.getJoueur().getX() + neurone.getX() + 0.5) * jeu.getTailleCase() - 10; // 10 est la moitié de la largeur du rectangle
-        double y = (jeu.getJoueur().getY() + neurone.getY() + 0.5) * jeu.getTailleCase() - 10; // 10 est la moitié de la hauteur du rectangle
+        double x = (jeu.getJoueur().getX() + neurone.getX()) * jeu.getTailleCase() + 5; // 10 est la moitié de la largeur du rectangle
+        double y = (jeu.getJoueur().getY() + neurone.getY()) * jeu.getTailleCase() + 5; // 10 est la moitié de la hauteur du rectangle
 
         rectangle.setLayoutX(x);
         rectangle.setLayoutY(y);
@@ -30,17 +28,19 @@ public class NeuroneBlocVue extends NeuroneVue{
     }
 
     @Override
-    public void updateView() {
-        double x = (jeu.getJoueur().getX() + neurone.getX() + 0.5) * jeu.getTailleCase();
-        double y = (jeu.getJoueur().getY() + neurone.getY() + 0.5) * jeu.getTailleCase();
+    public void updateView(boolean actif) {
+        double x = (jeu.getJoueur().getX() + neurone.getX()) * jeu.getTailleCase() -5;
+        double y = (jeu.getJoueur().getY() + neurone.getY()) * jeu.getTailleCase() - 5;
 
         shape.setLayoutX(x);
         shape.setLayoutY(y);
 
-        if(neurone.isActive()) {
+        if(actif) {
             shape.setStyle("-fx-fill: green;");
+            shape.setVisible(true);
         } else {
             shape.setStyle("-fx-fill: grey;");
+            shape.setVisible(false);
         }
     }
 }

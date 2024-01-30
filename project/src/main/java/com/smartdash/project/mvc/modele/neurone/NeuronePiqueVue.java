@@ -2,11 +2,12 @@ package com.smartdash.project.mvc.modele.neurone;
 
 import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.mvc.modele.Jeu;
-import com.smartdash.project.mvc.modele.Joueur;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NeuronePiqueVue extends NeuroneVue{
 
@@ -37,17 +38,31 @@ public class NeuronePiqueVue extends NeuroneVue{
     }
 
     @Override
-    public void updateView() {
+    public void updateView(boolean actif) {
         double x = (jeu.getJoueur().getX() + neurone.getX() + 0.5) * jeu.getTailleCase();
         double y = (jeu.getJoueur().getY() + neurone.getY() + 0.5) * jeu.getTailleCase();
 
-        shape.setLayoutX(x);
-        shape.setLayoutY(y);
+        double triangleSize = 15.0; // Ajustez la taille du triangle selon vos besoins
 
-        if(neurone.isActive()) {
+        double[] points = {
+                x - triangleSize / 2, y + triangleSize / 2,
+                x, y - triangleSize / 2,
+                x + triangleSize / 2, y + triangleSize / 2
+        };
+
+
+        List<Double> l = new ArrayList<>();
+        for (double point : points) {
+            l.add(point);
+        }
+        ((Polygon) shape).getPoints().setAll(l);
+
+        if(actif) {
             shape.setStyle("-fx-fill: green;");
+            shape.setVisible(true);
         } else {
             shape.setStyle("-fx-fill: grey;");
+            shape.setVisible(false);
         }
     }
 }
