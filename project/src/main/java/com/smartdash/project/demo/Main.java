@@ -10,7 +10,7 @@ import java.util.List;
 public class Main
 {
     public static void main(String[] args) {
-        lancerNormal();
+        lancerThread(5);
     }
 
     public static void lancerThread(int nombreInstances)
@@ -20,12 +20,14 @@ public class Main
         for (int i = 0; i < nombreInstances; i++) {
             final int instanceIndex = i;
             Thread apprentissageThread = new Thread(() -> {
-                NeatAmelioration neatAmelioration = new NeatAmelioration(5000, 12);
+                NeatAmelioration neatAmelioration = new NeatAmelioration(5000, 15);
+
                 try {
                     neatAmelioration.lancerApprentissage();
                 } catch (Exception e) {
-                    System.out.println("Erreur dans l'instance " + instanceIndex + ": " + e.getMessage());
+                    throw new RuntimeException(e);
                 }
+
             });
 
             threads.add(apprentissageThread);

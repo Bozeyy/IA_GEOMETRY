@@ -32,7 +32,7 @@ public class NeatAmelioration extends NeatPosition
 
         // initialisation de la population pour la generation initiale
         for (int i = 0; i < nbIndividu; i++) {
-            Reseau r = ReseauFabrique.recupererReseau("src/main/resources/enregistrement/meilleurs/generation_9999.txt", i);
+            Reseau r = ReseauFabrique.genererReseauPosAleatoire();
             population.add(new Joueur(r));
         }
 
@@ -95,10 +95,10 @@ public class NeatAmelioration extends NeatPosition
 
                     // 2 enfants par couple
                     Joueur enfant1 = croisement(parent1, parent2);
-                    mutationParModule(enfant1);
+                    mutation(enfant1);
                     mutationPosition(enfant1);
                     Joueur enfant2 = croisement(parent1, parent2);
-                    mutationParModule(enfant2);
+                    mutation(enfant2);
                     mutationPosition(enfant2);
 
                     enfants.add(enfant1);
