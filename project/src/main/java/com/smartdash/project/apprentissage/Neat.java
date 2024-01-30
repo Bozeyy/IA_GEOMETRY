@@ -184,7 +184,7 @@ public class Neat{
             for (Module module : modules) {
                 for (Neurone neurone : module.getNeurones()) {
                     probaMutation = random.nextInt(res.getNbNeurone()-1);
-                    if (probaMutation == 0) {
+                    if (probaMutation < 2) {
                         n = changerTypeNeurone(neurone);
                         index = module.getNeurones().indexOf(neurone);
                         module.getNeurones().set(index, n);

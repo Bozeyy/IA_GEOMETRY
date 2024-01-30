@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NeatPosition extends Neat{
+
+    public static void main(String[] args) throws Exception {
+        NeatPosition np = new NeatPosition();
+        np.lancerApprentissage();
+    }
     public NeatPosition()
     {
         this.terrain = new Terrain("src/main/resources/apprentissage/terrain1.txt");
@@ -76,8 +81,8 @@ public class NeatPosition extends Neat{
                     mutationPosition(enfant1);
 
                     Joueur enfant2 = croisement(parent1, parent2);
-                    mutationParModule(enfant2);
-                    mutationPosition(enfant2);
+                    mutation(enfant2);
+                    mutation(enfant2);
 
                     enfants.add(enfant1);
                     enfants.add(enfant2);
@@ -116,7 +121,7 @@ public class NeatPosition extends Neat{
             for (Module module : modules) {
                 for (Neurone neurone : module.getNeurones()) {
                     probaMutation = random.nextInt(res.getNbNeurone());
-                    if (probaMutation == 0) {
+                    if (probaMutation < 2) {
                         // Mutation des coordonnées du neurone
                         nouvelleValeurX = random.nextInt((Constantes.X_NEURONES_MAX - Constantes.X_NEURONES_MIN) + 1) + Constantes.X_NEURONES_MIN;
                         nouvelleValeurY = random.nextInt((Constantes.Y_NEURONES_MAX - Constantes.Y_NEURONES_MIN) + 1) + Constantes.Y_NEURONES_MIN;
