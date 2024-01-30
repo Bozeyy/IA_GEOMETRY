@@ -22,7 +22,7 @@ public class Module implements Cloneable {
     }
 
     public void addNeurone(Neurone neurone) {
-        if (this.neurones.size() < Constantes.NB_NEURONES_PAR_MODULES && !this.neurones.contains(neurone)) {
+        if (!this.neurones.contains(neurone)) {
             this.neurones.add(neurone);
         }
     }

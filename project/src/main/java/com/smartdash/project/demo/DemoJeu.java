@@ -7,6 +7,7 @@ import com.smartdash.project.IA.neurones.NeuroneNonPique;
 import com.smartdash.project.IA.neurones.NeuronePique;
 import com.smartdash.project.IA.neurones.NeuroneVide;
 import com.smartdash.project.apprentissage.Neat;
+import com.smartdash.project.apprentissage.NeatAmelioration;
 import com.smartdash.project.apprentissage.NeatPosition;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.mvc.modele.Jeu;
@@ -160,7 +161,7 @@ public class DemoJeu {
     }
 
     private static void testMutation() {
-        Neat neat = new Neat();
+        NeatAmelioration neat = new NeatAmelioration(5,1);
         Neurone neurone = new NeuroneVide(0, -1);
         Neurone neurone2 = new NeuroneVide(1, 0);
         Neurone neurone3 = new NeuroneVide(2, 0);
@@ -172,7 +173,7 @@ public class DemoJeu {
         System.out.println(reseau1);
         System.out.println("------------------");
 
-        neat.mutationParModule(j1);
+        j1.getReseau().ajouterNeuroneAleatoire();
 
 
         System.out.println("Reseau muté :");

@@ -13,7 +13,7 @@ import com.smartdash.project.mvc.modele.Jeu;
 import java.util.*;
 
 public class Neat{
-    protected final Random random = new Random();
+    public final Random random = new Random();
     protected int maxGenerations;
     protected Terrain terrain;
     protected final int NB_MEILLEURS = 8;

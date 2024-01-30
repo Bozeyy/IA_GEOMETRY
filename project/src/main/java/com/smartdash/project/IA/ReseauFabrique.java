@@ -1,5 +1,7 @@
 package com.smartdash.project.IA;
 
+import com.smartdash.project.apprentissage.util.Enregistrement;
+
 public class ReseauFabrique {
 
     /**
@@ -32,5 +34,10 @@ public class ReseauFabrique {
             reseau.addModule(ModuleFabrique.genererModulePosAleatoire());
         }
         return reseau;
+    }
+
+    public static Reseau recupererReseau(String chemin, int i) throws Exception {
+        Reseau r = Enregistrement.recupererJoueurGeneration(chemin, i).getReseau().clone();
+        return r;
     }
 }

@@ -1,10 +1,16 @@
 package com.smartdash.project.IA;
 
+import com.smartdash.project.IA.neurones.Neurone;
+import com.smartdash.project.apprentissage.Neat;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Reseau implements Cloneable {
     private List<Module> modules;
+
+    private Random rand = new Random();
     
     public Reseau() {
         this.modules = new ArrayList<>(Constantes.NB_MODULES_PAR_RESEAU);
@@ -68,4 +74,16 @@ public class Reseau implements Cloneable {
         return (int) this.modules.stream().filter(Module::isActive).count();
     }
 
+    public void ajouterNeuroneAleatoire() {
+        Neurone n = NeuroneFabrique.genererNeuronneAleatoire();
+        int indiceModule = rand.nextInt(this.modules.size()+1);
+
+        if (indiceModule == this.modules.size()) {
+            Module module = ModuleFabrique.genererModule(new Neurone[]{n});
+            this.addModule(module);
+        } else {
+            this.modules.get(indiceModule).addNeurone(n);
+        }
+
+    }
 }
