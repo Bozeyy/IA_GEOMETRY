@@ -41,7 +41,6 @@ public class ControllerClavier implements EventHandler<KeyEvent> {
 
             case P -> {
                 donnees.getJoueur().setY(0);
-                donnees.getJoueur().setX(donnees.getJoueur().getX() + 1);
                 donnees.notifierObservateurs();
             }
 

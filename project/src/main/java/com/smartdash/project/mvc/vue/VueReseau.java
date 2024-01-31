@@ -3,10 +3,8 @@ package com.smartdash.project.mvc.vue;
 import com.smartdash.project.IA.Module;
 import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.mvc.modele.Jeu;
-import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Sujet;
-import com.smartdash.project.mvc.modele.neurone.*;
-import javafx.scene.layout.GridPane;
+import com.smartdash.project.mvc.vue.VueNeurone.*;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;

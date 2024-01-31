@@ -3,7 +3,7 @@ package com.smartdash.project.mvc.vue;
 
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Sujet;
-import com.smartdash.project.mvc.modele.neurone.NeuroneVue;
+import com.smartdash.project.mvc.vue.VueNeurone.NeuroneVue;
 import com.smartdash.project.mvc.modele.objet.Bloc;
 import com.smartdash.project.mvc.modele.objet.piques.Pique;
 import com.smartdash.project.mvc.modele.objet.piques.PiqueDroit;
@@ -113,7 +113,12 @@ public class VueJeu extends Pane implements Observateur {
      */
     @Override
     public void actualiser(Sujet sujet) {
-        vueJoueur.actualiser();
-        vueReseau.actualiser(sujet);
+        Jeu jeu = (Jeu) sujet;
+
+        if(jeu.getJoueur().getVivant() && !jeu.getJoueur().isFin())
+        {
+            vueJoueur.actualiser();
+            vueReseau.actualiser(sujet);
+        }
     }
 }

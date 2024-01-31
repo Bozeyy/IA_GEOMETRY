@@ -13,7 +13,7 @@ public class VuePiqueRetourne extends Rectangle implements Observateur
 
     public VuePiqueRetourne(Jeu donnees, int x, int y){
         this.donnees = donnees;
-        setFill(new ImagePattern(new Image("pique.png")));
+        setFill(new ImagePattern(new Image("pique_retourne.png")));
         setWidth(this.donnees.getTailleCase());
         setHeight(this.donnees.getTailleCase());
         setX(x * this.donnees.getTailleCase());

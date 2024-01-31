@@ -1,4 +1,4 @@
-package com.smartdash.project.mvc.modele.neurone;
+package com.smartdash.project.mvc.vue.VueNeurone;
 
 import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.mvc.modele.Jeu;

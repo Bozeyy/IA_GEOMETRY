@@ -18,13 +18,9 @@ public class Jeu implements Sujet{
     // Attributs
     private Joueur joueur;
     private Terrain terrain;
-    private Camera camera;
-
-
-    private int tailleCase = 30;
-
+    //private Camera camera;
+    private final int TAIILE_CASE = 30;
     private List<Observateur> observateurs;
-
     private boolean jouer;
 
 
@@ -38,7 +34,7 @@ public class Jeu implements Sujet{
         //this.joueur = new Joueur(0,0, terrain, reseau);
         this.terrain = terrain;
         this.joueur = new Joueur(terrain, reseau);
-        this.camera = new Camera(this.joueur.getX(), this.joueur.getY());
+        //this.camera = new Camera(this.joueur.getX(), this.joueur.getY());
 
         //Partie mvc
         this.observateurs = new ArrayList<>();
@@ -54,7 +50,7 @@ public class Jeu implements Sujet{
         this.joueur = joueur;
         this.joueur.setMap(terrain);
         this.terrain = terrain;
-        this.camera = new Camera(this.joueur.getX(), this.joueur.getY());
+       // this.camera = new Camera(this.joueur.getX(), this.joueur.getY());
         this.observateurs = new ArrayList<>();
         jouer = false;
     }
@@ -163,7 +159,7 @@ public class Jeu implements Sujet{
                 notifierObservateurs();
             }
         };
-        timer.scheduleAtFixedRate(task, 0, 200);
+        timer.scheduleAtFixedRate(task, 0, 800);
     }
 
     public Timeline lancerJeu(boolean afficher,double millis) {
@@ -195,7 +191,7 @@ public class Jeu implements Sujet{
     public void updateJeu(boolean afficher)
     {
         this.joueur.updateJoueur();
-        this.camera.update(this.joueur);
+        //this.camera.update(this.joueur);
 
 
         if(afficher)
@@ -254,13 +250,13 @@ public class Jeu implements Sujet{
     public Terrain getTerrain() {
         return this.terrain;
     }
-    public Camera getCamera()
+    /*public Camera getCamera()
     {
-        return this.camera;
-    }
+        //return this.camera;
+    }*/
 
     public int getTailleCase() {
-        return tailleCase;
+        return TAIILE_CASE;
     }
 
     @Override

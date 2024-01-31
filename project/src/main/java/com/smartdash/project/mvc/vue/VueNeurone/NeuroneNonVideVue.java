@@ -1,4 +1,4 @@
-package com.smartdash.project.mvc.modele.neurone;
+package com.smartdash.project.mvc.vue.VueNeurone;
 
 import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.mvc.modele.Jeu;
@@ -6,15 +6,15 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class NeuroneVideVue extends NeuroneVue{
+public class NeuroneNonVideVue extends NeuroneVue {
 
-    public NeuroneVideVue(Neurone neurone, Jeu jeu) {
+    public NeuroneNonVideVue(Neurone neurone, Jeu jeu) {
         super(neurone, jeu);
     }
 
     @Override
     protected Node createNeuroneShape() {
-        Circle circle = new Circle(10, Color.GREY);
+        Circle circle = new Circle(10, Color.WHITE);
         double x = (jeu.getJoueur().getX() + neurone.getX() + 0.5) * jeu.getTailleCase();
         double y = (jeu.getJoueur().getY() + neurone.getY() + 0.5) * jeu.getTailleCase();
 
@@ -35,10 +35,10 @@ public class NeuroneVideVue extends NeuroneVue{
         shape.setLayoutY(y);
 
         if(actif) {
-            shape.setStyle("-fx-fill: green;");
+            shape.setStyle("-fx-fill: red;");
             shape.setVisible(true);
         } else {
-            shape.setStyle("-fx-fill: grey;");
+            shape.setStyle("-fx-fill: white;");
             shape.setVisible(false);
         }
     }

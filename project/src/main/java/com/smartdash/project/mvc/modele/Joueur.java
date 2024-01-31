@@ -352,4 +352,8 @@ public class  Joueur
     public int getVY() {
         return vY;
     }
+
+    public boolean isFin() {
+        return fin;
+    }
 }
