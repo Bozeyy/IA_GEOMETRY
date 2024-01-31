@@ -19,7 +19,7 @@ public class NeatPosition extends Neat{
     }
     public NeatPosition()
     {
-        this.terrain = new Terrain("src/main/resources/apprentissage/terrain7.txt");
+        this.terrain = new Terrain("src/main/resources/apprentissage/terrain10.txt");
     }
 
     public NeatPosition(Terrain terrain)
