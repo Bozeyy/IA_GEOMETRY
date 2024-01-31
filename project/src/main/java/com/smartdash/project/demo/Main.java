@@ -18,7 +18,6 @@ public class Main
         List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < nombreInstances; i++) {
-            final int instanceIndex = i;
             Thread apprentissageThread = new Thread(() -> {
                 NeatAmelioration neatAmelioration = new NeatAmelioration(5000, 15);
 
