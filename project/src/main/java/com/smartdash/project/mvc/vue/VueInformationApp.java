@@ -2,6 +2,7 @@ package com.smartdash.project.mvc.vue;
 
 import com.smartdash.project.IA.Module;
 import com.smartdash.project.IA.neurones.Neurone;
+import com.smartdash.project.mvc.controller.ControllerSouris;
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Sujet;
 import javafx.beans.binding.Bindings;
@@ -11,10 +12,11 @@ import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.awt.*;
 import java.util.Objects;
 
 public class VueInformationApp extends HBox implements Observateur {
@@ -73,8 +75,6 @@ public class VueInformationApp extends HBox implements Observateur {
         javafx.scene.shape.Rectangle imageJoueur = new javafx.scene.shape.Rectangle(30, 30);
         imageJoueur.setFill(new ImagePattern(new javafx.scene.image.Image("player.png")));
 
-        //ajout des éléments au titre joueur
-        titreJoueur.getChildren().addAll(imageJoueur,joueur);
 
         //ajout du score du joueur
         Text score = new Text("- Score : " + donnees.getJoueur().getX());
