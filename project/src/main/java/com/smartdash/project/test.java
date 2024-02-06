@@ -1,26 +1,22 @@
 package com.smartdash.project;
 
-import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.mvc.controller.ControllerClavier;
 import com.smartdash.project.mvc.controller.ControllerSouris;
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
-import com.smartdash.project.mvc.vue.VueCommande;
+import com.smartdash.project.mvc.scene.SceneJeu;
 import com.smartdash.project.mvc.vue.VueInformationApp;
+import com.smartdash.project.mvc.vue.VueInterface;
 import com.smartdash.project.mvc.vue.VueJeu;
-import com.smartdash.project.mvc.vue.VueReseau;
-import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class Application extends javafx.application.Application {
+public class test extends javafx.application.Application {
     final int longueurFenetre = 800;
     final int hauteurVueInformation = 200;
 
@@ -33,31 +29,18 @@ public class Application extends javafx.application.Application {
         Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain9.txt"), joueur.getReseau());
         //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain4.txt"), new Reseau());
 
-        BorderPane borderPane = new BorderPane();
-        //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());
-        borderPane.setPrefSize(longueurFenetre, jeu.getTailleCase() * jeu.getTerrain().getLargeur());
-
-        //VueCommande
-        /*VueCommande vueCommande = new VueCommande(jeu, (int) borderPane.getPrefWidth(), hauteurVueCommande);
-        jeu.enregistrerObservateur(vueCommande);
-        borderPane.setTop(vueCommande);
-        vueCommande.init();*/
-
-        //Vue Jeu
-        VueJeu vueJeu = new VueJeu(jeu);
-        jeu.enregistrerObservateur(vueJeu);
-        borderPane.setCenter(vueJeu);
-        vueJeu.init();
 
 
-        //Vue Info
-        VueInformationApp vueInformationApp = new VueInformationApp(jeu, (int) vueJeu.getPrefWidth(), hauteurVueInformation);
-        jeu.enregistrerObservateur(vueInformationApp);
-        borderPane.setBottom(vueInformationApp);
-        vueInformationApp.init();
+
+        //Vueinterface
+        VueInterface vueInterface = new VueInterface(jeu, stage);
+        jeu.enregistrerObservateur(vueInterface);
+        //borderPane.setTop(vueInterface);
+        vueInterface.init();
+        Scene sceneInterface = new Scene(vueInterface);
 
 
-        Scene scene = new Scene(borderPane);
+        Scene scene = new SceneJeu(jeu);
         scene.setOnKeyPressed(new ControllerClavier(jeu));
         scene.setOnMouseClicked(new ControllerSouris(jeu));
 

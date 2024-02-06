@@ -1,0 +1,40 @@
+package com.smartdash.project.mvc.controller;
+
+import com.smartdash.project.mvc.modele.Jeu;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+public class ControllerButton implements EventHandler<ActionEvent> {
+
+    Jeu modele;
+
+    Stage stage;
+
+    public ControllerButton(Jeu modele, Stage stage) {
+        this.modele = modele;
+        this.stage = stage;
+    }
+    @Override
+    public void handle(ActionEvent actionEvent) {
+        String idButton = ((Node) actionEvent.getSource()).getId();
+        System.out.println("Button clicked: " + idButton);
+
+        switch(idButton) {
+            case "LancerIA":
+                stage.setScene(new Scene(new Pane(),500,500));
+                break;
+            default:
+                break;
+        }
+
+
+
+
+    }
+}
