@@ -12,6 +12,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.*;
 
 public class Jeu implements Sujet{
@@ -255,6 +256,14 @@ public class Jeu implements Sujet{
         //return this.camera;
     }*/
 
+    public void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
+
     public int getTailleCase() {
         return TAIILE_CASE;
     }
@@ -280,9 +289,25 @@ public class Jeu implements Sujet{
         }
     }
 
-    public void genererTerrainGraphique(){
-        List<Objet> objets = terrain.getMap();
-        //TODO
+    public List<Terrain> genererTerrains(){
+        List<Terrain> terrains = new ArrayList<>();
+
+        // On récupère les terrains dans le dossier src/main/resources
+        File folder = new File("src/main/resources");
+        File[] listOfFiles = folder.listFiles();
+
+        // On parcourt les dossiers pour récupérer les terrains
+        for (File file : listOfFiles) {
+
+            if (file.isDirectory() && (file.getName().equals("apprentissage") || file.getName().equals("Terrains") || file.getName().equals("test_apprentissage"))) {
+                // On parcourt les terrains dans chaque dossier
+                for (File terrain : file.listFiles()) {
+                    // On ajoute le terrain à la liste
+                    terrains.add(new Terrain("src/main/resources/" + file.getName() + "/" + terrain.getName()));
+                }
+            }
+        }
+        return terrains;
     }
 
     public Observateur getVueJeu(){

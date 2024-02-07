@@ -1,6 +1,8 @@
 package com.smartdash.project.mvc.scene;
 
 import com.smartdash.project.apprentissage.util.Enregistrement;
+import com.smartdash.project.mvc.controller.ControllerClavier;
+import com.smartdash.project.mvc.controller.ControllerSouris;
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
@@ -21,6 +23,8 @@ public class SceneJeu extends Scene {
         super(new BorderPane());
         this.modele = modele;
         setRoot(init());
+        setOnKeyPressed(new ControllerClavier(modele));
+        setOnMouseClicked(new ControllerSouris(modele));
     }
 
     public Parent init() throws Exception {

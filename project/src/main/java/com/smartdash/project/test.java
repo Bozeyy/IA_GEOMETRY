@@ -28,6 +28,7 @@ public class test extends javafx.application.Application {
         Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_apprentissage_8-5.txt", 0);
         Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain9.txt"), joueur.getReseau());
         //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain4.txt"), new Reseau());
+        jeu.genererTerrains();
 
 
 
@@ -41,8 +42,6 @@ public class test extends javafx.application.Application {
 
 
         Scene scene = new SceneJeu(jeu);
-        scene.setOnKeyPressed(new ControllerClavier(jeu));
-        scene.setOnMouseClicked(new ControllerSouris(jeu));
 
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
@@ -55,7 +54,7 @@ public class test extends javafx.application.Application {
 
 
         stage.setTitle("SmartDash");
-        stage.setScene(scene);
+        stage.setScene(sceneInterface);
         stage.show();
     }
 
