@@ -23,11 +23,11 @@ public class VueJeu extends Pane implements Observateur {
 
     private VueReseau vueReseau;
     private VueJoueur vueJoueur;
+    private VueParticule vueParticule;
 
     public VueJeu(Jeu donnees) throws Exception {
         this.modele = donnees;
         this.vueReseau = new VueReseau(modele);
-
 
         //Taille de base de la fenêtre de jeu
         setPrefSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
@@ -36,11 +36,6 @@ public class VueJeu extends Pane implements Observateur {
 
         //Taille maximale de la fenêtre de jeu
         setMaxSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
-
-        //Ajout du background en Image
-        //setBackground(new Background(new BackgroundImage(new Image("background2.png"), BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
-
-
     }
 
     /**
@@ -59,6 +54,9 @@ public class VueJeu extends Pane implements Observateur {
         //On ajoute le joueur
         vueJoueur = new VueJoueur(modele, modele.getJoueur().getX(), modele.getJoueur().getY());
         getChildren().add(vueJoueur);
+
+        vueParticule = new VueParticule(modele);
+        getChildren().add(vueParticule);
 
         //On ajoute les blocs
         this.modele.getTerrain().getMap().forEach(objet -> {
@@ -97,6 +95,7 @@ public class VueJeu extends Pane implements Observateur {
             animationSaut();
         });
 
+
         // ajout des neurone au pane
         for (NeuroneVue neuroneVue : vueReseau.getNeurones()) {
             this.getChildren().add(neuroneVue.getShape());
@@ -115,10 +114,11 @@ public class VueJeu extends Pane implements Observateur {
     public void actualiser(Sujet sujet) {
         Jeu jeu = (Jeu) sujet;
 
-        if(jeu.getJoueur().getVivant() && !jeu.getJoueur().isFin())
+        if(jeu.getJoueur().getVivant())
         {
             vueJoueur.actualiser();
             vueReseau.actualiser(sujet);
+            vueParticule.actualiser();
         }
     }
 }

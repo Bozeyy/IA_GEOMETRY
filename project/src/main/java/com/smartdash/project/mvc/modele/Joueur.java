@@ -19,6 +19,7 @@ public class  Joueur
     protected Terrain map;
     protected boolean vivant;
     protected  boolean fin;
+    protected boolean saut;
     protected Reseau reseau;
     protected double score;
     protected ArrayList<Double> scoresListes;
@@ -56,6 +57,7 @@ public class  Joueur
         this.map = mapJeu;
         this.vivant = true;
         this.fin = false;
+        this.saut = false;
         this.x = 0;
         this.y = mapJeu.getLargeur()-7;
         this.score = 0;
@@ -114,16 +116,6 @@ public class  Joueur
     public List<Objet> getObjetsAutour() {
         return this.map.getMap().stream()
                 .filter(objet -> Math.abs(this.getX() - objet.getX()) < 2 && Math.abs(this.getY() - objet.getY()) < 2)
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Méthode qui permet de renvoyer les objets autour du personnage
-     * @return retourne une liste d'objet autours du personnage
-     */
-    public List<Objet> getObjetsAutour(int longueur, int hauteur) {
-        return this.map.getMap().stream()
-                .filter(objet -> Math.abs(this.getX() - objet.getX()) < longueur && Math.abs(this.getY() - objet.getY()) < hauteur)
                 .collect(Collectors.toList());
     }
 
@@ -224,6 +216,8 @@ public class  Joueur
      * @return retourne un boolean
      */
     protected boolean verificationSurObjets(List<Objet> objetsAutourJoueur) {
+        boolean surObjet = false;
+
         for (Objet objet : objetsAutourJoueur)
         {
             if(objet.isInside(new Joueur(this.x, this.y+1, this.map, this.reseau)))
@@ -233,10 +227,13 @@ public class  Joueur
                     this.vivant = false;
                 }
 
-                return (objet instanceof Bloc);
+                surObjet =  (objet instanceof Bloc);
             }
         }
-        return false;
+
+        this.saut = !surObjet;
+        System.out.println(saut);
+        return surObjet;
     }
 
     /**
@@ -356,4 +353,5 @@ public class  Joueur
     public boolean isFin() {
         return fin;
     }
+    public boolean isSaut(){return saut;}
 }
