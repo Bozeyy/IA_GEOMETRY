@@ -21,12 +21,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Application extends javafx.application.Application {
-    final int longueurFenetre = 800;
-    final int hauteurVueInformation = 190;
+    private final int longueurFenetre = 800;
+    private final int hauteurVueInformation = 190;
+    private final int hauteurVueCommande = 15;
+    private int hauteurFenetre;
 
-    final int hauteurVueCommande = 15;
-    int hauteurFenetre;
-
+    /**
+     * Méthode qui permet de lancer l'application
+     * @param stage représente la page à afficher
+     * @throws Exception exception s'il y'a des erreurs
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/10-02-2024_17-32-31_id602/generation_1533.txt", 0);
