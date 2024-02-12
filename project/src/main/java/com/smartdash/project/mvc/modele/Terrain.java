@@ -18,8 +18,8 @@ public class Terrain {
     private ArrayList<Objet> map = new ArrayList<>();
     private int longueur = 0;
     private int largeur = 0;
-
     private String nomFichier = "";
+
 
     /**
      * Constructeur qui permet de construire un terrain avec pleins de petit terrain
@@ -55,6 +55,7 @@ public class Terrain {
         this.map = chargerMap(fileName);
         this.nomFichier = fileName;
     }
+
 
     /**
      * Méthode qui permet de générer un terrain à partir d'un fichier texte
@@ -132,23 +133,15 @@ public class Terrain {
         //créer la liste des objets
         ArrayList<Objet> objets = new ArrayList<>();
 
-        //On récupère le nombre de terrain
-        int nbTerrainsApprentissage =  Objects.requireNonNull(new File("src/main/resources/apprentissage").listFiles()).length;
-
-        //tester si le nombre de terrain à mélanger est supérieur à 0 et s'il depasse pas le nombre de terrain
-        if(nombreTerrainMelange < 0){
-            throw new IllegalArgumentException("Le nombre de terrain à mélanger est inférieur à 0");
-        }
-
-        if(nombreTerrainMelange > nbTerrainsApprentissage){
-            throw new IllegalArgumentException("Le nombre de terrain à mélanger est supérieur au nombre de terrain disponible");
-        }
+        //On récupère le nombre de terrains
+        int nbTerrainsApprentissage = getNbTerrainsApprentissage(nombreTerrainMelange);
 
         //On récupère les terrains d'apprentissage
-        //On prend aléatoirement les terrains à mélanger en fonction du nombre de terrain à mélanger
-        //on les ajoute le nom des terrains tirés aléatoirement dans une liste
+        //On prend aléatoirement les terrains à mélanger en fonction du nombre de terrains à mélanger
+        //On les ajoute le nom des terrains tirés aléatoirement dans une liste
         List<ArrayList<Objet>> terrainsAMelanger = new ArrayList<>(nombreTerrainMelange);
         List<String> nomterrainsAMelanger = new ArrayList<>(nombreTerrainMelange);
+
         while(nombreTerrainMelange > 0){
             int random = (int) (Math.random() * nbTerrainsApprentissage) + 1;
             String terrain = "src/main/resources/apprentissage/terrain" + random + ".txt";
@@ -178,51 +171,24 @@ public class Terrain {
     }
 
     /**
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
+     * Méthode qui permet de retourner le nombre de terrains d'apprentissage présent dans un dossier
+     * @param nombreTerrainMelange nombre de terrains à mélanger
+     * @return retourne le nombre de terrains
+     */
+    private static int getNbTerrainsApprentissage(int nombreTerrainMelange) {
+        int nbTerrainsApprentissage =  Objects.requireNonNull(new File("src/main/resources/apprentissage").listFiles()).length;
 
-        for (int i = 0; i < largeur; i++) {
-            for (int j = 0; j < longueur; j++) {
-                int finalI = i;
-                int finalJ1 = j;
-                boolean isObjet = map.stream()
-                        .anyMatch(objet -> objet.getX() == finalJ1 && objet.getY() == finalI);
-
-                if (isObjet) {
-                    // Vérifier le type d'objet à cette position
-                    int finalI1 = i;
-                    int finalJ = j;
-                    boolean isBloc = map.stream()
-                            .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI1 && objet instanceof Bloc);
-
-                    int finalI2 = i;
-                    int finalJ2 = j;
-                    boolean isPique = map.stream()
-                            .anyMatch(objet -> objet.getX() == finalJ2 && objet.getY() == finalI2 && objet instanceof Pique);
-
-                    int finalJ3 = j;
-                    int finalI3 = i;
-                    boolean isVide = map.stream()
-                            .anyMatch(objet -> objet.getX() == finalJ3 && objet.getY() == finalI3 && objet instanceof Vide);
-
-
-                    if (isBloc) {
-                        sb.append("B");
-                    } else if (isPique) {
-                        sb.append("P");
-                    } else if (isVide) {
-                        sb.append(".");
-                    }
-                } else {
-                    sb.append(" "); // Si pas d'objet, afficher un espace
-                }
-            }
-            sb.append(System.lineSeparator()); // Nouvelle ligne pour chaque ligne de la carte
+        //tester si le nombre de terrains à mélanger est supérieur à 0 et s'il ne dépasse pas le nombre de terrains
+        if(nombreTerrainMelange < 0){
+            throw new IllegalArgumentException("Le nombre de terrain à mélanger est inférieur à 0");
         }
 
-        return sb.toString();
+        if(nombreTerrainMelange > nbTerrainsApprentissage){
+            throw new IllegalArgumentException("Le nombre de terrain à mélanger est supérieur au nombre de terrain disponible");
+        }
+        return nbTerrainsApprentissage;
     }
-*/
+
 
     public ArrayList<Objet> getMap() {
         return map;
@@ -236,15 +202,11 @@ public class Terrain {
         return largeur;
     }
 
-    public void setMap(ArrayList<Objet> map) {
-        this.map = map;
-    }
-
     public String getNomFichier() {
         return nomFichier;
     }
 
-    public void setNomFichier(String nomFichier) {
-        this.nomFichier = nomFichier;
+    public void setMap(ArrayList<Objet> map) {
+        this.map = map;
     }
 }

@@ -14,6 +14,11 @@ public abstract class Objet {
         this.y = y;
     }
 
+    /**
+     * Méthode qui permet de détecter une collision
+     * @param joueur joueur qui se prend la collision
+     * @return retourne s'il y a une collision
+     */
     public boolean isInside(Joueur joueur)
     {
         return Objects.equals(joueur.getX(), this.x) && Objects.equals(joueur.getY(), this.y);
@@ -28,6 +33,12 @@ public abstract class Objet {
         return this.y;
     }
 
+    /**
+     * Méthode qui retourne le type de l'objet
+     * @return le type de l'objet
+     */
+    public abstract String getType();
+
     public void setX(int x) {
         this.x = x;
     }
@@ -35,6 +46,4 @@ public abstract class Objet {
     public void setY(int y) {
         this.y = y;
     }
-
-    public abstract String getType();
 }

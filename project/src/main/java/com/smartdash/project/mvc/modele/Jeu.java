@@ -16,13 +16,11 @@ import java.io.File;
 import java.util.*;
 
 public class Jeu implements Sujet{
-    // Attributs
     private Joueur joueur;
     private Terrain terrain;
-    //private Camera camera;
-    private final int TAIILE_CASE = 30;
-    private List<Observateur> observateurs;
     private boolean jouer;
+    private List<Observateur> observateurs;
+    private final int TAIILE_CASE = 30;
 
 
     /**
@@ -32,14 +30,11 @@ public class Jeu implements Sujet{
      */
     public Jeu(Terrain terrain, Reseau reseau)
     {
-        //this.joueur = new Joueur(0,0, terrain, reseau);
         this.terrain = terrain;
         this.joueur = new Joueur(terrain, reseau);
-        //this.camera = new Camera(this.joueur.getX(), this.joueur.getY());
+        this.jouer = false;
 
-        //Partie mvc
         this.observateurs = new ArrayList<>();
-        jouer = false;
     }
 
     /**
@@ -51,17 +46,24 @@ public class Jeu implements Sujet{
         this.joueur = joueur;
         this.joueur.setMap(terrain);
         this.terrain = terrain;
-       // this.camera = new Camera(this.joueur.getX(), this.joueur.getY());
         this.observateurs = new ArrayList<>();
         jouer = false;
     }
 
+
+    /**
+     * Méthode qui permet d'évaluer un joueur
+     */
     public void evaluationUnJoueur() {
         this.joueur.renitialiser();
         lancerEvaluation(false);
         this.joueur.setScore(joueur.getX() + 1);
     }
 
+    /**
+     * Méthode qui permet de faire jouer un joueur
+     * @param afficher permet d'afficher le jeu dans la console
+     */
     public void lancerEvaluation(boolean afficher) {
         if(afficher)
         {
@@ -81,6 +83,7 @@ public class Jeu implements Sujet{
 
     /**
      * Méthode qui permet de lancer le jeu en utilisant un réseau d'IA
+     * temporaire
      */
     public void lancerIA(boolean affiche)
     {
@@ -105,6 +108,7 @@ public class Jeu implements Sujet{
 
     /**
      * Méthode qui permet de lancer le jeu et d'y jouer en console
+     * temporaire
      */
     public void lancerHuamin()
     {
@@ -143,6 +147,9 @@ public class Jeu implements Sujet{
         timer.scheduleAtFixedRate(task,0,200);
     }
 
+    /**
+     * Méthode qui permet de jouer
+     */
     public void lancerHumainGraphique() {
         jouer = true;
         Timer timer = new Timer();
@@ -163,6 +170,12 @@ public class Jeu implements Sujet{
         timer.scheduleAtFixedRate(task, 0, 800);
     }
 
+    /**
+     * Méthode qui permet de lancer le jeu
+     * @param afficher affiche le jeu dans la console
+     * @param millis chaque temps
+     * @return Timeline
+     */
     public Timeline lancerJeu(boolean afficher,double millis) {
         jouer = true;
         Timeline timer = new Timeline(
@@ -242,53 +255,10 @@ public class Jeu implements Sujet{
         System.out.println(); // Ligne vide pour séparer les affichages successifs
     }
 
-    // GETTER
-
-    public Joueur getJoueur() {
-        return this.joueur;
-    }
-
-    public Terrain getTerrain() {
-        return this.terrain;
-    }
-    /*public Camera getCamera()
-    {
-        //return this.camera;
-    }*/
-
-    public void setJoueur(Joueur joueur) {
-        this.joueur = joueur;
-    }
-
-    public void setTerrain(Terrain terrain) {
-        this.terrain = terrain;
-    }
-
-    public int getTailleCase() {
-        return TAIILE_CASE;
-    }
-
-    @Override
-    public void enregistrerObservateur(Observateur observateur) {
-        if(!observateurs.contains(observateur))
-        {
-            observateurs.add(observateur);
-        }
-    }
-
-    @Override
-    public void supprimerObservateur(Observateur observateur) {
-        observateurs.remove(observateur);
-    }
-
-    @Override
-    public void notifierObservateurs() {
-        for(Observateur observateur : observateurs)
-        {
-            observateur.actualiser(this);
-        }
-    }
-
+    /**
+     * Méthode qui permet de générer les terrains pour l'interface
+     * @return retourne la liste des terrains
+     */
     public List<Terrain> genererTerrains(){
         List<Terrain> terrains = new ArrayList<>();
 
@@ -310,18 +280,58 @@ public class Jeu implements Sujet{
         return terrains;
     }
 
-    public Observateur getVueJeu(){
-        //Retourne la vue du jeu
-        return this.observateurs.stream().filter(o -> o instanceof VueJeu).toList().getFirst();
-    }
 
+    /**
+     * Méthode qui permet de réinitialiser l'état du joueur
+     */
     public void reinitialiser() {
         this.joueur.renitialiser();
         this.jouer = false;
+    }
+
+
+    public Joueur getJoueur() {
+        return this.joueur;
+    }
+    public Terrain getTerrain() {
+        return this.terrain;
+    }
+
+    public int getTailleCase() {
+        return TAIILE_CASE;
     }
 
     public boolean isJouer() {
         return jouer;
     }
 
+    public void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
+
+
+    @Override
+    public void enregistrerObservateur(Observateur observateur) {
+        if(!observateurs.contains(observateur))
+        {
+            observateurs.add(observateur);
+        }
+    }
+
+    @Override
+    public void supprimerObservateur(Observateur observateur) {
+        observateurs.remove(observateur);
+    }
+
+    @Override
+    public void notifierObservateurs() {
+        for(Observateur observateur : observateurs)
+        {
+            observateur.actualiser(this);
+        }
+    }
 }

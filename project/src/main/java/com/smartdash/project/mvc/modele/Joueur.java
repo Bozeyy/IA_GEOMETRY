@@ -17,13 +17,12 @@ public class  Joueur
     protected int y;
     protected int vY;
     protected Terrain map;
+    protected Reseau reseau;
     protected boolean vivant;
     protected  boolean fin;
     protected boolean saut;
-    protected Reseau reseau;
     protected double score;
-    protected ArrayList<Double> scoresListes;
-    protected double scoreMoyen;
+
 
     /**
      * Constructeur avec cordonnées
@@ -42,8 +41,6 @@ public class  Joueur
         this.vivant = true;
         this.fin = false;
         this.score = 0;
-        this.scoreMoyen = 0;
-        this.scoresListes = new ArrayList<>();
     }
 
     /**
@@ -61,10 +58,12 @@ public class  Joueur
         this.x = 0;
         this.y = mapJeu.getLargeur()-7;
         this.score = 0;
-        this.scoreMoyen = 0;
-        this.scoresListes = new ArrayList<>();
     }
 
+    /**
+     * Constructeur avec seulement un réseau
+     * @param reseau réseau du joueur
+     */
     public Joueur(Reseau reseau)
     {
         this.vY = 0;
@@ -73,9 +72,8 @@ public class  Joueur
         this.fin = false;
         this.x = 0;
         this.score = 0;
-        this.scoreMoyen = 0;
-        this.scoresListes = new ArrayList<>();
     }
+
 
     /**
      * Méthode qui permet d'initialiser les positions des objets autours du joueur pour les envoyer au réseau de neurones
@@ -185,6 +183,10 @@ public class  Joueur
         }
     }
 
+    /**
+     * Méthode qui permet de vérifier si une partie est fini
+     * @return la fin de partie
+     */
     private boolean verificationFinDePartie() {
         return this.x+1 == this.map.getLongueur();
     }
@@ -268,14 +270,6 @@ public class  Joueur
         }
     }
 
-    public void addScore(double score)
-    {
-        if(score >0)
-        {
-          scoresListes.add(score);
-        }
-    }
-
     /**
      * Méthode qui permet de réinitialiser le joueur à 0 pour recommencer une partie
      */
@@ -289,7 +283,7 @@ public class  Joueur
         this.reseau.renitialiser();
     }
 
-    // GETTER et SETTER
+
     public int getX() {
         return x;
     }
@@ -310,20 +304,12 @@ public class  Joueur
     {
         return reseau;
     }
-    public int getvY() { return vY; }
 
     public double getScore() {
         return score;
     }
-    public double getScoreMoyen()
-    {
-        return this.scoreMoyen;
-    }
 
-    public ArrayList<Double> getScoresListes()
-    {
-        return scoresListes;
-    }
+    public boolean isSaut(){return saut;}
 
     public void setScore(double x) {
         this.score = x;
@@ -334,10 +320,6 @@ public class  Joueur
         this.y = map.getLargeur()-7;
     }
 
-    public void setScoreMoyen(double scoreMoyen) {
-        this.scoreMoyen = scoreMoyen;
-    }
-
     public void setX(int x) {
         this.x = x;
     }
@@ -345,13 +327,4 @@ public class  Joueur
     public void setY(int y) {
         this.y = y;
     }
-
-    public int getVY() {
-        return vY;
-    }
-
-    public boolean isFin() {
-        return fin;
-    }
-    public boolean isSaut(){return saut;}
 }

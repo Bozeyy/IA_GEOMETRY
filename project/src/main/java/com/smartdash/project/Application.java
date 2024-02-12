@@ -22,15 +22,15 @@ import java.io.IOException;
 
 public class Application extends javafx.application.Application {
     final int longueurFenetre = 800;
-    final int hauteurVueInformation = 200;
+    final int hauteurVueInformation = 190;
 
     final int hauteurVueCommande = 15;
     int hauteurFenetre;
 
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_apprentissage_8-5.txt", 0);
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain9.txt"), joueur.getReseau());
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/10-02-2024_17-32-31_id602/generation_1533.txt", 0);
+        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain15.txt"), joueur.getReseau());
         //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain4.txt"), new Reseau());
 
         BorderPane borderPane = new BorderPane();
