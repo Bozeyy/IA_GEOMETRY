@@ -22,7 +22,7 @@ public class Main
         List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < nombreInstances; i++) {
-            Thread apprentissageThread = new Thread(() -> {
+             Thread apprentissageThread = new Thread(() -> {
                 NeatAmelioration neatAmelioration = new NeatAmelioration(5000, 15);
 
                 try {
