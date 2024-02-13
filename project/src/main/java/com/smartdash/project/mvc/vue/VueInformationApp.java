@@ -26,14 +26,25 @@ public class VueInformationApp extends HBox implements Observateur {
     VBox joueurInfo = new VBox();
     VBox terrainInfo = new VBox();
 
-    public VueInformationApp(Jeu donnees,int width, int height) {
+    public VueInformationApp(Jeu donnees,int width, int height, Color c) {
         this.donnees = donnees;
         setPrefSize(width,height);
         setMaxSize(width,height);
         setMinHeight(height);
         setPadding(new javafx.geometry.Insets(10,10,10,10));
         setSpacing(20);
+
+        // Obtenir les composantes RVB
+        double red = c.getRed();
+        double green = c.getGreen();
+        double blue = c.getBlue();
+
+        // Convertir en hexadécimal
+        String hex = String.format("#%f%f%f", red, green, blue);
+        System.out.println(hex);
+
         setStyle("-fx-background-color: grey");
+
 
     }
 

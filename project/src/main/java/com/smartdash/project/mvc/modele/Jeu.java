@@ -57,7 +57,7 @@ public class Jeu implements Sujet{
     public void evaluationUnJoueur() {
         reinitialiser();
         lancerEvaluation(false);
-        this.joueur.setScore(joueur.getX() + 1);
+        this.joueur.setScore(joueur.getX() + 1 - joueur.getReseau().getNbNeurone());
     }
 
     /**

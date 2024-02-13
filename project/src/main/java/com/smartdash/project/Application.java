@@ -26,9 +26,6 @@ public class Application extends javafx.application.Application {
     private final int hauteurVueCommande = 15;
     private int hauteurFenetre;
 
-    final int hauteurVueCommande = 15;
-    int hauteurFenetre;
-
 //    src/main/resources/enregistrement/30-01-2024_16-36-43_id446/generation_0.txt
 //    src/main/resources/enregistrement/meilleurs/generation_2056.txt
     /**
@@ -47,7 +44,7 @@ public class Application extends javafx.application.Application {
 //        Jeu jeu = new Jeu(new Terrain("src/main/resources/Terrains/terrain_test.txt"), joueur.getReseau());
 
         Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/12-02-2024_14-36-39_id747/generation_714.txt", 0);
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/test_apprentissage/terrain_1.txt"), joueur.getReseau());
+        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain3.txt"), joueur.getReseau());
 
         BorderPane borderPane = new BorderPane();
         //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());
@@ -67,7 +64,7 @@ public class Application extends javafx.application.Application {
 
 
         //Vue Info
-        VueInformationApp vueInformationApp = new VueInformationApp(jeu, (int) vueJeu.getPrefWidth(), hauteurVueInformation);
+        VueInformationApp vueInformationApp = new VueInformationApp(jeu, (int) vueJeu.getPrefWidth(), hauteurVueInformation, vueJeu.getCouleurNiveau());
         jeu.enregistrerObservateur(vueInformationApp);
         borderPane.setBottom(vueInformationApp);
         vueInformationApp.init();

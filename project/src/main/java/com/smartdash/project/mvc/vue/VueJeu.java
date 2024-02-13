@@ -70,7 +70,7 @@ public class VueJeu extends Pane implements Observateur {
         double tailleFond = 0;
         double imageWidth = image.getWidth();
 
-        while (tailleFond < this.modele.getTerrain().getLongueur() * this.modele.getTailleCase()) {
+        while (tailleFond < this.modele.getTerrain().getLongueur() * this.modele.getTailleCase() + imageWidth) {
             VBox vBox = new VBox();
 
 
@@ -167,6 +167,10 @@ public class VueJeu extends Pane implements Observateur {
 
     public void animationSaut(){
         vueJoueur.animationSaut();
+    }
+
+    public Color getCouleurNiveau() {
+        return couleurNiveau;
     }
 
     /**
