@@ -1,6 +1,7 @@
 package com.smartdash.project.mvc.controller;
 
 import com.smartdash.project.mvc.modele.Jeu;
+import com.smartdash.project.mvc.scene.SceneJeu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -23,11 +24,14 @@ public class ControllerButton implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         String idButton = ((Node) actionEvent.getSource()).getId();
-        System.out.println("Button clicked: " + idButton);
 
         switch(idButton) {
             case "LancerIA":
-                stage.setScene(new Scene(new Pane(),500,500));
+                try {
+                    stage.setScene(new SceneJeu(modele,stage));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             default:
                 break;

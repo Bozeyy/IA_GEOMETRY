@@ -150,24 +150,22 @@ public class Jeu implements Sujet{
     /**
      * Méthode qui permet de jouer
      */
-    public void lancerHumainGraphique() {
+    public Timeline lancerHumainGraphique(boolean afficher, double millis) {
         jouer = true;
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
+        Timeline timer = new Timeline(
+                new KeyFrame(Duration.millis(millis), evt -> {
                 if (!joueur.getVivant()) {
                     System.out.println("Vous avez perdu");
-                    timer.cancel();
+                    //((Timeline) evt.getSource()).stop();
                 } else if (joueur.fin) {
                     System.out.println("Vous avez gagné");
-                    timer.cancel();
+                    //((Timeline) evt.getSource()).stop();
                 }
-                updateJeu(false);
+                updateJeu(afficher);
                 notifierObservateurs();
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 800);
+            }));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        return timer;
     }
 
     /**
@@ -311,6 +309,7 @@ public class Jeu implements Sujet{
 
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
+        this.joueur.setMap(terrain);
     }
 
 

@@ -11,6 +11,7 @@ import com.smartdash.project.mvc.vue.VueJeu;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class SceneJeu extends Scene {
 
@@ -18,12 +19,14 @@ public class SceneJeu extends Scene {
     final int hauteurVueInformation = 200;
 
     Jeu modele;
+    Stage stage;
 
-    public SceneJeu(Jeu modele) throws Exception {
+    public SceneJeu(Jeu modele,Stage stage) throws Exception {
         super(new BorderPane());
         this.modele = modele;
+        this.stage = stage;
         setRoot(init());
-        setOnKeyPressed(new ControllerClavier(modele));
+        setOnKeyPressed(new ControllerClavier(modele,stage));
         setOnMouseClicked(new ControllerSouris(modele));
     }
 

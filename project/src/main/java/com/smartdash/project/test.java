@@ -6,6 +6,7 @@ import com.smartdash.project.mvc.controller.ControllerSouris;
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
+import com.smartdash.project.mvc.scene.SceneInterface;
 import com.smartdash.project.mvc.scene.SceneJeu;
 import com.smartdash.project.mvc.vue.VueInformationApp;
 import com.smartdash.project.mvc.vue.VueInterface;
@@ -30,18 +31,17 @@ public class test extends javafx.application.Application {
         //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain4.txt"), new Reseau());
         jeu.genererTerrains();
 
+        Scene sceneInterface = new SceneInterface(jeu, stage);
+        sceneInterface.heightProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("Height: " + newValue);
+        });
 
+        sceneInterface.widthProperty().addListener((observable, oldValue, newValue) -> {
+            jeu.notifierObservateurs();
+            System.out.println("Width: " + newValue);
+        });
 
-
-        //Vueinterface
-        VueInterface vueInterface = new VueInterface(jeu, stage);
-        jeu.enregistrerObservateur(vueInterface);
-        //borderPane.setTop(vueInterface);
-        vueInterface.init();
-        Scene sceneInterface = new Scene(vueInterface);
-
-
-        Scene scene = new SceneJeu(jeu);
+        Scene scene = new SceneJeu(jeu,stage);
 
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
