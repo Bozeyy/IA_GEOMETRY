@@ -12,26 +12,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NeatPosition extends Neat{
-
-    public static void main(String[] args) throws Exception {
-        NeatPosition np = new NeatPosition();
-        np.lancerApprentissage();
-    }
+    /**
+     * Constructeur simple
+     */
     public NeatPosition()
     {
         this.terrain = new Terrain("src/main/resources/apprentissage/terrain10.txt");
     }
 
+    /**
+     * Constructeur avec un terrain
+     * @param terrain terrain
+     */
     public NeatPosition(Terrain terrain)
     {
         this.terrain = terrain;
     }
+
+    /**
+     * Constructeur avec un terrain et un nb de génération max
+     * @param terrain terrain
+     * @param nbGene nombre de générations max
+     */
     public NeatPosition(Terrain terrain, int nbGene)
     {
         this.terrain = terrain;
         this.maxGenerations = nbGene;
     }
 
+    /**
+     * Méthode qui permet de lancer l'apprentissage de l'IA grâce à NEAT
+     * @throws Exception exception
+     */
     public void lancerApprentissage() throws Exception {
         //Début de l'enregistrement, on récupère le chemin du dossier
         String pathname = Enregistrement.debutEnregistrement();
@@ -108,6 +120,10 @@ public class NeatPosition extends Neat{
         System.out.println("fini");
     }
 
+    /**
+     * Méthode qui permet de muter les positions des joueurs
+     * @param joueur joueur qui mute
+     */
     public void mutationPosition(Joueur joueur) {
 
         Reseau res = joueur.getReseau();

@@ -7,9 +7,9 @@ import java.util.List;
 public class ModuleFabrique {
 
     /**
-     * genere un module à partir de neurone aleatoire placés aux coordonnées souhaitées
-     * @param numero
-     * @return
+     * Génère un module à partir de neurone aleatoire placés aux coordonnées souhaitées
+     * @param numero numéro du module
+     * @return retourne un module
      */
     public static Module genererModule(int numero) {
         List<Integer> numeros;
@@ -29,9 +29,9 @@ public class ModuleFabrique {
     }
 
     /**
-     * genere un Module a partir de neurones definis
-     * @param neurone
-     * @return
+     * Génère un Module à partir de neurones définis
+     * @param neurone neurone précis
+     * @return retourne un module
      */
     public static Module genererModule (Neurone[] neurone) {
         Module module = new Module();
@@ -41,10 +41,14 @@ public class ModuleFabrique {
         return module;
     }
 
+    /**
+     * Méthode qui permet de générer un module avec des positions aléatoires de neurone
+     * @return un Module
+     */
     public static Module genererModulePosAleatoire() {
         Module module = new Module();
         for (int i = 1; i <= Constantes.NB_NEURONES_PAR_MODULES; i++) {
-            Neurone neurone = NeuroneFabrique.genererNeuronneAleatoire();
+            Neurone neurone = NeuroneFabrique.genererNeuronnePositionAleatoire();
             module.addNeurone(neurone);
         }
         return module;

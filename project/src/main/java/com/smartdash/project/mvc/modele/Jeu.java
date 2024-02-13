@@ -55,7 +55,7 @@ public class Jeu implements Sujet{
      * Méthode qui permet d'évaluer un joueur
      */
     public void evaluationUnJoueur() {
-        this.joueur.renitialiser();
+        reinitialiser();
         lancerEvaluation(false);
         this.joueur.setScore(joueur.getX() + 1);
     }

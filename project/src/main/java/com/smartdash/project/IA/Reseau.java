@@ -1,7 +1,6 @@
 package com.smartdash.project.IA;
 
 import com.smartdash.project.IA.neurones.Neurone;
-import com.smartdash.project.apprentissage.Neat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,27 +8,70 @@ import java.util.Random;
 
 public class Reseau implements Cloneable {
     private List<Module> modules;
-
     private Random rand = new Random();
-    
+
+    /**
+     * Constructeur qui permet de créer un réseau
+     */
     public Reseau() {
         this.modules = new ArrayList<>(Constantes.NB_MODULES_PAR_RESEAU);
     }
 
+    /**
+     * Méthode qui permet de savoir si le réseau est active
+     * @return retourne le boolean
+     */
     public boolean isActive() {
         return this.modules.stream().anyMatch(Module::isActive);
     }
 
+    /**
+     * Méthode qui permet de setActive
+     * @param x coordonnée x
+     * @param y coordonnée y
+     * @param type type du neurone
+     */
     public void setActive(int x, int y, String type) {
         modules.forEach(module -> module.setActive(x, y, type));
     }
-    
+
+    /**
+     * Méthode qui permet d'ajouter un neurone aléatoire
+     */
+    public void ajouterNeuroneAleatoire() {
+        Neurone n = NeuroneFabrique.genererNeuronnePositionAleatoire();
+        int indiceModule = rand.nextInt(this.modules.size()+1);
+
+        if (indiceModule == this.modules.size()) {
+            Module module = ModuleFabrique.genererModule(new Neurone[]{n});
+            this.addModule(module);
+        } else {
+            this.modules.get(indiceModule).addNeurone(n);
+        }
+
+    }
+
+    /**
+     * Méthode qui permet d'ajouter un nouveau module
+     * @param module module du réseau
+     */
     public void addModule(Module module) {
         if (this.modules.size() < Constantes.NB_MODULES_PAR_RESEAU) {
             this.modules.add(module);
         }
     }
 
+    /**
+     * Méthode qui permet de réinitialiser tous les modules
+     */
+    public void renitialiser() {
+        modules.forEach(Module::renitialiser);
+    }
+
+    /**
+     * Méthode qui permet d'afficher à la console un réseau
+     * @return le string du réseau
+     */
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder("Reseau{\n");
@@ -40,19 +82,10 @@ public class Reseau implements Cloneable {
         return res.toString();
     }
 
-    public List<Module> getModules() {
-        return modules;
-    }
-
-    public int getNbNeurone() {
-        return this.modules.stream().mapToInt(module -> module.getNeurones().size()).sum();
-    }
-
-    public void renitialiser() {
-        modules.forEach(Module::renitialiser);
-
-    }
-
+    /**
+     * Méthode qui permet de cloner un réseau
+     * @return retourne un réseau
+     */
     @Override
     public Reseau clone() {
         try {
@@ -63,27 +96,23 @@ public class Reseau implements Cloneable {
                 clonedModules.add(module.clone());
             }
 
-            clone.modules = clonedModules;  // Remplacez l'ancienne liste par la nouvelle
+            clone.modules = clonedModules;
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
     }
 
-    public int nbModulesActifs() {
-        return (int) this.modules.stream().filter(Module::isActive).count();
+
+    public List<Module> getModules() {
+        return modules;
     }
 
-    public void ajouterNeuroneAleatoire() {
-        Neurone n = NeuroneFabrique.genererNeuronneAleatoire();
-        int indiceModule = rand.nextInt(this.modules.size()+1);
+    public int getNbNeurone() {
+        return this.modules.stream().mapToInt(module -> module.getNeurones().size()).sum();
+    }
 
-        if (indiceModule == this.modules.size()) {
-            Module module = ModuleFabrique.genererModule(new Neurone[]{n});
-            this.addModule(module);
-        } else {
-            this.modules.get(indiceModule).addNeurone(n);
-        }
-
+    public int nbModulesActifs() {
+        return (int) this.modules.stream().filter(Module::isActive).count();
     }
 }

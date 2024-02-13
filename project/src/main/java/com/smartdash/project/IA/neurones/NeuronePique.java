@@ -5,6 +5,7 @@ public class NeuronePique extends Neurone{
         super(x, y);
     }
 
+
     @Override
     public void setActive(int x, int y, String type) {
         if (this.x == x && this.y == y) {
