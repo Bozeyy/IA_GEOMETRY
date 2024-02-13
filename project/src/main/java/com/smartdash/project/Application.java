@@ -26,6 +26,11 @@ public class Application extends javafx.application.Application {
     private final int hauteurVueCommande = 15;
     private int hauteurFenetre;
 
+    final int hauteurVueCommande = 15;
+    int hauteurFenetre;
+
+//    src/main/resources/enregistrement/30-01-2024_16-36-43_id446/generation_0.txt
+//    src/main/resources/enregistrement/meilleurs/generation_2056.txt
     /**
      * Méthode qui permet de lancer l'application
      * @param stage représente la page à afficher
@@ -33,9 +38,16 @@ public class Application extends javafx.application.Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/10-02-2024_17-32-31_id602/generation_1533.txt", 0);
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain12.txt"), joueur.getReseau());
-        //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain4.txt"), new Reseau());
+
+
+//        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_2056.txt", 0);
+//        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain13.txt"), joueur.getReseau());
+
+//        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_2056.txt", 0);
+//        Jeu jeu = new Jeu(new Terrain("src/main/resources/Terrains/terrain_test.txt"), joueur.getReseau());
+
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/12-02-2024_14-36-39_id747/generation_714.txt", 0);
+        Jeu jeu = new Jeu(new Terrain("src/main/resources/test_apprentissage/terrain_1.txt"), joueur.getReseau());
 
         BorderPane borderPane = new BorderPane();
         //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());
