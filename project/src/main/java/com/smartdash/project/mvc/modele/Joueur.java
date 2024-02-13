@@ -126,9 +126,7 @@ public class  Joueur
         if(this.vivant && !this.fin)
         {
             // On initialise les booleans
-            boolean rentrerDansObjet = false;
-            boolean surObjet = false;
-            boolean sauterObjet = false;
+            boolean rentrerDansObjet = false, surObjet = false, sauterObjet = false;
 
             // On récupère les objets autours du joueur
             List<Objet> objetsAutourJoueur = getObjetsAutour();
