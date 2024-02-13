@@ -13,12 +13,16 @@ public class Main
         lancerThread(5);
     }
 
+    /**
+     * Méthode qui permet de lancer plusieurs apprentissages simultanément
+     * @param nombreInstances nombre d'apprentissage
+     */
     public static void lancerThread(int nombreInstances)
     {
         List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < nombreInstances; i++) {
-            Thread apprentissageThread = new Thread(() -> {
+             Thread apprentissageThread = new Thread(() -> {
                 NeatAmelioration neatAmelioration = new NeatAmelioration(5000, 15);
 
                 try {
@@ -43,6 +47,9 @@ public class Main
         }
     }
 
+    /**
+     * Méthode qui permet de lancer un seul apprentissage
+     */
     public static void lancerNormal()
     {
          NeatPosition neatAmelioration = new NeatPosition(new Terrain("src/main/resources/apprentissage/terrain15.txt"),150);

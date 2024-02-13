@@ -3,11 +3,9 @@ package com.smartdash.project.mvc.modele;
 
 import com.smartdash.project.IA.*;
 import com.smartdash.project.mvc.modele.objet.Bloc;
-import com.smartdash.project.mvc.modele.objet.Objet;
 import com.smartdash.project.mvc.modele.objet.piques.Pique;
 import com.smartdash.project.mvc.modele.objet.Vide;
 import com.smartdash.project.mvc.vue.Observateur;
-import com.smartdash.project.mvc.vue.VueJeu;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -55,9 +53,9 @@ public class Jeu implements Sujet{
      * Méthode qui permet d'évaluer un joueur
      */
     public void evaluationUnJoueur() {
-        this.joueur.renitialiser();
+        reinitialiser();
         lancerEvaluation(false);
-        this.joueur.setScore(joueur.getX() + 1);
+        this.joueur.setScore(joueur.getX() + 1 - joueur.getReseau().getNbNeurone());
     }
 
     /**
@@ -265,11 +263,12 @@ public class Jeu implements Sujet{
         File[] listOfFiles = folder.listFiles();
 
         // On parcourt les dossiers pour récupérer les terrains
+        assert listOfFiles != null;
         for (File file : listOfFiles) {
 
             if (file.isDirectory() && (file.getName().equals("apprentissage") || file.getName().equals("Terrains") || file.getName().equals("test_apprentissage"))) {
                 // On parcourt les terrains dans chaque dossier
-                for (File terrain : file.listFiles()) {
+                for (File terrain : Objects.requireNonNull(file.listFiles())) {
                     // On ajoute le terrain à la liste
                     terrains.add(new Terrain("src/main/resources/" + file.getName() + "/" + terrain.getName()));
                 }
@@ -277,7 +276,6 @@ public class Jeu implements Sujet{
         }
         return terrains;
     }
-
 
     /**
      * Méthode qui permet de réinitialiser l'état du joueur

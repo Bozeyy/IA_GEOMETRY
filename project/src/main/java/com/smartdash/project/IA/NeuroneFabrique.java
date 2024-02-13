@@ -5,6 +5,12 @@ import com.smartdash.project.IA.neurones.*;
 import java.util.Random;
 
 public class NeuroneFabrique {
+    /**
+     * Méthode qui permet de générer des neurones aléatoirement
+     * @param x position x
+     * @param y position y
+     * @return retourne un neurone
+     */
     public static Neurone genererNeuronne(int x, int y) {
         String[] types = {"Pique", "NonPique", "Bloc", "NonBloc", "Vide", "NonVide", "Actif"};
         Random random = new Random();
@@ -21,6 +27,13 @@ public class NeuroneFabrique {
         };
     }
 
+    /**
+     * Méthode qui permet de générer un neurone avec un type précis
+     * @param x position x
+     * @param y position y
+     * @param type type de neurone précis
+     * @return retourne un Neurone
+     */
     public static Neurone genererNeuronneType(int x, int y, char type) {
         return switch (type) {
             case 'p' -> new NeuronePique(x, y);
@@ -34,7 +47,11 @@ public class NeuroneFabrique {
         };
     }
 
-    public static Neurone genererNeuronneAleatoire() {
+    /**
+     * Méthode qui permet de générer des neurones à des positions aléatoires
+     * @return retourne un Neurone
+     */
+    public static Neurone genererNeuronnePositionAleatoire() {
         Random rand = new Random();
 
         int x = rand.nextInt((Constantes.X_NEURONES_MAX - Constantes.X_NEURONES_MIN) + 1) + Constantes.X_NEURONES_MIN;

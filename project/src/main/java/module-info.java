@@ -18,4 +18,8 @@ module com.smartdash.project {
     exports com.smartdash.project;
     exports com.smartdash.project.mvc.vue.VuePique;
     opens com.smartdash.project.mvc.vue.VuePique to javafx.fxml;
+
+    exports com.smartdash.project.IA;
+    exports com.smartdash.project.mvc.modele.objet;
+    exports com.smartdash.project.mvc.modele.objet.piques;
 }

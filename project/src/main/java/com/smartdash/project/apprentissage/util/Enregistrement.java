@@ -14,6 +14,11 @@ import java.util.*;
 public class Enregistrement {
     private static Random random = new Random();
 
+    /**
+     * Méthode qui permet de commencer un enregistrement et d'avoir le nom du fichier
+     * @return retourne un string avec le path
+     * @throws Exception IO exception
+     */
     public static String debutEnregistrement() throws Exception {
         //On vérifie si le dossier <enregistrement> existe
         if(!new File("src/main/resources/enregistrement").exists()) new File("src/main/resources/enregistrement").mkdir();
@@ -47,6 +52,13 @@ public class Enregistrement {
         return "";
     }
 
+    /**
+     * Méthode qui permet de générer un fichier de sérialisation
+     * @param pathname path ou on enregistre le fichier
+     * @param generation nb de la génération qu'on enregistre
+     * @param population liste de la population qu'on enregistre
+     * @throws Exception IO exception
+     */
     public static void generationEnregistrement(String pathname, int generation, List<Joueur> population) throws Exception {
 
         //création du fichier de sauvegarde d'une generation
@@ -72,6 +84,13 @@ public class Enregistrement {
 
     }
 
+    /**
+     * Méthode qui permet de récupérer un joueur d'un fichier sérialiser
+     * @param pathname path du fichier
+     * @param joueur nb de joueur
+     * @return retourne le joueur
+     * @throws Exception IO exception
+     */
     public static Joueur recupererJoueurGeneration(String pathname,int joueur) throws Exception {
 
         //On retourne la population
@@ -86,12 +105,15 @@ public class Enregistrement {
             throw new IllegalArgumentException("Le joueur n'a pas été trouvé");
     }
 
+    /**
+     * Méthode qui permet de convertir un fichier sérialisé en une liste de joueur
+     * @param pathname path du fichier sérialisé
+     * @return retourne la liste de Joueur
+     * @throws Exception IO exception
+     */
     public static List<Joueur> stringToPopulation(String pathname) throws Exception {
 
         try(BufferedReader r = new BufferedReader(new FileReader(pathname))){
-            //On récupère le fichier
-
-
             //On crée la population
             List<Joueur> population = new ArrayList<>();
 
@@ -157,6 +179,11 @@ public class Enregistrement {
         }
     }
 
+    /**
+     * Méthode qui permet de transformer une liste de Joueur en un string
+     * @param population liste de Joueur
+     * @return retourne le string correspondant
+     */
     public static String populationToString(List<Joueur> population) {
 
         //On trie la population en fonction de leur resultat (decroissant)
@@ -227,5 +254,4 @@ public class Enregistrement {
         //On retourne la chaine de caractère
         return sb.toString();
     }
-
 }

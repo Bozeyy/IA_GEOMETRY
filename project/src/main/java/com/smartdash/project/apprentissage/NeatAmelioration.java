@@ -14,6 +14,12 @@ public class NeatAmelioration extends NeatPosition
 {
     protected int nbTerrains;
 
+
+    /**
+     * Constructeur avec un max de génération et un nb de terrain à générer
+     * @param maxGenerations max de génération
+     * @param nbTerrains nombre de terrains max
+     */
     public NeatAmelioration(int maxGenerations, int nbTerrains)
     {
         super();
@@ -21,6 +27,11 @@ public class NeatAmelioration extends NeatPosition
         this.nbTerrains = nbTerrains;
     }
 
+
+    /**
+     * Méthode qui permet de lancer l'apprentissage de l'IA grâce à NEAT
+     * @throws Exception exception
+     */
     @Override
     public void lancerApprentissage() throws Exception {
         //Début de l'enregistrement, on récupère le chemin du dossier
@@ -125,6 +136,11 @@ public class NeatAmelioration extends NeatPosition
         System.out.println("fini");
     }
 
+    /**
+     * Méthode qui permet de récupérer le score du meilleur individu
+     * @param population liste de Joueur
+     * @return retourne le score
+     */
     private double recupererScoreMeilleurIndividu(List<Joueur> population) {
         List<Joueur> copiePopulation = new ArrayList<>(population);
         // On tri la population
@@ -134,6 +150,11 @@ public class NeatAmelioration extends NeatPosition
         return copiePopulation.get(0).getScore();
     }
 
+    /**
+     * Méthode qui permet de réaliser la moyenne des scores
+     * @param joueur joueur
+     * @param listesTerrain liste des terrains auxquels il doit jouer
+     */
     private void moyenneScore(Joueur joueur, List<Terrain> listesTerrain) {
         double scoreMoyenne = 0;
         for (Terrain terrain : listesTerrain)

@@ -51,7 +51,7 @@ public class SceneJeu extends Scene {
 
 
         //Vue Info
-        VueInformationApp vueInformationApp = new VueInformationApp(modele, (int) vueJeu.getPrefWidth(), hauteurVueInformation);
+        VueInformationApp vueInformationApp = new VueInformationApp(modele, (int) vueJeu.getPrefWidth(), hauteurVueInformation, vueJeu.getCouleurNiveau());
         modele.enregistrerObservateur(vueInformationApp);
         borderPane.setBottom(vueInformationApp);
         vueInformationApp.init();

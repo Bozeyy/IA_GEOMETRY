@@ -13,9 +13,10 @@ import com.smartdash.project.mvc.modele.Jeu;
 import java.util.*;
 
 public class Neat{
-    public final Random random = new Random();
+    protected final Random random = new Random();
     protected int maxGenerations;
     protected Terrain terrain;
+
     protected final int NB_MEILLEURS = 8;
     protected final int NB_PARTIE_2 = 12;
     protected final int NB_PARTIE_3 = 7;
@@ -23,27 +24,35 @@ public class Neat{
     protected final int NB_PARTIE_5 = 2;
 
 
+    /**
+     * Constructeur de base
+     */
     public Neat()
     {
         this.maxGenerations = 100;
         terrain = new Terrain(3);
     }
 
+    /**
+     * Constructeur avec un max de génération
+     * @param maxGenerations maximum de génération
+     */
     public Neat(int maxGenerations)
     {
         this.maxGenerations = maxGenerations;
     }
 
+    /**
+     * Constructeur avec un max de génération et un terrain choisis
+     * @param maxGenerations
+     * @param terrain
+     */
     public Neat(int maxGenerations, Terrain terrain)
     {
         this.maxGenerations = maxGenerations;
         this.terrain = terrain;
     }
 
-    public static void main(String[] args) throws Exception {
-        Neat n = new Neat();
-        n.lancerApprentissage();
-    }
 
     /**
      * Méthode qui permet de lancer l'apprentissage de l'IA grâce à NEAT
@@ -196,6 +205,10 @@ public class Neat{
         }
     }
 
+    /**
+     * Méthode de mutation par module
+     * @param joueur joueur qui mute
+     */
     public void mutationParModule(Joueur joueur) {
         Reseau res = joueur.getReseau();
 
@@ -204,8 +217,11 @@ public class Neat{
         }
     }
 
+    /**
+     * Méthode de mutation d'un module
+     * @param module module qui mute
+     */
     private void mutationModule(Module module) {
-
         int probaMutation;
         Neurone n;
         int index;

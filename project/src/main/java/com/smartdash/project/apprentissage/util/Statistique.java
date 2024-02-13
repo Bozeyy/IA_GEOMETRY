@@ -2,7 +2,6 @@ package com.smartdash.project.apprentissage.util;
 
 import java.awt.image.BufferedImage;
 
-import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.mvc.modele.Joueur;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
@@ -14,8 +13,6 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -23,14 +20,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Statistique {
-
     private List<Double> moyenne = new ArrayList<>();
-
     private List<Double> moyenne10 = new ArrayList<>();
-
     private Joueur meilleurJoueur;
-
     private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
 
     /**
      * Méthode pour calculer la moyenne des scores des joueurs dans une liste
@@ -76,11 +70,20 @@ public class Statistique {
         return (sommeDesScores) / (10);
     }
 
+    /**
+     * Méthode qui permet d'ajouter les moyennes de la liste des joueurs
+     * @param joueurs
+     * @throws Exception
+     */
     public void addMoyennes (List<Joueur> joueurs) throws Exception {
         this.moyenne.add(calculerMoyenneDesScores(joueurs));
         this.moyenne10.add(calculerMoyenne10Meilleurs(joueurs));
     }
 
+    /**
+     * Méthode qui permet de générer un PDF
+     * @param pathName path de l'enregistrement
+     */
     public void genererPDF (String pathName) {
         String newPath = pathName.replace("enregistrement", "statistiques");
 
@@ -112,6 +115,7 @@ public class Statistique {
         }
     }
 
+
     public static String debutStatistique() throws Exception {
         //On vérifie si le dossier <enregistrement> existe
         if(!new File("src/main/resources/stats").exists()) new File("src/main/resources/stats").mkdir();
@@ -124,6 +128,12 @@ public class Statistique {
         return format.format(date);
     }
 
+    /**
+     * Méthode qui permet de générer une page
+     * @param document document
+     * @param page page
+     * @param numGeneration numéro de la génération (une page par génération)
+     */
     private void genererPageGeneration(PDDocument document, PDPage page, int numGeneration) {
         double moyenne = this.moyenne.get(numGeneration);
         double moyenne10 = this.moyenne10.get(numGeneration);
@@ -191,6 +201,12 @@ public class Statistique {
         contentStream.endText();
     }*/
 
+    /**
+     * Méthode qui permet de générer la page graphique finale
+     * @param document document
+     * @param page page
+     * @throws IOException exception flux
+     */
     private void genererPageGraphique(PDDocument document, PDPage page) throws IOException {
         try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
 
@@ -229,7 +245,10 @@ public class Statistique {
         }
     }
 
-
+    /**
+     * Méthode qui permet de créer les chart
+     * @return une chart
+     */
     private JFreeChart createChart() {
         JFreeChart chart = ChartFactory.createLineChart(
                 "Evolution des Moyennes",

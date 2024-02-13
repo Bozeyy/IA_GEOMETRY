@@ -5,6 +5,7 @@ public class NeuroneVide extends Neurone{
         super(x, y);
     }
 
+
     @Override
     public void setActive(int x, int y, String type) {
         if (this.x == x && this.y == y) {
@@ -16,9 +17,9 @@ public class NeuroneVide extends Neurone{
         return "Neurone Vide" + super.toString();
     }
 
+
     @Override
     public char getType() {
         return 'v';
     }
-
 }
