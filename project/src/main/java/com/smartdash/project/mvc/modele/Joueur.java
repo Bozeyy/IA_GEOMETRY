@@ -232,7 +232,6 @@ public class  Joueur
         }
 
         this.saut = !surObjet;
-        System.out.println(saut);
         return surObjet;
     }
 

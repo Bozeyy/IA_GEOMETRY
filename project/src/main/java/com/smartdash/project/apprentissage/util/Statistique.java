@@ -40,7 +40,6 @@ public class Statistique {
         double sommeDesScores = 0;
 
         for (Joueur joueur : joueurs) {
-            if(joueur.getScore()<0) throw new Exception("Score inférieur à 0");
             sommeDesScores += joueur.getScore();
         }
 
@@ -63,7 +62,6 @@ public class Statistique {
 
         for (int i = 0; i < 10; i++) {
             Joueur joueur = copieJoueurs.get(i);
-            if(joueur.getScore()<0) throw new Exception("Score inférieur à 0");
             sommeDesScores += joueur.getScore();
         }
 

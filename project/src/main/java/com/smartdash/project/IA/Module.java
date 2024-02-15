@@ -82,4 +82,8 @@ public class Module implements Cloneable {
     public List<Neurone> getNeurones() {
         return neurones;
     }
+
+    public void deleteNeurone(int indiceNeurone) {
+        this.neurones.remove(indiceNeurone);
+    }
 }

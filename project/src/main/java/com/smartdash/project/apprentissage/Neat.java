@@ -153,20 +153,32 @@ public class Neat{
         Reseau enfant = new Reseau();
         Module mod;
         boolean arret = false;
-
+        // gerer les croisement de tailles non egales
+        int tailleResMax = Math.max(parent1.getReseau().getModules().size(), parent2.getReseau().getModules().size());
 
         while (!arret) {
             arret = true;
 
-            for (int i = 0; i < Constantes.NB_MODULES_PAR_RESEAU; i++) {
-                boolean boolAleatoire = random.nextBoolean();
+            for (int i = 0; i < tailleResMax; i++) {
 
-                if (boolAleatoire) {
-                    mod = parent1.getReseau().getModules().get(i).clone();
-                    enfant.addModule(mod);
-                } else {
+                if (i >= parent1.getReseau().getModules().size()) {
                     mod = parent2.getReseau().getModules().get(i).clone();
                     enfant.addModule(mod);
+                } else {
+                    if (i >= parent2.getReseau().getModules().size()) {
+                        mod = parent1.getReseau().getModules().get(i).clone();
+                        enfant.addModule(mod);
+                    } else {
+                        boolean boolAleatoire = random.nextBoolean();
+
+                        if (boolAleatoire) {
+                            mod = parent1.getReseau().getModules().get(i).clone();
+                            enfant.addModule(mod);
+                        } else {
+                            mod = parent2.getReseau().getModules().get(i).clone();
+                            enfant.addModule(mod);
+                        }
+                    }
                 }
             }
             if (Objects.equals(enfant.toString(), parent1.getReseau().toString()) || Objects.equals(enfant.toString(), parent2.getReseau().toString())) {
@@ -283,6 +295,7 @@ public class Neat{
             throw new IllegalStateException("La taille de la population n'est pas de 1000");
         }
 
+        System.out.println("nb neurone :" + copiePopulation.get(0).getReseau().getNbNeurone() );
         // On initialise
         List<Joueur> nouvellePopulation = new ArrayList<>(copiePopulation.subList(0, NB_MEILLEURS));
         nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(8,57),NB_PARTIE_2));

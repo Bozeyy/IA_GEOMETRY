@@ -14,7 +14,7 @@ public class Reseau implements Cloneable {
      * Constructeur qui permet de créer un réseau
      */
     public Reseau() {
-        this.modules = new ArrayList<>(Constantes.NB_MODULES_PAR_RESEAU);
+        this.modules = new ArrayList<>();
     }
 
     /**
@@ -40,7 +40,8 @@ public class Reseau implements Cloneable {
      */
     public void ajouterNeuroneAleatoire() {
         Neurone n = NeuroneFabrique.genererNeuronnePositionAleatoire();
-        int indiceModule = rand.nextInt(this.modules.size()+1);
+        int indiceModule = rand.nextInt(this.modules.size());
+        //possibilité d'avoir une proba d'ajouter dans un module de nbneuronemodule/nbneuronereseau
 
         if (indiceModule == this.modules.size()) {
             Module module = ModuleFabrique.genererModule(new Neurone[]{n});
@@ -48,7 +49,18 @@ public class Reseau implements Cloneable {
         } else {
             this.modules.get(indiceModule).addNeurone(n);
         }
+    }
 
+    public void supprimerNeuroneAleatoire() {
+        int indiceModule = rand.nextInt(this.modules.size());
+
+        Module mod = this.modules.get(indiceModule);
+        int indiceNeurone = rand.nextInt(mod.getNeurones().size());
+
+        this.modules.get(indiceModule).deleteNeurone(indiceNeurone);
+        if (this.modules.get(indiceModule).getNeurones().isEmpty()) {
+            this.modules.remove(indiceModule);
+        }
     }
 
     /**
@@ -56,9 +68,7 @@ public class Reseau implements Cloneable {
      * @param module module du réseau
      */
     public void addModule(Module module) {
-        if (this.modules.size() < Constantes.NB_MODULES_PAR_RESEAU) {
-            this.modules.add(module);
-        }
+        this.modules.add(module);
     }
 
     /**
@@ -115,4 +125,6 @@ public class Reseau implements Cloneable {
     public int nbModulesActifs() {
         return (int) this.modules.stream().filter(Module::isActive).count();
     }
+
+
 }

@@ -1,6 +1,8 @@
 package com.smartdash.project.apprentissage;
 
 import com.smartdash.project.IA.*;
+import com.smartdash.project.IA.Module;
+import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.apprentissage.util.Statistique;
 import com.smartdash.project.mvc.modele.Joueur;
@@ -108,9 +110,11 @@ public class NeatAmelioration extends NeatPosition
                     Joueur enfant1 = croisement(parent1, parent2);
                     mutation(enfant1);
                     mutationPosition(enfant1);
+                    mutationNbNeuronne(enfant1);
                     Joueur enfant2 = croisement(parent1, parent2);
                     mutation(enfant2);
                     mutationPosition(enfant2);
+                    mutationNbNeuronne(enfant2);
 
                     enfants.add(enfant1);
                     enfants.add(enfant2);
@@ -163,5 +167,23 @@ public class NeatAmelioration extends NeatPosition
             scoreMoyenne += joueur.getScore();
         }
         joueur.setScore((scoreMoyenne/ nbTerrains));
+    }
+
+    public void mutationNbNeuronne(Joueur joueur) {
+        Reseau res = joueur.getReseau();
+
+        int probaMutation = random.nextInt(5);
+
+        if (probaMutation == 3) {
+            // ajout d'un neurone
+            res.ajouterNeuroneAleatoire();
+
+        } else {
+            if (probaMutation == 4) {
+                // suppression d'un neurone
+                res.supprimerNeuroneAleatoire();
+
+            }
+        }
     }
 }
