@@ -9,6 +9,7 @@ import com.smartdash.project.IA.neurones.NeuroneVide;
 import com.smartdash.project.apprentissage.Neat;
 import com.smartdash.project.apprentissage.NeatAmelioration;
 import com.smartdash.project.apprentissage.NeatPosition;
+import com.smartdash.project.apprentissage.NeatVariation;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Joueur;
@@ -164,7 +165,7 @@ public class DemoJeu {
     }
 
     private static void testMutationNbNeurones() {
-        NeatAmelioration neat = new NeatAmelioration(10, 1);
+        NeatVariation neat = new NeatVariation(10, 1);
         Neurone neurone = new NeuroneVide(0, 0);
         Neurone neurone2 = new NeuroneVide(0, 0);
         Neurone neurone3 = new NeuroneVide(0, 0);

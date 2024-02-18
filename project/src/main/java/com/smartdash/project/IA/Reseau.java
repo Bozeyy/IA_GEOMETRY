@@ -51,6 +51,9 @@ public class Reseau implements Cloneable {
         }
     }
 
+    /**
+     * Méthode qui permet de supprimer un réseau de neurone aléatoire
+     */
     public void supprimerNeuroneAleatoire() {
         int indiceModule = rand.nextInt(this.modules.size());
 

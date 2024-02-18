@@ -1,32 +1,26 @@
 package com.smartdash.project.apprentissage;
 
-import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
-import com.smartdash.project.IA.neurones.Neurone;
+import com.smartdash.project.IA.Reseau;
+import com.smartdash.project.IA.ReseauFabrique;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.apprentissage.util.Statistique;
 import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-public class NeatAmelioration extends NeatPosition
+public class NeatVariation extends NeatAmelioration
 {
-    protected int nbTerrains;
-
-
     /**
      * Constructeur avec un max de génération et un nb de terrain à générer
+     *
      * @param maxGenerations max de génération
-     * @param nbTerrains nombre de terrains max
+     * @param nbTerrains     nombre de terrains max
      */
-    public NeatAmelioration(int maxGenerations, int nbTerrains)
-    {
-        super();
-        this.maxGenerations = maxGenerations;
-        this.nbTerrains = nbTerrains;
+    public NeatVariation(int maxGenerations, int nbTerrains) {
+        super(maxGenerations, nbTerrains);
     }
 
 
@@ -54,6 +48,7 @@ public class NeatAmelioration extends NeatPosition
 
         int generation = 0;
         int nbParents = 32;
+
         double meilleurScore = 0;
         double meilleurScoreGen;
         List<Joueur> parents;
@@ -78,7 +73,6 @@ public class NeatAmelioration extends NeatPosition
             Enregistrement.generationEnregistrement(pathname, generation, population);
             stat.addMoyennes(population);
 
-
             // On calcule la moyenne des 10 meilleurs
             moyenneGeneration = stat.calculerMoyenne10Meilleurs(population);
             System.out.println("Moyenne des 10 premiers de la population " + generation + " : " + moyenneGeneration);
@@ -95,11 +89,14 @@ public class NeatAmelioration extends NeatPosition
                     Joueur enfant1 = croisement(parent1, parent2);
                     mutation(enfant1);
                     mutationPosition(enfant1);
+                    mutationNbModules(enfant1);
+                    mutationNbNeuronne(enfant1);
 
                     Joueur enfant2 = croisement(parent1, parent2);
                     mutation(enfant2);
                     mutationPosition(enfant2);
-
+                    mutationNbModules(enfant2);
+                    mutationNbNeuronne(enfant2);
 
                     enfants.add(enfant1);
                     enfants.add(enfant2);
@@ -126,31 +123,60 @@ public class NeatAmelioration extends NeatPosition
     }
 
     /**
-     * Méthode qui permet de récupérer le score du meilleur individu
-     * @param population liste de Joueur
-     * @return retourne le score
+     * Méthode qui permet de réaliser une mutation pour ajouter ou supprime des modules
+     * @param enfant1 l'enfant sur lequel il y aura une mutation
      */
-    protected double recupererScoreMeilleurIndividu(List<Joueur> population) {
-        List<Joueur> copiePopulation = new ArrayList<>(population);
-        // On tri la population
-        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScore).reversed());
-        System.out.println(copiePopulation.get(0).getReseau());
+    public void mutationNbModules(Joueur enfant1) {
+        // Initialise la probabilité des actions
+        final double PROBA_AJOUTER = 5.0;
 
-        return copiePopulation.get(0).getScore();
+        double probabilite = random.nextDouble() * 100.0;
+
+        if(probabilite < PROBA_AJOUTER)
+        {
+            // Ajouter un module
+            ajouterModule(enfant1);
+        }
     }
 
     /**
-     * Méthode qui permet de réaliser la moyenne des scores
-     * @param joueur joueur
-     * @param listesTerrain liste des terrains auxquels il doit jouer
+     * Méthode qui permet d'ajouter un module
+     * @param joueur l'enfant
      */
-    protected void moyenneScore(Joueur joueur, List<Terrain> listesTerrain) {
-        double scoreMoyenne = 0;
-        for (Terrain terrain : listesTerrain)
-        {
-            evaluerPerformance(joueur, terrain);
-            scoreMoyenne += joueur.getScore();
+    private void ajouterModule(Joueur joueur) {
+        // On récupère un module aléatoire de l'enfant
+        int indexRandomModule = random.nextInt(joueur.getReseau().getModules().size());
+
+        Module moduleAleatoire = joueur.getReseau().getModules().get(indexRandomModule).clone();
+
+        // On ajoute ce module au réseau
+        joueur.getReseau().addModule(moduleAleatoire);
+
+        // On mute ce module
+        mutation(joueur);
+        mutationPosition(joueur);
+        mutationNbModules(joueur);
+    }
+
+    /**
+     * Méthode qui permet de réaliser une mutation sur le nombre de neuronnes
+     * @param joueur
+     */
+    public void mutationNbNeuronne(Joueur joueur) {
+        Reseau res = joueur.getReseau();
+
+        int probaMutation = random.nextInt(5);
+
+        if (probaMutation == 3) {
+            // ajout d'un neurone
+            res.ajouterNeuroneAleatoire();
+
+        } else {
+            if (probaMutation == 4) {
+                // suppression d'un neurone
+                res.supprimerNeuroneAleatoire();
+
+            }
         }
-        joueur.setScore((scoreMoyenne/ nbTerrains));
     }
 }

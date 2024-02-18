@@ -105,6 +105,7 @@ public class Neat{
                     // 2 enfants par couple
                     Joueur enfant1 = croisement(parent1, parent2);
                     mutationParModule(enfant1);
+
                     Joueur enfant2 = croisement(parent1, parent2);
                     mutationParModule(enfant2);
 
@@ -153,7 +154,7 @@ public class Neat{
         Reseau enfant = new Reseau();
         Module mod;
         boolean arret = false;
-        // gerer les croisement de tailles non egales
+        // gérer les croisements de tailles non égales
         int tailleResMax = Math.max(parent1.getReseau().getModules().size(), parent2.getReseau().getModules().size());
 
         while (!arret) {
