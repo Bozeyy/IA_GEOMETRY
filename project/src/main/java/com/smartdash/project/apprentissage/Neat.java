@@ -140,6 +140,7 @@ public class Neat{
     public void evaluerPerformance(Joueur joueur, Terrain terrain)
     {
         joueur.setMap(terrain);
+
         Jeu jeu = new Jeu(joueur, terrain);
         jeu.evaluationUnJoueur();
     }
@@ -289,7 +290,7 @@ public class Neat{
     public List<Joueur> selectionnerParents(List<Joueur> population){
         List<Joueur> copiePopulation = new ArrayList<>(population);
         // On tri la population
-        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScore).reversed());
+        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScorePartie).reversed());
 
         if (population.size() != 1000)
         {

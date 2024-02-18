@@ -9,6 +9,7 @@ import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class NeatVariation extends NeatAmelioration
@@ -178,5 +179,27 @@ public class NeatVariation extends NeatAmelioration
 
             }
         }
+    }
+
+    @Override
+    public List<Joueur> selectionnerParents(List<Joueur> population){
+        List<Joueur> copiePopulation = new ArrayList<>(population);
+        // On tri la population
+        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScoreApprentissage).reversed());
+
+        if (population.size() != 1000)
+        {
+            throw new IllegalStateException("La taille de la population n'est pas de 1000");
+        }
+
+        System.out.println("nb neurone :" + copiePopulation.get(0).getReseau().getNbNeurone() );
+        // On initialise
+        List<Joueur> nouvellePopulation = new ArrayList<>(copiePopulation.subList(0, NB_MEILLEURS));
+        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(8,57),NB_PARTIE_2));
+        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(57,407),NB_PARTIE_3));
+        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(407,907),NB_PARTIE_4));
+        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(8,57),NB_PARTIE_5));
+
+        return nouvellePopulation;
     }
 }

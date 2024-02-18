@@ -21,7 +21,8 @@ public class  Joueur
     protected boolean vivant;
     protected  boolean fin;
     protected boolean saut;
-    protected double score;
+    protected double scorePartie;
+    protected double scoreApprentissage;
 
 
     /**
@@ -40,11 +41,12 @@ public class  Joueur
         this.map = mapJeu;
         this.vivant = true;
         this.fin = false;
-        this.score = 0;
+        this.scorePartie = 0;
+        this.scoreApprentissage = 0;
     }
 
     /**
-     * Constructeur sans coordonnées
+     * Constructeur sans coordonner
      * @param mapJeu, terrain autour du joueur
      * @param reseau, réseau de neurone du joueur
      */
@@ -57,7 +59,8 @@ public class  Joueur
         this.saut = false;
         this.x = 0;
         this.y = mapJeu.getLargeur()-7;
-        this.score = 0;
+        this.scorePartie = 0;
+        this.scoreApprentissage = 0;
     }
 
     /**
@@ -71,7 +74,8 @@ public class  Joueur
         this.vivant = true;
         this.fin = false;
         this.x = 0;
-        this.score = 0;
+        this.scorePartie = 0;
+        this.scoreApprentissage = 0;
     }
 
 
@@ -278,6 +282,8 @@ public class  Joueur
         this.y = this.map.getLargeur()-7;
         this.vY = 0;
         this.reseau.renitialiser();
+        this.scorePartie = 0;
+        this.scoreApprentissage = 0;
     }
 
 
@@ -302,14 +308,15 @@ public class  Joueur
         return reseau;
     }
 
-    public double getScore() {
-        return score;
+    public double getScorePartie() {
+        return scorePartie;
     }
+    public double getScoreApprentissage() {return scoreApprentissage;}
 
     public boolean isSaut(){return saut;}
 
-    public void setScore(double x) {
-        this.score = x;
+    public void setScorePartie(double x) {
+        this.scorePartie = x;
     }
     public void setMap(Terrain terrain)
     {
@@ -323,5 +330,9 @@ public class  Joueur
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setScoreApprentissage(double score) {
+        this.scoreApprentissage = score;
     }
 }

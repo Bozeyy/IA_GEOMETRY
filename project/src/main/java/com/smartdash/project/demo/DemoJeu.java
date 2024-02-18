@@ -33,7 +33,7 @@ public class DemoJeu {
 
         Jeu j = new Jeu(new Terrain("src/main/resources/terrains_demo/test_map2.txt"), reseau);
         j.evaluationUnJoueur();
-        System.out.println(j.getJoueur().getScore());
+        System.out.println(j.getJoueur().getScorePartie());
     }
 
     public static void lancerNeuronePique1() {
@@ -88,7 +88,7 @@ public class DemoJeu {
         Neat n = new Neat();
         n.evaluerPerformance(j, terrain);
         System.out.println(j.getReseau());
-        System.out.println("score  1: " + j.getScore());
+        System.out.println("score  1: " + j.getScorePartie());
 
 
         Joueur j2 = new Joueur(j.getReseau().clone());
@@ -96,7 +96,7 @@ public class DemoJeu {
         jeu.lancerIA(false);
 
         System.out.println(jeu.getJoueur().getReseau());
-        System.out.println("score  2 : " + jeu.getJoueur().getScore());
+        System.out.println("score  2 : " + jeu.getJoueur().getScorePartie());
 
     }
 
@@ -289,7 +289,7 @@ public class DemoJeu {
 
         for (int i=0; i<11; i++)
         {
-            System.out.println("Joueur " + i + " : score de : " + population.get(i).getScore());
+            System.out.println("Joueur " + i + " : score de : " + population.get(i).getScorePartie());
         }
 
         System.out.println(" ");
@@ -298,7 +298,7 @@ public class DemoJeu {
 
         for (int i=0; i<11; i++)
         {
-            System.out.println("Joueur " + i + " : score de : " + parents.get(i).getScore());
+            System.out.println("Joueur " + i + " : score de : " + parents.get(i).getScorePartie());
         }
     }
 

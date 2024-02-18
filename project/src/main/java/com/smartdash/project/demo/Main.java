@@ -2,6 +2,7 @@ package com.smartdash.project.demo;
 
 import com.smartdash.project.apprentissage.NeatAmelioration;
 import com.smartdash.project.apprentissage.NeatPosition;
+import com.smartdash.project.apprentissage.NeatVariation;
 import com.smartdash.project.mvc.modele.Terrain;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 public class Main
 {
     public static void main(String[] args) {
-        lancerThread(5);
+        lancerThread(3);
     }
 
     /**
@@ -23,7 +24,7 @@ public class Main
 
         for (int i = 0; i < nombreInstances; i++) {
              Thread apprentissageThread = new Thread(() -> {
-                NeatAmelioration neatAmelioration = new NeatAmelioration(5000, 15);
+                NeatVariation neatAmelioration = new NeatVariation(100, 15);
 
                 try {
                     neatAmelioration.lancerApprentissage();

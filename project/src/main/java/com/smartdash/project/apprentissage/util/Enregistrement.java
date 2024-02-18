@@ -187,7 +187,7 @@ public class Enregistrement {
     public static String populationToString(List<Joueur> population) {
 
         //On trie la population en fonction de leur resultat (decroissant)
-        population.sort(Comparator.comparing(Joueur::getScore).reversed());
+        population.sort(Comparator.comparing(Joueur::getScorePartie).reversed());
 
         //On créer un stringbuilder pour créer la chaine de caractère
         StringBuilder sb = new StringBuilder();
@@ -205,7 +205,7 @@ public class Enregistrement {
             sb.append("|");
 
             //Score
-            sb.append(j.getScore());
+            sb.append(j.getScorePartie());
 
             //Séparateur attribut
             sb.append("|");

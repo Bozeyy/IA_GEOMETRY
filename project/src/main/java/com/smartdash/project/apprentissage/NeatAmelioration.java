@@ -1,8 +1,6 @@
 package com.smartdash.project.apprentissage;
 
 import com.smartdash.project.IA.*;
-import com.smartdash.project.IA.Module;
-import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.apprentissage.util.Statistique;
 import com.smartdash.project.mvc.modele.Joueur;
@@ -54,6 +52,7 @@ public class NeatAmelioration extends NeatPosition
 
         int generation = 0;
         int nbParents = 32;
+
         double meilleurScore = 0;
         double meilleurScoreGen;
         List<Joueur> parents;
@@ -133,10 +132,10 @@ public class NeatAmelioration extends NeatPosition
     protected double recupererScoreMeilleurIndividu(List<Joueur> population) {
         List<Joueur> copiePopulation = new ArrayList<>(population);
         // On tri la population
-        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScore).reversed());
+        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScorePartie).reversed());
         System.out.println(copiePopulation.get(0).getReseau());
 
-        return copiePopulation.get(0).getScore();
+        return copiePopulation.get(0).getScorePartie();
     }
 
     /**
@@ -149,8 +148,8 @@ public class NeatAmelioration extends NeatPosition
         for (Terrain terrain : listesTerrain)
         {
             evaluerPerformance(joueur, terrain);
-            scoreMoyenne += joueur.getScore();
+            scoreMoyenne += joueur.getScorePartie();
         }
-        joueur.setScore((scoreMoyenne/ nbTerrains));
+        joueur.setScorePartie((scoreMoyenne/ nbTerrains));
     }
 }

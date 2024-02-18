@@ -40,7 +40,7 @@ public class Statistique {
         double sommeDesScores = 0;
 
         for (Joueur joueur : joueurs) {
-            sommeDesScores += joueur.getScore();
+            sommeDesScores += joueur.getScorePartie();
         }
 
         return (sommeDesScores) / (joueurs.size());
@@ -55,14 +55,14 @@ public class Statistique {
     public double calculerMoyenne10Meilleurs(List<Joueur> joueurs) throws Exception {
 
         List<Joueur> copieJoueurs = new ArrayList<>(joueurs);
-        copieJoueurs.sort(Comparator.comparingDouble(Joueur::getScore).reversed());
+        copieJoueurs.sort(Comparator.comparingDouble(Joueur::getScorePartie).reversed());
 
 
         double sommeDesScores = 0;
 
         for (int i = 0; i < 10; i++) {
             Joueur joueur = copieJoueurs.get(i);
-            sommeDesScores += joueur.getScore();
+            sommeDesScores += joueur.getScorePartie();
         }
 
         return (sommeDesScores) / (10);
