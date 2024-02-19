@@ -31,11 +31,8 @@ import java.util.List;
 import java.util.Random;
 
 public class VueJeu extends Pane implements Observateur {
-
     private Jeu modele;
-
     private Color couleurNiveau;
-
     private VueReseau vueReseau;
     private VueJoueur vueJoueur;
     private VueParticule vueParticule;
@@ -153,13 +150,11 @@ public class VueJeu extends Pane implements Observateur {
 
     private void getRandomColor() {
         List<Color> listCouleurs = new ArrayList<>();
+
         listCouleurs.add(Color.BLACK);
         listCouleurs.add(Color.RED);
-        listCouleurs.add(Color.PURPLE);
-        listCouleurs.add(Color.DODGERBLUE);
-        listCouleurs.add(Color.CHOCOLATE);
         listCouleurs.add(Color.DARKBLUE);
-        listCouleurs.add(Color.BLUEVIOLET);
+
 
         Random random = new Random();
         couleurNiveau = listCouleurs.get(random.nextInt(listCouleurs.size()));

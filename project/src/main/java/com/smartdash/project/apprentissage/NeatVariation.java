@@ -88,16 +88,10 @@ public class NeatVariation extends NeatAmelioration
 
                     // 2 enfants par couple
                     Joueur enfant1 = croisement(parent1, parent2);
-                    mutation(enfant1);
-                    mutationPosition(enfant1);
-                    mutationNbModules(enfant1);
-                    mutationNbNeuronne(enfant1);
+                    mutationAll(enfant1);
 
                     Joueur enfant2 = croisement(parent1, parent2);
-                    mutation(enfant2);
-                    mutationPosition(enfant2);
-                    mutationNbModules(enfant2);
-                    mutationNbNeuronne(enfant2);
+                    mutationAll(enfant2);
 
                     enfants.add(enfant1);
                     enfants.add(enfant2);
@@ -121,6 +115,17 @@ public class NeatVariation extends NeatAmelioration
         }
         stat.genererPDF(pathname);
         System.out.println("fini");
+    }
+
+    /**
+     * Méthode qui permet de réaliser toute les mutations
+     * @param enfant1 enfant
+     */
+    private void mutationAll(Joueur enfant1) {
+        mutation(enfant1);
+        mutationPosition(enfant1);
+        mutationNbModules(enfant1);
+        mutationNbNeuronne(enfant1);
     }
 
     /**
