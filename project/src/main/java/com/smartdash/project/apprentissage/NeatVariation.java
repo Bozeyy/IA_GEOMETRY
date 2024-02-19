@@ -50,8 +50,6 @@ public class NeatVariation extends NeatAmelioration
         int generation = 0;
         int nbParents = 32;
 
-        double meilleurScore = 0;
-        double meilleurScoreGen;
         List<Joueur> parents;
         List<Joueur> enfants = new ArrayList<>();
         Statistique stat = new Statistique();
@@ -124,6 +122,7 @@ public class NeatVariation extends NeatAmelioration
     private void mutationAll(Joueur enfant1) {
         mutation(enfant1);
         mutationPosition(enfant1);
+
         mutationNbModules(enfant1);
         mutationNbNeuronne(enfant1);
     }
@@ -161,7 +160,6 @@ public class NeatVariation extends NeatAmelioration
         // On mute ce module
         mutation(joueur);
         mutationPosition(joueur);
-        mutationNbModules(joueur);
     }
 
     /**
