@@ -33,16 +33,30 @@ public class Terrain {
     /**
      * Constructeur par défaut
      */
-    public Terrain()
-    {
-        // Générations des blocs de la map
-        for(int i=-10; i<=100; i++)
-        {
-            this.map.add((new Bloc(i,11)));
-            this.map.add((new Bloc(i,12)));
-            this.map.add((new Bloc(i,13)));
-            this.map.add((new Bloc(i,14)));
+//    public Terrain()
+//    {
+//        // Générations des blocs de la map
+//        for(int i=-10; i<=100; i++)
+//        {
+//            this.map.add((new Bloc(i,11)));
+//            this.map.add((new Bloc(i,12)));
+//            this.map.add((new Bloc(i,13)));
+//            this.map.add((new Bloc(i,14)));
+//        }
+//    }
+
+    public Terrain() {
+        for (int j = 0; j < 25; j++) {
+            for (int i = 0; i < 99; i++) {
+                Objet o = new Vide(i, j);
+                if (j == 19) {
+                    o = new Bloc(i, j);
+                }
+                this.map.add(o);
+            }
         }
+        this.longueur = 99;
+        this.largeur = 25;
     }
 
     /**
@@ -208,5 +222,35 @@ public class Terrain {
 
     public void setMap(ArrayList<Objet> map) {
         this.map = map;
+    }
+
+    public void afficherTerrain() {
+        System.out.println(this.map.size());
+        for (int i = 0; i < getLargeur(); i++) {
+            for (int j = 0; j < getLongueur(); j++) {
+                int finalI = i;
+                int finalJ = j;
+
+                boolean isBloc = getMap().stream()
+                        .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Bloc);
+
+                boolean isPique = getMap().stream()
+                        .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Pique);
+
+                boolean isVide = getMap().stream()
+                        .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Vide);
+
+
+                if (isBloc) {
+                    System.out.print("B");
+                } else if (isPique) {
+                    System.out.print("P");
+                } else if (isVide) {
+                    System.out.print("."); // Afficher une case vide
+                }
+            }
+            System.out.println(); // Nouvelle ligne pour chaque ligne de la carte
+        }
+
     }
 }

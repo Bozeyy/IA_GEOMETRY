@@ -12,6 +12,16 @@ import java.util.List;
 
 public class NeatAmelioration extends NeatPosition
 {
+
+    public static void main(String[] args) {
+        NeatAmelioration neatAmelioration = new NeatAmelioration(150,1);
+
+        try {
+            neatAmelioration.lancerApprentissage();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     protected int nbTerrains;
 
 

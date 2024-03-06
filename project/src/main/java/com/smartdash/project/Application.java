@@ -28,7 +28,7 @@ public class Application extends javafx.application.Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_2056.txt", 0);
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_9999.txt", 0);
         Jeu jeu = new Jeu(new Terrain("src/main/resources/map.txt"), joueur.getReseau());
 
         BorderPane borderPane = new BorderPane();
