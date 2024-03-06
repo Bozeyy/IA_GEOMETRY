@@ -11,7 +11,7 @@ import java.util.List;
 public class Main
 {
     public static void main(String[] args) {
-        lancerThread(3);
+        lancerNormal();
     }
 
     /**
@@ -53,7 +53,7 @@ public class Main
      */
     public static void lancerNormal()
     {
-         NeatPosition neatAmelioration = new NeatPosition(new Terrain("src/main/resources/apprentissage/terrain15.txt"),150);
+         NeatVariation neatAmelioration = new NeatVariation(150,1);
 
         try {
             neatAmelioration.lancerApprentissage();

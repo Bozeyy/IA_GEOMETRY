@@ -11,18 +11,17 @@ import java.util.List;
 import java.util.Random;
 
 public class VueParticule extends Pane {
-    private Jeu modele;
-    private List<Rectangle> particules;
-    private Random random = new Random();
-    private final int NOMBRE_PARTICULES = 5;
-    private final double TAILLE_PARTICULE = 5;
-    private final int DISTANCE_ARRIERE = 2;
+    private final Jeu modele;
+    private final List<Rectangle> particules;
+    private final Random random = new Random();
 
     public VueParticule(Jeu modele) {
         this.modele = modele;
         this.particules = new ArrayList<>();
 
+        int NOMBRE_PARTICULES = 5;
         for (int i = 0; i < NOMBRE_PARTICULES; i++) {
+            double TAILLE_PARTICULE = 5;
             Rectangle particule = new Rectangle(TAILLE_PARTICULE, TAILLE_PARTICULE, Color.WHITE);
             particule.setOpacity(0);
 
@@ -45,6 +44,7 @@ public class VueParticule extends Pane {
         if(!modele.getJoueur().isSaut())
         {
 
+            int DISTANCE_ARRIERE = 2;
             double zoneDebutX = (modele.getJoueur().getX() - DISTANCE_ARRIERE) * modele.getTailleCase();
             double zoneFinX = (modele.getJoueur().getX() * modele.getTailleCase()) - 10;
 

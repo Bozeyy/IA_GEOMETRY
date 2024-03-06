@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-
 public class Application extends javafx.application.Application {
     private final int longueurFenetre = 800;
     private final int hauteurVueInformation = 190;
@@ -30,7 +29,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws Exception {
         Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/10-02-2024_17-32-31_id820/generation_1572.txt", 0);
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain8.txt"), joueur.getReseau());
+        Jeu jeu = new Jeu(new Terrain("src/main/resources/map.txt"), joueur.getReseau());
 
         BorderPane borderPane = new BorderPane();
         //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());

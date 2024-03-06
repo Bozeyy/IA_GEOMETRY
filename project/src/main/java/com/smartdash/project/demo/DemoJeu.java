@@ -161,6 +161,9 @@ public class DemoJeu {
             case 11 :
                 testMutationNbNeurones();
                 break;
+            case 12 :
+                testMutationNbModules();
+                break;
         }
     }
 
@@ -193,6 +196,24 @@ public class DemoJeu {
             System.out.println(j1.getReseau());
 
         }
+
+    }
+
+    private static void testMutationNbModules() {
+        NeatVariation neat = new NeatVariation(10, 1);
+        Neurone neurone = new NeuroneVide(0, 0);
+        Neurone neurone2 = new NeuroneVide(0, 0);
+        Neurone neurone3 = new NeuroneVide(0, 0);
+
+        Reseau reseau1 = ReseauFabrique.genererReseau(new Module[]{ModuleFabrique.genererModule(new Neurone[]{neurone, neurone2, neurone3})});
+        Joueur j1 = new Joueur(reseau1);
+
+        System.out.println(j1.getReseau());
+
+        neat.mutationNbModules(j1);
+
+        System.out.println("Réseau muté : ");
+        System.out.println(j1.getReseau());
 
     }
 
