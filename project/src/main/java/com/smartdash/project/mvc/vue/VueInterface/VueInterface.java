@@ -1,9 +1,10 @@
-package com.smartdash.project.mvc.vue;
+package com.smartdash.project.mvc.vue.VueInterface;
 
 import com.smartdash.project.mvc.controller.ControllerButton;
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Sujet;
 import com.smartdash.project.mvc.modele.Terrain;
+import com.smartdash.project.mvc.vue.Observateur;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VueInterface extends Pane implements Observateur{
+public class VueInterface extends Pane implements Observateur {
 
     Stage stage;
 
@@ -46,7 +47,6 @@ public class VueInterface extends Pane implements Observateur{
         defilerImage("background2.png");
         initBoutons();
         ajouterButton(new Button("LancerIA"));
-        ajouterButton(new Button("LancerJeu"));
         ajouterButton(terrainsToChoiceBox());
 
 
@@ -56,7 +56,7 @@ public class VueInterface extends Pane implements Observateur{
         Image image = new Image(fichierBackground);
 
         // Créer plusieurs ImageView pour afficher l'image en continu
-        ImageView[] imageViews = new ImageView[3];
+        ImageView[] imageViews = new ImageView[4];
         for (int i = 0; i < imageViews.length; i++) {
             imageViews[i] = new ImageView(image);
             imageViews[i].setTranslateX(i * image.getWidth());
@@ -96,13 +96,15 @@ public class VueInterface extends Pane implements Observateur{
 
         if(node instanceof Button){
             Button nodeButton = (Button) node;
-            nodeButton.setPrefWidth(250);
+            nodeButton.setPrefWidth(400);
+            nodeButton.setMinWidth(400);
             nodeButton.setId(nodeButton.getText());
             nodeButton.setOnAction(new ControllerButton(modele, stage));
             node = nodeButton;
         } else if (node instanceof ChoiceBox){
             ChoiceBox nodeChoiceBox = (ChoiceBox) node;
-            nodeChoiceBox.setPrefWidth(250);
+            nodeChoiceBox.setPrefWidth(400);
+            nodeChoiceBox.setMinWidth(400);
             nodeChoiceBox.setId("Terrains");
 
             node = nodeChoiceBox;

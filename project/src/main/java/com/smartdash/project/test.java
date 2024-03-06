@@ -1,19 +1,13 @@
 package com.smartdash.project;
 
 import com.smartdash.project.apprentissage.util.Enregistrement;
-import com.smartdash.project.mvc.controller.ControllerClavier;
-import com.smartdash.project.mvc.controller.ControllerSouris;
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.scene.SceneInterface;
 import com.smartdash.project.mvc.scene.SceneJeu;
-import com.smartdash.project.mvc.vue.VueInformationApp;
-import com.smartdash.project.mvc.vue.VueInterface;
-import com.smartdash.project.mvc.vue.VueJeu;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 

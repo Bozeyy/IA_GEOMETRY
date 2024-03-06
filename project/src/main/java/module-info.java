@@ -22,4 +22,6 @@ module com.smartdash.project {
     exports com.smartdash.project.IA;
     exports com.smartdash.project.mvc.modele.objet;
     exports com.smartdash.project.mvc.modele.objet.piques;
+    exports com.smartdash.project.mvc.vue.VueInterface;
+    opens com.smartdash.project.mvc.vue.VueInterface to javafx.fxml;
 }
