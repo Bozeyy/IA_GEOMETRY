@@ -2,6 +2,7 @@ package com.smartdash.project.mvc.modele;
 
 
 import com.smartdash.project.IA.*;
+import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.mvc.modele.objet.Bloc;
 import com.smartdash.project.mvc.modele.objet.piques.Pique;
 import com.smartdash.project.mvc.modele.objet.Vide;
@@ -279,6 +280,7 @@ public class Jeu implements Sujet{
         return terrains;
     }
 
+
     /**
      * Méthode qui permet de réinitialiser l'état du joueur
      */
@@ -310,6 +312,83 @@ public class Jeu implements Sujet{
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
         this.joueur.setMap(terrain);
+    }
+
+    public Map<String,Map<String,List<Joueur>>> genererJoueurs(boolean meilleur) throws Exception {
+
+        // On aussi chaque apprentissage à son nom de dossier
+        HashMap<String,Map<String,List<Joueur>>> apprentissageAll = new HashMap<>();
+
+        // On récupère les dossiers d'apprentissage
+        File dossierEnregistrement = new File("src/main/resources/enregistrement");
+
+        int nbApprentissage = 0;
+        int nbGeneration = 0;
+        int nbJoueur = 0;
+
+        // Si meilleur est vrai, on ne prend que les meilleurs sion on prend tous les dossiers
+        List<File> dossierApprentissages = Objects.requireNonNull(Arrays.stream(Objects.requireNonNull(dossierEnregistrement.listFiles())).toList().stream().filter(file -> !meilleur && file.isDirectory() && Objects.requireNonNull(file.listFiles()).length != 0 || file.getName().contains("meilleurs")).toList());
+
+        for (File dossierApprentissage : dossierApprentissages) {
+
+            // On crée une liste de generations
+            Map<String,List<Joueur>> apprentissage = new HashMap<>();
+
+            // On récupère les fichiers de génération
+            List<File> generations = Arrays.stream(Objects.requireNonNull(dossierApprentissage.listFiles())).toList();
+
+
+            int size = generations.size();
+
+            // On trie les fichiers de génération
+            if(dossierApprentissage.getName().matches("[0-9]+-[0-9]+-[0-9]+.*")) generations = generations.stream().sorted(Comparator.comparingInt(file -> {
+                String fileName = file.getName();
+                int underscoreIndex = fileName.lastIndexOf('_');
+                int dotIndex = fileName.lastIndexOf('.');
+                String number = fileName.substring(underscoreIndex + 1, dotIndex);
+                return Integer.parseInt(number);
+            })).toList();
+
+            // On parcourt les fichiers de génération
+            if(size > 3000) { // si il y a plus de 3000 générations, on prend le premier, celui du milieu et les 3 dernières
+
+                ArrayList<File> generations1 = new ArrayList<>();
+                generations1.add(generations.get(0));
+                generations1.add(generations.get(size / 2));
+                generations1.add(generations.get(size - 1));
+                generations1.add(generations.get(size - 2));
+                generations1.add(generations.get(size - 3));
+                generations = generations1;
+
+            } else if(size > 4) { // sinon on prend le premier, celui du quart, celui du milieu, celui des 3/4 et le dernier
+
+                generations = List.of(generations.get(0), generations.get(size / 4), generations.get(size / 2), generations.get(3 * size / 4), generations.get(size - 1));
+
+            } // sinon on prend tout
+
+            for (File generation : generations) {
+
+                // On récupère les 10 meilleurs
+                List<Joueur> joueurs = Enregistrement.stringToPopulation(generation.getPath()).stream().limit(10).toList();
+
+                    nbJoueur+= joueurs.size();
+
+                // On ajoute la liste des joueurs à la liste des generations
+                apprentissage.put(generation.getName(),joueurs);
+
+                nbGeneration++;
+
+            }
+
+            // On ajoute la liste des generations à la liste d'apprentissage
+            apprentissageAll.put(dossierApprentissage.getName(),apprentissage);
+
+            nbApprentissage++;
+            System.out.println("Apprentissage " + nbApprentissage + " : " + dossierApprentissage.getName() + " avec " + nbGeneration + " générations et " + nbJoueur + " joueurs");
+
+        }
+
+        return apprentissageAll;
     }
 
 

@@ -7,14 +7,12 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -81,7 +79,15 @@ public class VueInterfaceFirst extends Pane implements Observateur {
 
         // Gestion de l'événement de clic sur le cercle
         stackPane.setOnMouseClicked(event -> {
-            System.out.println("Cercle cliqué !");
+            VueInterfaceIA parent = null;
+            try {
+                parent = new VueInterfaceIA(modele, stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            modele.enregistrerObservateur(parent);
+            stage.getScene().setRoot(parent);
+
         });
 
         stackPane.setLayoutX(Screen.getPrimary().getBounds().getWidth()/2 - 150);

@@ -1,7 +1,6 @@
 package com.smartdash.project.mvc.scene;
 
 import com.smartdash.project.mvc.modele.Jeu;
-import com.smartdash.project.mvc.vue.VueInterface.VueInterface;
 import com.smartdash.project.mvc.vue.VueInterface.VueInterfaceFirst;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,7 +27,4 @@ public class SceneInterface extends Scene {
         return vueInterface;
     }
 
-    public void setSceneInterface(){
-
-    }
 }
