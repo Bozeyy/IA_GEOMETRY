@@ -30,134 +30,60 @@ import java.util.List;
 import java.util.Map;
 
 
-public class VueInterfaceIA extends Pane implements Observateur {
-
-    Stage stage;
-
-    VueInterfaceFirst vueInterfaceFirst;
-
-    Jeu modele;
-
-    TreeView<String> treeView;
-
-    ChoiceBox<String> joueurs = new ChoiceBox<>();
+public class VueInterfaceIA extends InterfaceChoix implements Observateur{
+    VueInterfaceTerrain vueInterfaceTerrain;
 
     VueReseau vueReseau;
-    Pane paneJoueur;
-
-    Button retourArriere = new Button();
 
     public VueInterfaceIA(Jeu modele, Stage stage, VueInterfaceFirst vueInterfaceFirst) throws Exception {
-        this.modele = modele;
-        this.vueInterfaceFirst = vueInterfaceFirst;
-        treeView = new TreeView<String>();
-        this.stage = stage;
+        super(modele,stage);
+        ajouterInterfaceConnectee(vueInterfaceFirst);
         init();
-
 
     }
 
     public void init() throws Exception {
-        getChildren().clear();
-        defilerImage("background2.png");
-        initTreeview();
-        initChoiceBox();
-        initStackPaneJoueur();
+        super.init();
         initVueReseau();
-        initRetourArriere();
-
+        addTout();
     }
 
-    private void initRetourArriere() {
-        // Création d'un triangle pour simuler une flèche vers la gauche
-        Polygon arrow = new Polygon();
-        arrow.getPoints().addAll(0.0, 10.0, 20.0, 0.0, 20.0, 20.0);
-        arrow.setFill(Color.BLACK);
-
-        // Création d'un trait pour simuler une tige à la flèche
-        Rectangle stem = new Rectangle(20, 5, 20, 10);
-        stem.setFill(Color.BLACK);
-
-        // Bouton personnalisé avec la flèche et la tige
-        retourArriere.setGraphic(new Pane(stem, arrow)); // Ajout de la flèche et du trait dans un StackPane
-        retourArriere.setPadding(new Insets(10, 20, 10, 20)); // Augmentation de la taille du bouton
-
-        // Ajout d'un listener pour le clic sur le bouton
-        retourArriere.setOnAction(event -> {
-            modele.enregistrerObservateur(vueInterfaceFirst);
-            stage.getScene().setRoot(vueInterfaceFirst);
-        });
-
-        retourArriere.setPrefSize(85,40);
-        retourArriere.setLayoutX(50);
-        retourArriere.setLayoutY(50);
-
-        getChildren().add(retourArriere);
-
-    }
-
-    private void initStackPaneJoueur() {
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-
-        paneJoueur = new Pane();
-        paneJoueur.setPrefSize(bounds.getWidth() - treeView.getPrefWidth() - 150, bounds.getHeight() - 100 - joueurs.getPrefHeight() - 50);
-        paneJoueur.setLayoutX(50 + treeView.getPrefWidth() + 50);
-        paneJoueur.setLayoutY(50);
-        paneJoueur.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
-
-        getChildren().add(paneJoueur);
-    }
 
     private void initVueReseau() {
 
         try {
-            modele.getJoueur().setX((int) ((paneJoueur.getLayoutX() + paneJoueur.getPrefWidth() / 2) / modele.getTailleCase()));
-            modele.getJoueur().setY((int) ((paneJoueur.getLayoutY() + paneJoueur.getPrefHeight() / 2 ) / modele.getTailleCase()));
+            modele.getJoueur().setX((int) ((panePrincipal.getLayoutX() + panePrincipal.getPrefWidth() / 1.5) / modele.getTailleCase()));
+            modele.getJoueur().setY((int) ((panePrincipal.getLayoutY() + panePrincipal.getPrefHeight() / 1.5 ) / modele.getTailleCase()));
             vueReseau = new VueReseau(modele);
 
-            paneJoueur.getChildren().clear();
+            panePrincipal.getChildren().clear();
             for (NeuroneVue neuroneVue : vueReseau.getNeurones()) {
-                paneJoueur.getChildren().add(neuroneVue.getShape());
+                panePrincipal.getChildren().add(neuroneVue.getShape());
             }
 
             //vueReseau.actualiser(modele);
 
-            paneJoueur.getChildren().add(vueReseau);
+            panePrincipal.getChildren().add(vueReseau);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void initChoiceBox() {
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
+    @Override
+    public void addRetourArriere() {
+        retourArriere.setOnAction(event -> {
+            addTransitionInterface("VueInterfaceFirst");
+        });
+    }
 
-        joueurs = new ChoiceBox<>();
-        joueurs.setPrefSize(300, 50);
-        joueurs.setLayoutX(bounds.getWidth() - joueurs.getPrefWidth() * 2 - 100);
-        joueurs.setLayoutY(bounds.getHeight() - 100);
-
-        getChildren().add(joueurs);
-
+    @Override
+    public void addChoixPrincipal() {
 
     }
 
-    private void initTreeview() throws Exception {
+    @Override
+    public void addChoixSecondaire() throws Exception {
         Map<String, Map<String, List<Joueur>>> stringMapMap = modele.genererJoueurs(false);
-
-
-
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-
-        treeView.setLayoutX(50);
-        treeView.setLayoutY(150);
-        treeView.setPrefSize(300, bounds.getHeight() - 200);
-        treeView.setShowRoot(false);
-        treeView.setEditable(true);
-        treeView.setRoot(new TreeItem<>("Root"));
-        treeView.setStyle("-fx-font-size: 15px;");
 
 
         for (Map.Entry<String, Map<String, List<Joueur>>> stringMapEntry : stringMapMap.entrySet()) {
@@ -171,14 +97,14 @@ public class VueInterfaceIA extends Pane implements Observateur {
                 item.getChildren().add(item2);
 
             }
-            treeView.getRoot().getChildren().add(item);
+            choixPrincipal.getRoot().getChildren().add(item);
         }
 
-        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && newValue.getChildren() != null && newValue.getChildren().size() == 0) {
+        choixPrincipal.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.getChildren() != null && newValue.getChildren().isEmpty()) {
 
                 //ajout des joueurs dans la choicebox
-                joueurs.getItems().clear();
+                choixSecondaire.getItems().clear();
 
                 String cleP = newValue.getParent().getValue();
                 String cleS = newValue.getValue();
@@ -186,21 +112,21 @@ public class VueInterfaceIA extends Pane implements Observateur {
                 //ajout des joueurs dans la choicebox
                 if (stringMapMap.containsKey(cleP) && stringMapMap.get(cleP).containsKey(cleS)) {
                     for (Joueur joueur : stringMapMap.get(cleP).get(cleS)) {
-                        joueurs.getItems().add("Joueur n°" + (stringMapMap.get(cleP).get(cleS).indexOf(joueur) +1));
+                        choixSecondaire.getItems().add("Joueur n°" + (stringMapMap.get(cleP).get(cleS).indexOf(joueur) +1));
                     }
                 }
 
                 //style de la choicebox
-                joueurs.setStyle("-fx-font-size: 15px;");
+                choixSecondaire.setStyle("-fx-font-size: 15px;");
 
                 //selection du premier joueur
-                if(!joueurs.getItems().isEmpty())
-                    joueurs.setValue(joueurs.getItems().getFirst());
+                if(!choixSecondaire.getItems().isEmpty())
+                    choixSecondaire.setValue(choixSecondaire.getItems().getFirst());
 
                 //ajout du listener sur la choicebox pour changer les infos du joueur sélectionné
-                joueurs.setOnAction(e -> {
-                    if (joueurs.getValue() != null) {
-                        modele.setJoueur(stringMapMap.get(cleP).get(cleS).get(joueurs.getItems().indexOf(joueurs.getValue())));
+                choixSecondaire.setOnAction(e -> {
+                    if (choixSecondaire.getValue() != null) {
+                        modele.setJoueur(stringMapMap.get(cleP).get(cleS).get(choixSecondaire.getItems().indexOf(choixSecondaire.getValue())));
                         initVueReseau();
                     }
                 });
@@ -208,13 +134,20 @@ public class VueInterfaceIA extends Pane implements Observateur {
 
             }
 
-
-
         });
 
-        getChildren().add(treeView);
+    }
+
+    @Override
+    public void addPanePrincipal() {
 
     }
+
+    @Override
+    public void addValider() {
+
+    }
+
 
     public void defilerImage(String fichierBackground){
         Image image = new Image(fichierBackground);

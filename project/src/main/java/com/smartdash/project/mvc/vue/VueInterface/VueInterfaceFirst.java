@@ -17,31 +17,25 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class VueInterfaceFirst extends Pane implements Observateur {
+import java.util.List;
 
-    Stage stage;
-
-    VueInterfaceIA vueInterfaceIA;
-
-    Jeu modele;
-
-    StackPane play;
+public class VueInterfaceFirst extends InterfaceBase implements Observateur{
 
     public VueInterfaceFirst(Jeu jeu, Stage stage) throws Exception {
+        super(jeu, stage);
         this.modele = jeu;
         this.stage = stage;
-        vueInterfaceIA = new VueInterfaceIA(modele, stage, this);
         init();
     }
 
-    public void init(){
-        getChildren().clear();
-        defilerImage("background2.png");
-        setPlay();
+    public void init() throws Exception {
+        super.init();
+        setPlay("play.png");
     }
 
-    public void setPlay(){
-        Image image = new Image("play.png");
+    public void setPlay(String fichierBouton) throws Exception {
+        ajouterInterfaceConnectee(new VueInterfaceIA(modele, stage, this));
+        Image image = new Image(fichierBouton);
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(300); // Ajuster la largeur de l'image
         imageView.setFitHeight(300); // Ajuster la hauteur de l'image
@@ -82,51 +76,19 @@ public class VueInterfaceFirst extends Pane implements Observateur {
 
         // Gestion de l'événement de clic sur le cercle
         stackPane.setOnMouseClicked(event -> {
-            modele.enregistrerObservateur(vueInterfaceIA);
-            stage.getScene().setRoot(vueInterfaceIA);
-
+            addTransitionInterface("VueInterfaceIA");
         });
 
-        stackPane.setLayoutX(Screen.getPrimary().getBounds().getWidth()/2 - 150);
-        stackPane.setLayoutY(Screen.getPrimary().getBounds().getHeight()/2 - 150);
+        stackPane.setLayoutX(screen.getBounds().getWidth()/2 - 150);
+        stackPane.setLayoutY(screen.getBounds().getHeight()/2 - 150);
 
-        play = stackPane;
-        getChildren().add(play);
+        stackPane.setId("playBouton");
+        ajouterElement(stackPane);
+
+        getChildren().add(stackPane);
     }
 
-    public void defilerImage(String fichierBackground){
-        Image image = new Image(fichierBackground);
 
-        // Créer plusieurs ImageView pour afficher l'image en continu
-        ImageView[] imageViews = new ImageView[4];
-        for (int i = 0; i < imageViews.length; i++) {
-            imageViews[i] = new ImageView(image);
-            imageViews[i].setTranslateX(i * image.getWidth());
-        }
-
-        // Ajouter les ImageView à la scène
-        getChildren().addAll(imageViews);
-
-        // Créer un écouteur d'événements de chronométrage pour déplacer les images
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5), event -> {
-            // Déplacer les images vers la gauche
-            for (ImageView imageView : imageViews) {
-                imageView.setTranslateX(imageView.getTranslateX() - 1);
-
-                // Si une image est complètement sortie de l'écran, réinitialiser sa position
-                if (imageView.getBoundsInParent().getMaxX() <= 0) {
-                    imageView.setTranslateX(imageView.getTranslateX() + image.getWidth() * imageViews.length);
-                }
-            }
-        }));
-
-        // Configurer la répétition de l'animation
-        timeline.setCycleCount(Animation.INDEFINITE);
-
-        // Démarrer l'animation
-        timeline.play();
-
-    }
 
     @Override
     public void actualiser(Sujet sujet) {
