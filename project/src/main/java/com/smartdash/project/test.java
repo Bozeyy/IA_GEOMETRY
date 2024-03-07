@@ -26,15 +26,6 @@ public class test extends javafx.application.Application {
         jeu.genererTerrains();
 
         Scene sceneInterface = new SceneInterface(jeu, stage);
-        sceneInterface.heightProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Height: " + newValue);
-        });
-
-        sceneInterface.widthProperty().addListener((observable, oldValue, newValue) -> {
-            jeu.notifierObservateurs();
-            System.out.println("Width: " + newValue);
-        });
-
         Scene scene = new SceneJeu(jeu,stage);
 
         Screen screen = Screen.getPrimary();
@@ -43,6 +34,7 @@ public class test extends javafx.application.Application {
         //stage.setMinWidth(longueurFenetre);
         //stage.setMinHeight(hauteurFenetre);
 
+        stage.setMaximized(true);
         stage.setMinWidth(bounds.getWidth());
         stage.setMinHeight(bounds.getHeight());
 
