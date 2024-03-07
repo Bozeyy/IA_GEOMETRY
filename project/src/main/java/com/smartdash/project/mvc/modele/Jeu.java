@@ -384,7 +384,6 @@ public class Jeu implements Sujet{
             apprentissageAll.put(dossierApprentissage.getName(),apprentissage);
 
             nbApprentissage++;
-            System.out.println("Apprentissage " + nbApprentissage + " : " + dossierApprentissage.getName() + " avec " + nbGeneration + " générations et " + nbJoueur + " joueurs");
 
         }
 

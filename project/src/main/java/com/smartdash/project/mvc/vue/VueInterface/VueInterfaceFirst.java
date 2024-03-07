@@ -21,13 +21,16 @@ public class VueInterfaceFirst extends Pane implements Observateur {
 
     Stage stage;
 
+    VueInterfaceIA vueInterfaceIA;
+
     Jeu modele;
 
     StackPane play;
 
-    public VueInterfaceFirst(Jeu jeu, Stage stage) {
+    public VueInterfaceFirst(Jeu jeu, Stage stage) throws Exception {
         this.modele = jeu;
         this.stage = stage;
+        vueInterfaceIA = new VueInterfaceIA(modele, stage, this);
         init();
     }
 
@@ -79,14 +82,8 @@ public class VueInterfaceFirst extends Pane implements Observateur {
 
         // Gestion de l'événement de clic sur le cercle
         stackPane.setOnMouseClicked(event -> {
-            VueInterfaceIA parent = null;
-            try {
-                parent = new VueInterfaceIA(modele, stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            modele.enregistrerObservateur(parent);
-            stage.getScene().setRoot(parent);
+            modele.enregistrerObservateur(vueInterfaceIA);
+            stage.getScene().setRoot(vueInterfaceIA);
 
         });
 

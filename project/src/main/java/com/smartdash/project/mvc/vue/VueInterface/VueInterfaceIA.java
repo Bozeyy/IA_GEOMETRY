@@ -9,13 +9,18 @@ import com.smartdash.project.mvc.vue.VueReseau;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -29,6 +34,8 @@ public class VueInterfaceIA extends Pane implements Observateur {
 
     Stage stage;
 
+    VueInterfaceFirst vueInterfaceFirst;
+
     Jeu modele;
 
     TreeView<String> treeView;
@@ -38,8 +45,11 @@ public class VueInterfaceIA extends Pane implements Observateur {
     VueReseau vueReseau;
     Pane paneJoueur;
 
-    public VueInterfaceIA(Jeu modele, Stage stage) throws Exception {
+    Button retourArriere = new Button();
+
+    public VueInterfaceIA(Jeu modele, Stage stage, VueInterfaceFirst vueInterfaceFirst) throws Exception {
         this.modele = modele;
+        this.vueInterfaceFirst = vueInterfaceFirst;
         treeView = new TreeView<String>();
         this.stage = stage;
         init();
@@ -54,6 +64,35 @@ public class VueInterfaceIA extends Pane implements Observateur {
         initChoiceBox();
         initStackPaneJoueur();
         initVueReseau();
+        initRetourArriere();
+
+    }
+
+    private void initRetourArriere() {
+        // Création d'un triangle pour simuler une flèche vers la gauche
+        Polygon arrow = new Polygon();
+        arrow.getPoints().addAll(0.0, 10.0, 20.0, 0.0, 20.0, 20.0);
+        arrow.setFill(Color.BLACK);
+
+        // Création d'un trait pour simuler une tige à la flèche
+        Rectangle stem = new Rectangle(20, 5, 20, 10);
+        stem.setFill(Color.BLACK);
+
+        // Bouton personnalisé avec la flèche et la tige
+        retourArriere.setGraphic(new Pane(stem, arrow)); // Ajout de la flèche et du trait dans un StackPane
+        retourArriere.setPadding(new Insets(10, 20, 10, 20)); // Augmentation de la taille du bouton
+
+        // Ajout d'un listener pour le clic sur le bouton
+        retourArriere.setOnAction(event -> {
+            modele.enregistrerObservateur(vueInterfaceFirst);
+            stage.getScene().setRoot(vueInterfaceFirst);
+        });
+
+        retourArriere.setPrefSize(85,40);
+        retourArriere.setLayoutX(50);
+        retourArriere.setLayoutY(50);
+
+        getChildren().add(retourArriere);
 
     }
 
@@ -123,7 +162,6 @@ public class VueInterfaceIA extends Pane implements Observateur {
 
         for (Map.Entry<String, Map<String, List<Joueur>>> stringMapEntry : stringMapMap.entrySet()) {
 
-            System.out.println(stringMapEntry.getKey());
             TreeItem<String> item = new TreeItem<>(new File(stringMapEntry.getKey()).getName());
 
             for (Map.Entry<String, List<Joueur>> stringListEntry : stringMapEntry.getValue().entrySet()) {
