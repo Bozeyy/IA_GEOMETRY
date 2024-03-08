@@ -41,6 +41,17 @@ public abstract class InterfaceChoix extends InterfaceBase{
     }
 
     private void initValider() {
+        valider = new Button("Valider");
+
+        valider.setPrefSize(screen.getVisualBounds().getWidth() - choixPrincipal.getPrefWidth() - choixSecondaire.getPrefWidth() - 200, 50);
+        valider.setLayoutX(50 + choixPrincipal.getPrefWidth() + 50 + choixSecondaire.getPrefWidth() + 50);
+        valider.setLayoutY(screen.getVisualBounds().getHeight() - 100);
+        valider.setStyle("-fx-font-size: 20px;");
+
+        valider.setId("valider");
+        ajouterElement(valider);
+
+        getChildren().add(valider);
     }
 
     private void initRetourArriere() {
@@ -82,9 +93,10 @@ public abstract class InterfaceChoix extends InterfaceBase{
         Rectangle2D bounds = screen.getVisualBounds();
 
         choixSecondaire = new ChoiceBox<>();
-        choixSecondaire.setPrefSize(300, 50);
+        choixSecondaire.setPrefSize((bounds.getWidth() - choixPrincipal.getPrefWidth() - 200) / 2, 50);
         choixSecondaire.setLayoutX(bounds.getWidth() - choixSecondaire.getPrefWidth() * 2 - 100);
         choixSecondaire.setLayoutY(bounds.getHeight() - 100);
+        choixSecondaire.setStyle("-fx-font-size: 20px;");
         choixSecondaire.setId("choixSecondaire");
         ajouterElement(choixSecondaire);
 

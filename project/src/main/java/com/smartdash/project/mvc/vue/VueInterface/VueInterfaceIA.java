@@ -31,15 +31,12 @@ import java.util.Map;
 
 
 public class VueInterfaceIA extends InterfaceChoix implements Observateur{
-    VueInterfaceTerrain vueInterfaceTerrain;
-
     VueReseau vueReseau;
 
     public VueInterfaceIA(Jeu modele, Stage stage, VueInterfaceFirst vueInterfaceFirst) throws Exception {
         super(modele,stage);
         ajouterInterfaceConnectee(vueInterfaceFirst);
-        init();
-
+        ajouterInterfaceConnectee(new VueInterfaceTerrain(modele, stage, this));
     }
 
     public void init() throws Exception {
@@ -116,9 +113,6 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
                     }
                 }
 
-                //style de la choicebox
-                choixSecondaire.setStyle("-fx-font-size: 15px;");
-
                 //selection du premier joueur
                 if(!choixSecondaire.getItems().isEmpty())
                     choixSecondaire.setValue(choixSecondaire.getItems().getFirst());
@@ -145,7 +139,15 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
 
     @Override
     public void addValider() {
+        valider.setText("Choix du Terrain");
 
+        valider.setOnAction(e -> {
+            try {
+                addTransitionInterface(getInterfacesConnectees().getLast().nom);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 
 

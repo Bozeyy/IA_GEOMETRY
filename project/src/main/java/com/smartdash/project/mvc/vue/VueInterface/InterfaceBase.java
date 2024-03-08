@@ -69,7 +69,11 @@ public abstract class InterfaceBase extends Pane{
         }
         return null;
     }
-    
+
+    public List<InterfaceBase> getInterfacesConnectees() {
+        return interfacesConnectees;
+    }
+
     public Node getElement(String id){
         for (Node element : elements) {
             if (element.getId().equals(id)){

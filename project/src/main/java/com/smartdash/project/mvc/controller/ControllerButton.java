@@ -26,13 +26,6 @@ public class ControllerButton implements EventHandler<ActionEvent> {
         String idButton = ((Node) actionEvent.getSource()).getId();
 
         switch(idButton) {
-            case "LancerIA":
-                try {
-                    stage.setScene(new SceneJeu(modele,stage));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-                break;
             default:
                 break;
         }

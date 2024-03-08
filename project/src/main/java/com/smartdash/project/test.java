@@ -22,11 +22,9 @@ public class test extends javafx.application.Application {
     public void start(Stage stage) throws Exception {
         Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_apprentissage_8-5.txt", 0);
         Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain9.txt"), joueur.getReseau());
-        //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain4.txt"), new Reseau());
         jeu.genererTerrains();
 
-        Scene sceneInterface = new SceneInterface(jeu, stage);
-        Scene scene = new SceneJeu(jeu,stage);
+        SceneInterface sceneInterface = new SceneInterface(jeu, stage);
 
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();

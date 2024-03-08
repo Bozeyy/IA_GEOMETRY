@@ -23,9 +23,6 @@ public class VueInterfaceFirst extends InterfaceBase implements Observateur{
 
     public VueInterfaceFirst(Jeu jeu, Stage stage) throws Exception {
         super(jeu, stage);
-        this.modele = jeu;
-        this.stage = stage;
-        init();
     }
 
     public void init() throws Exception {
@@ -76,7 +73,7 @@ public class VueInterfaceFirst extends InterfaceBase implements Observateur{
 
         // Gestion de l'événement de clic sur le cercle
         stackPane.setOnMouseClicked(event -> {
-            addTransitionInterface("VueInterfaceIA");
+            addTransitionInterface(getInterfacesConnectees().getLast().nom);
         });
 
         stackPane.setLayoutX(screen.getBounds().getWidth()/2 - 150);
