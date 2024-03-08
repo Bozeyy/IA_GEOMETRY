@@ -6,8 +6,12 @@ import com.smartdash.project.mvc.modele.Sujet;
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.scene.SceneInterface;
 import com.smartdash.project.mvc.vue.Observateur;
+import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.util.List;
 
 public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
 
@@ -31,6 +35,25 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
 
     @Override
     public void addChoixPrincipal() {
+        List<Terrain> terrainList = modele.genererTerrains();
+
+
+        for (Terrain terrain : terrainList){
+            String[] split = terrain.getNomFichier().split("/");
+            TreeItem<String> treeItem = new TreeItem<>(new File(terrain.getNomFichier()).getName());
+            TreeItem<String> treeItemDossier;
+
+            // On regarde si le nom du dossier du terrain est dans le treeView
+            List<TreeItem<String>> item = choixPrincipal.getRoot().getChildren().stream().filter(stringTreeItem -> stringTreeItem.getValue().equals(split[split.length - 2])).toList();
+            if(item.isEmpty()){
+                treeItemDossier = new TreeItem<>(split[split.length - 2]);
+                treeItemDossier.getChildren().add(treeItem);
+                choixPrincipal.getRoot().getChildren().add(treeItemDossier);
+            } else {
+                item.getFirst().getChildren().add(treeItem);
+            }
+
+        }
 
     }
 

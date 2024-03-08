@@ -74,12 +74,7 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
     }
 
     @Override
-    public void addChoixPrincipal() {
-
-    }
-
-    @Override
-    public void addChoixSecondaire() throws Exception {
+    public void addChoixPrincipal() throws Exception {
         Map<String, Map<String, List<Joueur>>> stringMapMap = modele.genererJoueurs(false);
 
 
@@ -96,6 +91,11 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
             }
             choixPrincipal.getRoot().getChildren().add(item);
         }
+    }
+
+    @Override
+    public void addChoixSecondaire() throws Exception {
+        Map<String, Map<String, List<Joueur>>> stringMapMap = modele.genererJoueurs(false);
 
         choixPrincipal.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.getChildren() != null && newValue.getChildren().isEmpty()) {

@@ -121,7 +121,7 @@ public abstract class InterfaceChoix extends InterfaceBase{
     }
 
     public abstract void addRetourArriere();
-    public abstract void addChoixPrincipal();
+    public abstract void addChoixPrincipal() throws Exception;
     public abstract void addChoixSecondaire() throws Exception;
     public abstract void addPanePrincipal();
     public abstract void addValider();
