@@ -21,17 +21,18 @@ public class SceneJeu extends Scene {
     Jeu modele;
     Stage stage;
 
-    public SceneJeu(Jeu modele,Stage stage) throws Exception {
+    SceneInterface sceneInterface;
+
+    public SceneJeu(Jeu modele,Stage stage,SceneInterface sceneInterface) throws Exception {
         super(new BorderPane());
         this.modele = modele;
         this.stage = stage;
-        setRoot(init());
         setOnKeyPressed(new ControllerClavier(modele,stage));
         setOnMouseClicked(new ControllerSouris(modele));
+        setRoot(init());
     }
 
     public Parent init() throws Exception {
-
 
         BorderPane borderPane = new BorderPane();
         //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());
@@ -57,6 +58,10 @@ public class SceneJeu extends Scene {
         vueInformationApp.init();
 
         return borderPane;
+    }
+
+    public void setSceneInterface() throws Exception {
+        stage.setScene(sceneInterface);
     }
 
 }
