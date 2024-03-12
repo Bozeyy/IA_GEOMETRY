@@ -27,10 +27,11 @@ public class GenerateurTerrainAleatoire {
     }
 
     private void genererSolObligatoire() {
+        // TODO
     }
 
     private void genererTrajectoire() {
         // en gros tu remplis les cases vides de la trajectoire dans objetReserves
-        throw new Error();
+        // TODO
     }
 }
