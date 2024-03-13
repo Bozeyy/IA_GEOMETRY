@@ -39,6 +39,14 @@ public abstract class Objet {
      */
     public abstract String getType();
 
+    @Override
+    public boolean equals(Object objet) {
+        if (objet.getClass() != this.getClass()) {
+            return false;
+        }
+        return this.x == ((Objet)objet).x && this.y == ((Objet)objet).y;
+    }
+
     public void setX(int x) {
         this.x = x;
     }

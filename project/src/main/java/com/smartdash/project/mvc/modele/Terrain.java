@@ -32,15 +32,6 @@ public class Terrain {
 
 
     public Terrain() {
-        for (int j = 0; j < 25; j++) {
-            for (int i = 0; i < 99; i++) {
-                Objet o = new Vide(i, j);
-                if (j == 19) {
-                    o = new Bloc(i, j);
-                }
-                this.map.add(o);
-            }
-        }
         this.longueur = 99;
         this.largeur = 25;
     }
@@ -210,6 +201,10 @@ public class Terrain {
         this.map = map;
     }
 
+    public void addObjet(Objet o) {
+        this.map.add(o);
+    }
+
     public void afficherTerrain() {
         System.out.println(this.map.size());
         for (int i = 0; i < getLargeur(); i++) {
@@ -226,11 +221,16 @@ public class Terrain {
                 boolean isVide = getMap().stream()
                         .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof Vide);
 
+                boolean isObjetTrajectoire = getMap().stream()
+                        .anyMatch(objet -> objet.getX() == finalJ && objet.getY() == finalI && objet instanceof ObjetTrajectoire);
+
 
                 if (isBloc) {
                     System.out.print("B");
                 } else if (isPique) {
                     System.out.print("P");
+                } else if (isObjetTrajectoire) {
+                    System.out.print("T");
                 } else if (isVide) {
                     System.out.print("."); // Afficher une case vide
                 }

@@ -75,11 +75,13 @@ public class Trajectoire
                 actionTomber();
             }
         }
-        // On avance dans tous les cas
-        actionAvancer();
 
         // On créer ensuite l'objet trajectoire que l'on ajoute dans notre liste, si il a saute on ajoute le boolean
         ajouterTrajectoire(aSauter, aDescendu);
+
+        // On avance dans tous les cas
+        actionAvancer();
+
     }
 
     private void ajouterTrajectoire(boolean aSauter, boolean aDescendu) {
@@ -96,6 +98,8 @@ public class Trajectoire
             this.y--;
             this.vy--;
 
+        } else if (this.aDescendu) {
+            this.y++;
         }
 
         this.x++;
@@ -106,7 +110,7 @@ public class Trajectoire
         {
             System.out.println("HAHAHA");
             this.aDescendu = true;
-            this.y++;
+//            this.y++;
         }
     }
 
@@ -123,11 +127,12 @@ public class Trajectoire
     }
 
     private boolean verifierSurSol() {
-        return y == this.terrain.getLargeur() - 6;
+        return y == this.terrain.getLargeur() - 7;
     }
 
     private boolean verifierFinTerrain()
     {
         return x == terrain.getLongueur();
     }
+
 }
