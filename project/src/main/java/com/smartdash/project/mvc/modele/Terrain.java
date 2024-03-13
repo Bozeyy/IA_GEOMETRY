@@ -30,20 +30,6 @@ public class Terrain {
         this.map = genererTerrainAleatoire(nbTerrain);
     }
 
-    /**
-     * Constructeur par défaut
-     */
-//    public Terrain()
-//    {
-//        // Générations des blocs de la map
-//        for(int i=-10; i<=100; i++)
-//        {
-//            this.map.add((new Bloc(i,11)));
-//            this.map.add((new Bloc(i,12)));
-//            this.map.add((new Bloc(i,13)));
-//            this.map.add((new Bloc(i,14)));
-//        }
-//    }
 
     public Terrain() {
         for (int j = 0; j < 25; j++) {
