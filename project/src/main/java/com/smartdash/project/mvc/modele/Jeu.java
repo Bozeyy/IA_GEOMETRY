@@ -297,6 +297,14 @@ public class Jeu implements Sujet{
         return this.terrain;
     }
 
+    public List<Observateur> getObservateurs(){
+        return this.observateurs;
+    }
+
+    public void supprimerObservateurs(){
+        observateurs.clear();
+    }
+
     public int getTailleCase() {
         return TAIILE_CASE;
     }

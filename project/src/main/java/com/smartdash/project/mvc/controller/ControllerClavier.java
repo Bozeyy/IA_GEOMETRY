@@ -67,7 +67,7 @@ public class ControllerClavier implements EventHandler<KeyEvent> {
                 donnees.reinitialiser();
                 try {
                     if(stage.getScene() instanceof SceneJeu)
-                        ((SceneJeu)stage.getScene()).setSceneInterface();
+                        ((SceneJeu)stage.getScene()).setSceneInterface(donnees,stage);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

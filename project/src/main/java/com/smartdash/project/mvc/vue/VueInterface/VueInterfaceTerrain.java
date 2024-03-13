@@ -6,6 +6,7 @@ import com.smartdash.project.mvc.modele.Sujet;
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.scene.SceneInterface;
 import com.smartdash.project.mvc.vue.Observateur;
+import com.smartdash.project.mvc.vue.VueJeu;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -55,6 +56,23 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
 
         }
 
+        choixPrincipal.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.getChildren() != null && newValue.getChildren().isEmpty()) {
+
+                //on change le terrain selon le terrain choisi
+                String parent = newValue.getParent().getValue();
+                String valeur = newValue.getValue();
+                String terrain = "src/main/resources/"+parent+"/"+valeur;
+                modele.setTerrain(new Terrain(terrain));
+
+                try {
+                    panePrincipal = new VueJeu(modele);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -79,7 +97,7 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
                 modele.setJoueur(new Joueur(terrain,joueur.getReseau()));
 
                 // On change de scene
-                ((SceneInterface)stage.getScene()).setSceneJeu();
+                ((SceneInterface)stage.getScene()).setSceneJeu(modele,stage);
 
             } catch (Exception exception) {
                 exception.printStackTrace();
