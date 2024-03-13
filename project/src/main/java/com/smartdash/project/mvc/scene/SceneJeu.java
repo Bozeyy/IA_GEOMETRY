@@ -27,6 +27,7 @@ public class SceneJeu extends Scene {
         super(new BorderPane());
         this.modele = modele;
         this.stage = stage;
+        this.sceneInterface = sceneInterface;
         setOnKeyPressed(new ControllerClavier(modele,stage));
         setOnMouseClicked(new ControllerSouris(modele));
         setRoot(init());
@@ -60,8 +61,18 @@ public class SceneJeu extends Scene {
         return borderPane;
     }
 
-    public void setSceneInterface() throws Exception {
+    public void setSceneInterface(Jeu modele,Stage stage) throws Exception {
+        this.modele = modele;
+        this.stage = stage;
+        sceneInterface = new SceneInterface(this.modele,this.stage);
         stage.setScene(sceneInterface);
     }
 
+    public Jeu getModele() {
+        return modele;
+    }
+
+    public void setModele(Jeu modele) {
+        this.modele = modele;
+    }
 }

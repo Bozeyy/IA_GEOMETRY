@@ -30,8 +30,20 @@ public class SceneInterface extends Scene {
         return vueInterface;
     }
 
-    public void setSceneJeu() throws Exception {
+    public void setSceneJeu(Jeu modele, Stage stage) throws Exception {
+        this.modele = modele;
+        this.stage = stage;
+        this.modele.supprimerObservateurs();
+        sceneJeu = new SceneJeu(this.modele,this.stage,this);
         stage.setScene(sceneJeu);
+        System.out.println(this.modele.getObservateurs().size());
     }
 
+    public Jeu getModele() {
+        return modele;
+    }
+
+    public void setModele(Jeu modele) {
+        this.modele = modele;
+    }
 }
