@@ -66,9 +66,27 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
                 modele.setTerrain(new Terrain(terrain));
 
                 try {
+                    double longueur = panePrincipal.getPrefWidth();
+                    double hauteur = panePrincipal.getPrefHeight();
+                    double x = panePrincipal.getLayoutX();
+                    double y = panePrincipal.getLayoutY();
+                    getChildren().remove(panePrincipal);
+                    
                     panePrincipal = new VueJeu(modele);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+
+                    panePrincipal.setLayoutX(x);
+                    panePrincipal.setLayoutY(y);
+
+                    ((VueJeu)panePrincipal).init();
+
+                    panePrincipal.setPrefSize(longueur,hauteur);
+                    panePrincipal.setMaxSize(longueur,hauteur);
+                    panePrincipal.setMinSize(longueur,hauteur);
+
+                    getChildren().add(panePrincipal);
+
+                } catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });
