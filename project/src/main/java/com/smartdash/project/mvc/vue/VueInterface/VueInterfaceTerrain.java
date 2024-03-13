@@ -7,9 +7,12 @@ import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.scene.SceneInterface;
 import com.smartdash.project.mvc.vue.Observateur;
 import com.smartdash.project.mvc.vue.VueJeu;
+import com.smartdash.project.mvc.vue.VueTerrain;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 
 import java.io.File;
 import java.util.List;
@@ -72,16 +75,10 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
                     double y = panePrincipal.getLayoutY();
                     getChildren().remove(panePrincipal);
                     
-                    panePrincipal = new VueJeu(modele);
+                    panePrincipal = new VueTerrain(modele,longueur,hauteur, Color.DARKBLUE);
 
                     panePrincipal.setLayoutX(x);
                     panePrincipal.setLayoutY(y);
-
-                    ((VueJeu)panePrincipal).init();
-
-                    panePrincipal.setPrefSize(longueur,hauteur);
-                    panePrincipal.setMaxSize(longueur,hauteur);
-                    panePrincipal.setMinSize(longueur,hauteur);
 
                     getChildren().add(panePrincipal);
 

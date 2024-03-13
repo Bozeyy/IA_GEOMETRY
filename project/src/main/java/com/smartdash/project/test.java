@@ -12,17 +12,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class test extends javafx.application.Application {
-    final int longueurFenetre = 800;
-    final int hauteurVueInformation = 200;
-
-    final int hauteurVueCommande = 15;
-    int hauteurFenetre;
-
     @Override
     public void start(Stage stage) throws Exception {
         Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_apprentissage_8-5.txt", 0);
         Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain9.txt"), joueur.getReseau());
-        jeu.genererTerrains();
 
         SceneInterface sceneInterface = new SceneInterface(jeu, stage);
 

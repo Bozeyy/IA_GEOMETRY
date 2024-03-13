@@ -162,7 +162,9 @@ public class Enregistrement {
                     reseau.addModule(m);
                 }
                 //On ajoute le joueur à la population
-                population.add(new Joueur(reseau));
+                Joueur e = new Joueur(reseau);
+                e.setScoreApprentissage(score);
+                population.add(e);
 
                 //On lit la ligne suivante
                 line = r.readLine();

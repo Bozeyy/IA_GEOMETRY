@@ -1,6 +1,7 @@
 package com.smartdash.project.mvc.vue.VueInterface;
 
 import com.smartdash.project.mvc.modele.Jeu;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
@@ -21,6 +22,7 @@ public abstract class InterfaceChoix extends InterfaceBase{
     Pane panePrincipal;
     Button retourArriere;
     Button valider;
+    ScaleTransition animation;
 
     public InterfaceChoix(Jeu modele, Stage stage) throws Exception {
         super(modele, stage);
@@ -33,11 +35,21 @@ public abstract class InterfaceChoix extends InterfaceBase{
     public void init() throws Exception {
         getChildren().clear();
         defilerImage("background2.png");
+        initTransition();
         initChoixPrincipal();
         initChoixSecondaire();
         initPanePrincipal();
         initRetourArriere();
         initValider();
+    }
+
+    private void initTransition() {
+        animation = new ScaleTransition();
+        animation.setDuration(javafx.util.Duration.millis(200));
+        animation.setFromX(1.0);
+        animation.setFromY(1.0);
+        animation.setToX(1.2);
+        animation.setToY(1.2);
     }
 
     private void initValider() {
@@ -46,7 +58,18 @@ public abstract class InterfaceChoix extends InterfaceBase{
         valider.setPrefSize(screen.getVisualBounds().getWidth() - choixPrincipal.getPrefWidth() - choixSecondaire.getPrefWidth() - 200, 50);
         valider.setLayoutX(50 + choixPrincipal.getPrefWidth() + 50 + choixSecondaire.getPrefWidth() + 50);
         valider.setLayoutY(screen.getVisualBounds().getHeight() - 100);
-        valider.setStyle("-fx-font-size: 20px;");
+        valider.setStyle("-fx-font-size: 20px; -fx-background-color: #77ff29");
+
+        //Animation du bouton
+        valider.setOnMouseEntered(event -> {
+            animation.setNode(valider);
+            animation.play();
+        });
+        valider.setOnMouseExited(event -> {
+            animation.stop();
+            valider.setScaleX(1.0);
+            valider.setScaleY(1.0);
+        });
 
         valider.setId("valider");
         ajouterElement(valider);
@@ -68,11 +91,23 @@ public abstract class InterfaceChoix extends InterfaceBase{
 
         // Bouton personnalisé avec la flèche et la tige
         retourArriere.setGraphic(new Pane(stem, arrow)); // Ajout de la flèche et du trait dans un StackPane
-        retourArriere.setPadding(new Insets(10, 20, 10, 20)); // Augmentation de la taille du bouton
+        retourArriere.setPadding(new Insets(10, 20, 10, 20));
 
+        retourArriere.setStyle("-fx-background-color: #f12929;");
         retourArriere.setPrefSize(85,40);
         retourArriere.setLayoutX(50);
         retourArriere.setLayoutY(50);
+
+        //Animation du bouton
+        retourArriere.setOnMouseEntered(event -> {
+            animation.setNode(retourArriere);
+            animation.play();
+        });
+        retourArriere.setOnMouseExited(event -> {
+            animation.stop();
+            retourArriere.setScaleX(1.0);
+            retourArriere.setScaleY(1.0);
+        });
 
         getChildren().add(retourArriere);
     }

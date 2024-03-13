@@ -11,10 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -32,6 +29,7 @@ import java.util.Map;
 
 public class VueInterfaceIA extends InterfaceChoix implements Observateur{
     VueReseau vueReseau;
+    Label scoreJoueur;
 
     public VueInterfaceIA(Jeu modele, Stage stage, VueInterfaceFirst vueInterfaceFirst) throws Exception {
         super(modele,stage);
@@ -49,16 +47,19 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
     private void initVueReseau() {
 
         try {
-            modele.getJoueur().setX((int) ((panePrincipal.getLayoutX() + panePrincipal.getPrefWidth() / 1.5) / modele.getTailleCase()));
-            modele.getJoueur().setY((int) ((panePrincipal.getLayoutY() + panePrincipal.getPrefHeight() / 1.5 ) / modele.getTailleCase()));
+            if(scoreJoueur == null)
+                this.scoreJoueur = new Label("");
+
+            modele.getJoueur().setX((int) (panePrincipal.getLayoutX() / modele.getTailleCase()));
+            modele.getJoueur().setY((int) ((panePrincipal.getLayoutY() + panePrincipal.getPrefHeight() / 2 ) / modele.getTailleCase()));
             vueReseau = new VueReseau(modele);
 
-            panePrincipal.getChildren().clear();
+            panePrincipal.getChildren().remove(vueReseau);
             for (NeuroneVue neuroneVue : vueReseau.getNeurones()) {
                 panePrincipal.getChildren().add(neuroneVue.getShape());
             }
 
-            //vueReseau.actualiser(modele);
+            scoreJoueur.setText("Resultats du joueur: " + Math.round(modele.getJoueur().getScoreApprentissage()) + "%");
 
             panePrincipal.getChildren().add(vueReseau);
         } catch (Exception e) {
@@ -121,6 +122,7 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
                 choixSecondaire.setOnAction(e -> {
                     if (choixSecondaire.getValue() != null) {
                         modele.setJoueur(stringMapMap.get(cleP).get(cleS).get(choixSecondaire.getItems().indexOf(choixSecondaire.getValue())));
+
                         initVueReseau();
                     }
                 });
@@ -134,7 +136,18 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
 
     @Override
     public void addPanePrincipal() {
+        //Titre du pane
+        Label lab = new Label("Aperçu du joueur");
+        lab.setPrefSize(panePrincipal.getPrefWidth(),50);
+        lab.setStyle("-fx-background-color:#debfbf; -fx-font-size: 30px; -fx-alignment: center");
+        panePrincipal.getChildren().add(lab);
 
+        //Score
+        scoreJoueur.setText("Resultats du joueur: " + Math.round(modele.getJoueur().getScoreApprentissage()) + "%");
+        scoreJoueur.setPrefSize(panePrincipal.getPrefWidth(),50);
+        scoreJoueur.setLayoutY(50);
+        scoreJoueur.setStyle("-fx-font-size: 15px; -fx-alignment: left; -fx-padding: 5px; ");
+        panePrincipal.getChildren().add(scoreJoueur);
     }
 
     @Override
