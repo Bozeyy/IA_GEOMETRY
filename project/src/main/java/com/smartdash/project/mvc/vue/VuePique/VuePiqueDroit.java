@@ -15,12 +15,13 @@ public class VuePiqueDroit extends Polygon implements Observateur
 {
     private Jeu donnees;
 
-    public VuePiqueDroit(Jeu donnees, int x, int y, Color c){
+    public VuePiqueDroit(Jeu donnees, int x, int y, Color c,double tailleCase){
         this.donnees = donnees;
-        double tailleCase = this.donnees.getTailleCase();
+        if(tailleCase == 0)
+            tailleCase = this.donnees.getTailleCase();
 
         // Coordonnées des points du pique
-        double demiLargeur = this.donnees.getTailleCase() / 2.0;
+        double demiLargeur = tailleCase / 2.0;
         double hauteur = tailleCase * Math.sqrt(3) / 2.0;
 
         double x1 = x * tailleCase;

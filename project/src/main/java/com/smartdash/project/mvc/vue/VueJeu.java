@@ -109,16 +109,16 @@ public class VueJeu extends Pane implements Observateur {
             //On ajoute les blocs
             this.modele.getTerrain().getMap().forEach(objet -> {
                 if (objet instanceof Bloc) {
-                    getChildren().add(new VueBloc(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                    getChildren().add(new VueBloc(modele, objet.getX(), objet.getY(), this.couleurNiveau,0));
                 } else if (objet instanceof PiqueRetourne) {
-                    getChildren().add(new VuePiqueRetourne(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                    getChildren().add(new VuePiqueRetourne(modele, objet.getX(), objet.getY(), this.couleurNiveau,0));
                 } else if (objet instanceof PiqueGauche) {
-                    getChildren().add(new VuePiqueGauche(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                    getChildren().add(new VuePiqueGauche(modele, objet.getX(), objet.getY(), this.couleurNiveau,0));
                 } else if (objet instanceof PiqueDroit) {
-                    getChildren().add(new VuePiqueDroit(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                    getChildren().add(new VuePiqueDroit(modele, objet.getX(), objet.getY(), this.couleurNiveau,0));
                 } else if (objet instanceof Pique) {
 
-                    getChildren().add(new VuePique(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                    getChildren().add(new VuePique(modele, objet.getX(), objet.getY(), this.couleurNiveau,0));
 
                 }
             });

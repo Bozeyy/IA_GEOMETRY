@@ -26,26 +26,25 @@ public class VueTerrain extends Pane {
         setPrefSize(longueur,hauteur);
         tailleCase = longueur / modele.getTerrain().getLongueur();
         this.couleurNiveau = couleurNiveau;
-        setStyle("-fx-background-color: GREY;");
+        setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
         init();
     }
 
     public void init(){
         this.modele.getTerrain().getMap().forEach(objet -> {
             if (objet instanceof Bloc) {
-                getChildren().add(new VueBloc(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                getChildren().add(new VueBloc(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
             } else if (objet instanceof PiqueRetourne) {
-                getChildren().add(new VuePiqueRetourne(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                getChildren().add(new VuePiqueRetourne(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
             } else if (objet instanceof PiqueGauche) {
-                getChildren().add(new VuePiqueGauche(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                getChildren().add(new VuePiqueGauche(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
             } else if (objet instanceof PiqueDroit) {
-                getChildren().add(new VuePiqueDroit(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                getChildren().add(new VuePiqueDroit(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
             } else if (objet instanceof Pique) {
 
-                getChildren().add(new VuePique(modele, objet.getX(), objet.getY(), this.couleurNiveau));
+                getChildren().add(new VuePique(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
 
             }
         });
-        System.out.println(modele.getTerrain().getMap().size());
     }
 }

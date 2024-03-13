@@ -14,8 +14,10 @@ public class VueBloc extends Rectangle implements Observateur {
     private Color couleur;
     private static final int NUM_SEGMENTS = 10; // Nombre de segments verticaux dans le bloc
 
-    public VueBloc(Jeu donnees, int x, int y, Color c) {
+    public VueBloc(Jeu donnees, int x, int y, Color c, double tailleCase) {
         this.donnees = donnees;
+        if(tailleCase == 0)
+            tailleCase = this.donnees.getTailleCase();
 
         // dégradé linéaire pour la partie inférieure du bloc
         Stop[] stops = new Stop[] {
@@ -28,10 +30,10 @@ public class VueBloc extends Rectangle implements Observateur {
 
 
         setFill(couleurGradient);
-        setWidth(this.donnees.getTailleCase());
-        setHeight(this.donnees.getTailleCase());
-        setX(x * this.donnees.getTailleCase());
-        setY(y * this.donnees.getTailleCase());
+        setWidth(tailleCase);
+        setHeight(tailleCase);
+        setX(x * tailleCase);
+        setY(y * tailleCase);
 
         // Ajouter une bordure blanche autour du rectangle
         setStroke(Color.WHITE);
