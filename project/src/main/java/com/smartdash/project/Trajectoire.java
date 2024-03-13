@@ -66,12 +66,12 @@ public class Trajectoire
         else
         {
             // Soit, on tombe sur sauter
-            if(proba < 0.2)
+            if(proba < 0.15)
             {
                 actionSauter();
             }
             // Soit, on tombe sur tomber
-            else if (proba< 0.5 && proba>0.2) {
+            else if (proba< 0.5 && proba>0.15) {
                 actionTomber();
             }
         }
@@ -91,7 +91,7 @@ public class Trajectoire
 
     private void actionAvancer() {
         // On vérifie si vY > 0 si c'est le cas on monte d'une case
-        if(vy>0)
+        if(vy>0 && !verifierFinTerrain())
         {
             this.y--;
             this.vy--;
@@ -104,6 +104,7 @@ public class Trajectoire
     private void actionTomber() {
         if (this.vy==0 && !verifierSurSol())
         {
+            System.out.println("HAHAHA");
             this.aDescendu = true;
             this.y++;
         }
