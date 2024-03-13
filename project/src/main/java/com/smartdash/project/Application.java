@@ -6,6 +6,7 @@ import com.smartdash.project.mvc.controller.ControllerSouris;
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
+import com.smartdash.project.mvc.modele.objet.Objet;
 import com.smartdash.project.mvc.vue.VueInformationApp;
 import com.smartdash.project.mvc.vue.VueJeu;
 import javafx.geometry.Rectangle2D;
@@ -13,6 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application extends javafx.application.Application {
     private final int longueurFenetre = 800;
@@ -29,7 +33,12 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws Exception {
         Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_2056.txt", 0);
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain14.txt"), joueur.getReseau());
+        GenerateurTerrainAleatoire gta = new GenerateurTerrainAleatoire();
+        Terrain t = gta.genererTerrainAleatoire();
+        List<String> st = new ArrayList<>();
+//        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain14.txt"), joueur.getReseau());
+        Jeu jeu = new Jeu(t, joueur.getReseau());
+
 
         BorderPane borderPane = new BorderPane();
         //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());

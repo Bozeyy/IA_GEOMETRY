@@ -123,7 +123,8 @@ public class GenerateurTerrainAleatoire {
             for (int y = 0; y < terrain.getLargeur(); y++) {
                 Objet o;
                 if (estTrajectoire(x,y)) {
-                    o = getObjetTrajectoire(x,y);
+//                    o = getObjetTrajectoire(x,y);
+                    o = new Vide(x,y);
                     this.terrain.addObjet(o);
                 } else {
                     if (objetExistant(x, y)) {
@@ -141,7 +142,7 @@ public class GenerateurTerrainAleatoire {
                     if (!objetExistant(ot.getX(), y) && y != ot.getY() && y < terrain.getLargeur() - 6) {
                         this.terrain.addObjet(creerBlocAleatoire(ot.getX(), y));
                     }
-                } else {
+                } else if (!objetExistant(ot.getX(), y)) {
                     this.terrain.addObjet(new Vide(ot.getX(), y));
                 }
             }
@@ -205,6 +206,8 @@ public class GenerateurTerrainAleatoire {
     private void genererTrajectoire() {
         Trajectoire traj = new Trajectoire(this.terrain);
         this.trajectoires = traj.jouer();
+        boolean b = this.trajectoires.get(0) instanceof Vide;
+        System.out.println(b);
 
     }
 }

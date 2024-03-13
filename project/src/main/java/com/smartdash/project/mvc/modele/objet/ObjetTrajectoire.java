@@ -1,6 +1,6 @@
 package com.smartdash.project.mvc.modele.objet;
 
-public class ObjetTrajectoire extends Objet
+public class ObjetTrajectoire extends Vide
 {
     private boolean saut;
     private boolean descent;

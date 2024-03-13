@@ -249,7 +249,9 @@ public class  Joueur
         {
             if(objet.isInside(new Joueur(this.x+1, this.y, this.map, this.reseau)))
             {
-                if(!(objet instanceof Vide)) this.vivant = false;
+                if(!(objet instanceof Vide)) {
+                    this.vivant = false;
+                }
                 return !(objet instanceof Vide);
             }
         }
