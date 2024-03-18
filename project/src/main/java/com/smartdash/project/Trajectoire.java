@@ -9,6 +9,9 @@ import java.util.Random;
 
 public class Trajectoire
 {
+    /**
+     * ATTRIBUT
+     */
     private int x;
     private int y;
     private int vy;
@@ -19,23 +22,26 @@ public class Trajectoire
     private Random random = new Random();
 
 
-    public static void main(String[] args) {
-        Trajectoire trajectoire = new Trajectoire(new Terrain());
-        trajectoire.jouer();
-    }
-
+    /**
+     * Constructeur d'une trajectoire
+     * @param terrain terrain vide
+     */
     public Trajectoire(Terrain terrain)
     {
-        this.x = 0;
-        this.y = terrain.getLargeur() - 7;
-        this.vy = 0;
         this.terrain = terrain;
+        this.x = 0;
+        this.y = this.terrain.getLargeur() - 7;
+        this.vy = 0;
         this.listesTrajectoire = new ArrayList<>();
     }
 
+    /**
+     * Méthode qui permet de récupérer la liste qui correspond à la trajectoire
+     * @return retourne une liste d'objet trajectoire
+     */
     public List<ObjetTrajectoire> jouer()
     {
-        while (!verifierFinTerrain())
+        while (verifierFinTerrain())
         {
             updateTrajectoire();
         }
@@ -43,6 +49,10 @@ public class Trajectoire
         return this.listesTrajectoire;
     }
 
+
+    /**
+     * Méthode qui permet de générer le déplacement de la trajectoire à partir de probabilité
+     */
     public void updateTrajectoire()
     {
         // Boolean qui vérifie si on est sur le sol
@@ -76,7 +86,7 @@ public class Trajectoire
             }
         }
 
-        // On créer ensuite l'objet trajectoire que l'on ajoute dans notre liste, si il a saute on ajoute le boolean
+        // On crée ensuite l'objet trajectoire que l'on ajoute dans notre liste, si il a saute on ajoute le boolean
         ajouterTrajectoire(aSauter, aDescendu);
 
         // On avance dans tous les cas
@@ -84,6 +94,11 @@ public class Trajectoire
 
     }
 
+    /**
+     * Méthode qui permet de créer un objet trajectoire et de l'ajouter à la liste
+     * @param aSauter boolean sauter
+     * @param aDescendu boolean descendu
+     */
     private void ajouterTrajectoire(boolean aSauter, boolean aDescendu) {
         // Créer un objet trajectoire et l'ajoute à la liste
         ObjetTrajectoire objetTrajectoire = new ObjetTrajectoire(x,y, this.aDescendu, this.aSauter);
@@ -91,9 +106,12 @@ public class Trajectoire
         this.listesTrajectoire.add(objetTrajectoire);
     }
 
+    /**
+     * Méthode qui permet de faire avancer la trajectoire
+     */
     private void actionAvancer() {
         // On vérifie si vY > 0 si c'est le cas on monte d'une case
-        if(vy>0 && !verifierFinTerrain())
+        if(vy>0 && verifierFinTerrain())
         {
             this.y--;
             this.vy--;
@@ -105,6 +123,9 @@ public class Trajectoire
         this.x++;
     }
 
+    /**
+     * Méthode qui permet de faire descendre la trajectoire
+     */
     private void actionTomber() {
         if (this.vy==0 && !verifierSurSol())
         {
@@ -114,6 +135,9 @@ public class Trajectoire
         }
     }
 
+    /**
+     * Méthode qui permet de faire sauter la trajectoire
+     */
     private void actionSauter() {
         if(!this.verifierDepassementTerrain())
         {
@@ -122,17 +146,31 @@ public class Trajectoire
         }
     }
 
+    /**
+     * Méthode qui permet de vérifier que l'on ne dépasse pas la limite
+     * @return retourne un boolean
+     */
     private boolean verifierDepassementTerrain() {
         return y == 4;
     }
 
+
+    /**
+     * Méthode qui permet de vérifier que l'on est sur le sol
+     * @return retourne un boolean
+     */
     private boolean verifierSurSol() {
         return y == this.terrain.getLargeur() - 7;
     }
 
+
+    /**
+     * Méthode qui permet de vérifier que l'on est à la fin d'un terrain
+     * @return retourne un boolean
+     */
     private boolean verifierFinTerrain()
     {
-        return x == terrain.getLongueur();
+        return x != terrain.getLongueur();
     }
 
 }
