@@ -22,6 +22,8 @@ import java.util.*;
 public class Statistique {
     private List<Double> moyenne = new ArrayList<>();
     private List<Double> moyenne10 = new ArrayList<>();
+
+    private List<Double> moyenneTest = new ArrayList<>();
     private Joueur meilleurJoueur;
     private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -76,6 +78,21 @@ public class Statistique {
     public void addMoyennes (List<Joueur> joueurs) throws Exception {
         this.moyenne.add(calculerMoyenneDesScores(joueurs));
         this.moyenne10.add(calculerMoyenne10Meilleurs(joueurs));
+    }
+
+    /**
+     * Méthode qui permet d'ajouter les moyennes de tests
+     * @param joueurs
+     * @throws Exception
+     */
+    public void addMoyennesTests (List<Joueur> joueurs) throws Exception {
+        this.moyenneTest.add(calculerMoyenneTest(joueurs));
+    }
+
+    public Double calculerMoyenneTest(List<Joueur> joueurs) {
+        //TODO anas
+        // creer nouveaux joueurs a partir des reseaux des joueurs courant
+        throw new Error();
     }
 
     /**
@@ -220,9 +237,10 @@ public class Statistique {
             for (int i = 0; i < this.moyenne.size(); i++) {
                 double moyennePop = moyenne.get(i);
                 double moyenneMeilleurs = moyenne10.get(i);
-
+                double moyenneTests = moyenneTest.get(i);
                 dataset.addValue(moyennePop, "Moyenne générale", Integer.toString(i));
                 dataset.addValue(moyenneMeilleurs, "Moyenne des 10 meilleurs", Integer.toString(i));
+                dataset.addValue(moyenneTests, "Moyenne des 10 meilleurs sur terrains de test", Integer.toString(i));
             }
 
             // Créer un graphique JFreeChart

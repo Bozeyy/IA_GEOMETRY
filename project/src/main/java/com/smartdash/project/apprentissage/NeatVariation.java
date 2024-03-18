@@ -46,6 +46,7 @@ public class NeatVariation extends NeatAmelioration
 
         // Moyenne de la génération (score moyen)
         double moyenneGeneration;
+        double moyenneTest;
 
         int generation = 0;
         int nbParents = 32;
@@ -75,6 +76,16 @@ public class NeatVariation extends NeatAmelioration
             // On calcule la moyenne des 10 meilleurs
             moyenneGeneration = stat.calculerMoyenne10Meilleurs(population);
             System.out.println("Moyenne des 10 premiers de la population " + generation + " : " + moyenneGeneration);
+
+            // on effectue des tests toute les 50 generations
+            if (generation % 50 == 0) {
+                stat.addMoyennesTests(population);
+
+                moyenneTest = stat.calculerMoyenneTest(population);
+                System.out.println("Moyenne des test de la population : " + generation + " : " + moyenneTest);
+            }
+
+
 
             // On sélectionne les parents
             parents = selectionnerParents(population);
