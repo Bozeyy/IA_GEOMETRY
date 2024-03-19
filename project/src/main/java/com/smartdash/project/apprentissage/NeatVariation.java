@@ -1,5 +1,6 @@
 package com.smartdash.project.apprentissage;
 
+import com.smartdash.project.GenerateurTerrainAleatoire;
 import com.smartdash.project.IA.Module;
 import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.IA.ReseauFabrique;
@@ -79,13 +80,25 @@ public class NeatVariation extends NeatAmelioration
 
             // on effectue des tests toute les 50 generations
             if (generation % 50 == 0) {
-                stat.addMoyennesTests(population);
+                // ON copie la population
+                List<Joueur> populationCopie = new ArrayList<>();
+                for(Joueur joueur : population) {
+                    populationCopie.add(new Joueur(joueur.getReseau().clone()));
+                }
 
-                moyenneTest = stat.calculerMoyenneTest(population);
+                // On fait jouer alors tout les joueurs sur 10 terrains aléatoires
+                for(Joueur joueur : populationCopie)
+                {
+                    moyenneScoreDonneeTest(joueur);
+
+                }
+
+                // On en calcule ensuite les moyennes
+                stat.addMoyennesTests(populationCopie);
+
+                moyenneTest = stat.calculerMoyenneTest(populationCopie);
                 System.out.println("Moyenne des test de la population : " + generation + " : " + moyenneTest);
             }
-
-
 
             // On sélectionne les parents
             parents = selectionnerParents(population);
@@ -215,5 +228,24 @@ public class NeatVariation extends NeatAmelioration
         nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(8,57),NB_PARTIE_5));
 
         return nouvellePopulation;
+    }
+
+    public void moyenneScoreDonneeTest(Joueur joueur) throws Exception {
+        List<Terrain> listesTerrain = new ArrayList<>();
+        GenerateurTerrainAleatoire generateurTerrainAleatoire = new GenerateurTerrainAleatoire();
+
+
+        for(int i = 0; i<10; i++)
+        {
+            listesTerrain.add(generateurTerrainAleatoire.genererTerrainAleatoire());
+        }
+
+        double scoreMoyenne = 0;
+        for (Terrain terrain : listesTerrain)
+        {
+            evaluerPerformance(joueur, terrain);
+            scoreMoyenne += joueur.getScorePartie();
+        }
+        joueur.setScorePartie((scoreMoyenne/ nbTerrains));
     }
 }
