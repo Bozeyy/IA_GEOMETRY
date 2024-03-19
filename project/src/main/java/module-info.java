@@ -4,6 +4,7 @@ module com.smartdash.project {
     requires org.apache.pdfbox;
     requires org.jfree.jfreechart;
     requires java.desktop;
+    requires javafx.media;
 
 
     opens com.smartdash.project to javafx.fxml;
