@@ -86,14 +86,9 @@ public class Statistique {
      * @throws Exception
      */
     public void addMoyennesTests (List<Joueur> joueurs) throws Exception {
-        this.moyenneTest.add(calculerMoyenneTest(joueurs));
+        this.moyenneTest.add(calculerMoyenne10Meilleurs(joueurs));
     }
 
-    public Double calculerMoyenneTest(List<Joueur> joueurs) {
-        //TODO anas
-        // creer nouveaux joueurs a partir des reseaux des joueurs courant
-        throw new Error();
-    }
 
     /**
      * Méthode qui permet de générer un PDF
