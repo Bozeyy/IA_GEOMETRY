@@ -93,7 +93,7 @@ public class NeatFinal extends NeatVariation
                 // On en calcule ensuite les moyennes
                 stat.addMoyennesTests(populationCopie);
 
-                moyenneTest = stat.calculerMoyenneTest(populationCopie);
+                moyenneTest = stat.calculerMoyenne10Meilleurs(populationCopie);
                 System.out.println("Moyenne des test de la population : " + generation + " : " + moyenneTest);
             }
 
