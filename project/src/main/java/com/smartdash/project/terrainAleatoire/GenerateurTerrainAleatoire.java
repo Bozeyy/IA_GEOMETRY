@@ -1,4 +1,4 @@
-package com.smartdash.project;
+package com.smartdash.project.terrainAleatoire;
 
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.modele.objet.Bloc;
@@ -9,7 +9,6 @@ import com.smartdash.project.mvc.modele.objet.piques.Pique;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class GenerateurTerrainAleatoire {

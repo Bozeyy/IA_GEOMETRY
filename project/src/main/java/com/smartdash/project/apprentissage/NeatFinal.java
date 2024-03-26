@@ -1,19 +1,17 @@
 package com.smartdash.project.apprentissage;
 
-import com.smartdash.project.terrainAleatoire.GenerateurTerrainAleatoire;
-import com.smartdash.project.IA.Module;
 import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.IA.ReseauFabrique;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.apprentissage.util.Statistique;
 import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
+import com.smartdash.project.terrainAleatoire.GenerateurTerrainAleatoire;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-public class NeatVariation extends NeatAmelioration
+public class NeatFinal extends NeatVariation
 {
     /**
      * Constructeur avec un max de génération et un nb de terrain à générer
@@ -21,10 +19,9 @@ public class NeatVariation extends NeatAmelioration
      * @param maxGenerations max de génération
      * @param nbTerrains     nombre de terrains max
      */
-    public NeatVariation(int maxGenerations, int nbTerrains) {
+    public NeatFinal(int maxGenerations, int nbTerrains) {
         super(maxGenerations, nbTerrains);
     }
-
 
     /**
      * Méthode qui permet de lancer l'apprentissage de l'IA grâce à NEAT
@@ -78,6 +75,28 @@ public class NeatVariation extends NeatAmelioration
             moyenneGeneration = stat.calculerMoyenne10Meilleurs(population);
             System.out.println("Moyenne des 10 premiers de la population " + generation + " : " + moyenneGeneration);
 
+            // on effectue des tests toute les 50 generations
+            if (generation % 50 == 0) {
+                // ON copie la population
+                List<Joueur> populationCopie = new ArrayList<>();
+                for(Joueur joueur : population) {
+                    populationCopie.add(new Joueur(joueur.getReseau().clone()));
+                }
+
+                // On fait jouer alors tout les joueurs sur 10 terrains aléatoires
+                for(Joueur joueur : populationCopie)
+                {
+                    moyenneScoreDonneeTest(joueur);
+
+                }
+
+                // On en calcule ensuite les moyennes
+                stat.addMoyennesTests(populationCopie);
+
+                moyenneTest = stat.calculerMoyenneTest(populationCopie);
+                System.out.println("Moyenne des test de la population : " + generation + " : " + moyenneTest);
+            }
+
             // On sélectionne les parents
             parents = selectionnerParents(population);
 
@@ -117,95 +136,23 @@ public class NeatVariation extends NeatAmelioration
         System.out.println("fini");
     }
 
-    /**
-     * Méthode qui permet de réaliser toute les mutations
-     * @param enfant1 enfant
-     */
-    protected void mutationAll(Joueur enfant1) {
-        mutation(enfant1);
-        mutationPosition(enfant1);
 
-        mutationNbModules(enfant1);
-        mutationNbNeuronne(enfant1);
-    }
+    public void moyenneScoreDonneeTest(Joueur joueur) throws Exception {
+        List<Terrain> listesTerrain = new ArrayList<>();
+        GenerateurTerrainAleatoire generateurTerrainAleatoire = new GenerateurTerrainAleatoire();
 
-    /**
-     * Méthode qui permet de réaliser une mutation pour ajouter ou supprime des modules
-     * @param enfant1 l'enfant sur lequel il y aura une mutation
-     */
-    public void mutationNbModules(Joueur enfant1) {
-        // Initialise la probabilité des actions
-        final double PROBA_AJOUTER = 5.0;
 
-        double probabilite = random.nextDouble() * 100.0;
-
-        if(probabilite < PROBA_AJOUTER)
+        for(int i = 0; i<10; i++)
         {
-            // Ajouter un module
-            ajouterModule(enfant1);
+            listesTerrain.add(generateurTerrainAleatoire.genererTerrainAleatoire());
         }
-    }
 
-    /**
-     * Méthode qui permet d'ajouter un module
-     * @param joueur l'enfant
-     */
-    private void ajouterModule(Joueur joueur) {
-        // On récupère un module aléatoire de l'enfant
-        int indexRandomModule = random.nextInt(joueur.getReseau().getModules().size());
-
-        Module moduleAleatoire = joueur.getReseau().getModules().get(indexRandomModule).clone();
-
-        // On ajoute ce module au réseau
-        joueur.getReseau().addModule(moduleAleatoire);
-
-        // On mute ce module
-        mutation(joueur);
-        mutationPosition(joueur);
-    }
-
-    /**
-     * Méthode qui permet de réaliser une mutation sur le nombre de neuronnes
-     * @param joueur
-     */
-    public void mutationNbNeuronne(Joueur joueur) {
-        Reseau res = joueur.getReseau();
-
-        int probaMutation = random.nextInt(5);
-
-        if (probaMutation == 3) {
-            // ajout d'un neurone
-            res.ajouterNeuroneAleatoire();
-
-        } else {
-            if (probaMutation == 4) {
-                // suppression d'un neurone
-                res.supprimerNeuroneAleatoire();
-
-            }
-        }
-    }
-
-    @Override
-    public List<Joueur> selectionnerParents(List<Joueur> population){
-        List<Joueur> copiePopulation = new ArrayList<>(population);
-        // On tri la population
-        copiePopulation.sort(Comparator.comparingDouble(Joueur::getScoreApprentissage).reversed());
-
-        if (population.size() != 1000)
+        double scoreMoyenne = 0;
+        for (Terrain terrain : listesTerrain)
         {
-            throw new IllegalStateException("La taille de la population n'est pas de 1000");
+            evaluerPerformance(joueur, terrain);
+            scoreMoyenne += joueur.getScorePartie();
         }
-
-        System.out.println("nb neurone :" + copiePopulation.get(0).getReseau().getNbNeurone() );
-        // On initialise
-        List<Joueur> nouvellePopulation = new ArrayList<>(copiePopulation.subList(0, NB_MEILLEURS));
-        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(8,57),NB_PARTIE_2));
-        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(57,407),NB_PARTIE_3));
-        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(407,907),NB_PARTIE_4));
-        nouvellePopulation.addAll(prendreAleatoire(copiePopulation.subList(8,57),NB_PARTIE_5));
-
-        return nouvellePopulation;
+        joueur.setScorePartie((scoreMoyenne/ nbTerrains));
     }
-
 }

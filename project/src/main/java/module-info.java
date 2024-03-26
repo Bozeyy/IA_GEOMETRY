@@ -25,4 +25,6 @@ module com.smartdash.project {
     exports com.smartdash.project.mvc.modele.objet.piques;
     exports com.smartdash.project.mvc.vue.VueInterface;
     opens com.smartdash.project.mvc.vue.VueInterface to javafx.fxml;
+    exports com.smartdash.project.terrainAleatoire;
+    opens com.smartdash.project.terrainAleatoire to javafx.fxml;
 }

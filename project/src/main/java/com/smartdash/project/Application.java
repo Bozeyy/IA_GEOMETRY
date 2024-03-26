@@ -8,6 +8,7 @@ import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.vue.VueInformationApp;
 import com.smartdash.project.mvc.vue.VueJeu;
+import com.smartdash.project.terrainAleatoire.GenerateurTerrainAleatoire;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -41,8 +42,8 @@ public class Application extends javafx.application.Application {
         Terrain t = gta.genererTerrainAleatoire();
 
 
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain14.txt"), joueur.getReseau());
-        //Jeu jeu = new Jeu(t, joueur.getReseau());
+        //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain14.txt"), joueur.getReseau());
+        Jeu jeu = new Jeu(t, joueur.getReseau());
 
 
         BorderPane borderPane = new BorderPane();

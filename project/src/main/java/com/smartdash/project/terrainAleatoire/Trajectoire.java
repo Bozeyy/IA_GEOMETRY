@@ -1,4 +1,4 @@
-package com.smartdash.project;
+package com.smartdash.project.terrainAleatoire;
 
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.modele.objet.ObjetTrajectoire;
@@ -131,7 +131,6 @@ public class Trajectoire
         {
             System.out.println("HAHAHA");
             this.aDescendu = true;
-//            this.y++;
         }
     }
 
