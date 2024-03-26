@@ -23,6 +23,7 @@ public class NeatFinal extends NeatVariation
         super(maxGenerations, nbTerrains);
     }
 
+
     /**
      * Méthode qui permet de lancer l'apprentissage de l'IA grâce à NEAT
      * @throws Exception exception
@@ -87,7 +88,6 @@ public class NeatFinal extends NeatVariation
                 for(Joueur joueur : populationCopie)
                 {
                     moyenneScoreDonneeTest(joueur);
-
                 }
 
                 // On en calcule ensuite les moyennes
@@ -107,7 +107,7 @@ public class NeatFinal extends NeatVariation
 
                     // 2 enfants par couple
                     Joueur enfant1 = croisement(parent1, parent2);
-                    mutationAll(enfant1);
+                        mutationAll(enfant1);
 
                     Joueur enfant2 = croisement(parent1, parent2);
                     mutationAll(enfant2);
@@ -137,12 +137,17 @@ public class NeatFinal extends NeatVariation
     }
 
 
+    /**
+     * Méthode qui permet de calculer la moyenne sur 100 terrains des joueurs sur des terrains aléatoires
+     * @param joueur joueur qui joue sur les 100 terrains.
+     * @throws Exception exception pour la génération de terrain
+     */
     public void moyenneScoreDonneeTest(Joueur joueur) throws Exception {
         List<Terrain> listesTerrain = new ArrayList<>();
         GenerateurTerrainAleatoire generateurTerrainAleatoire = new GenerateurTerrainAleatoire();
 
 
-        for(int i = 0; i<10; i++)
+        for(int i = 0; i<100; i++)
         {
             listesTerrain.add(generateurTerrainAleatoire.genererTerrainAleatoire());
         }

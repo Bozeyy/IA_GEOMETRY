@@ -205,6 +205,5 @@ public class GenerateurTerrainAleatoire {
     private void genererTrajectoire() {
         Trajectoire traj = new Trajectoire(this.terrain);
         this.trajectoires = traj.jouer();
-
     }
 }
