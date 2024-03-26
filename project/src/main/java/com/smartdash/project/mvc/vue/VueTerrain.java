@@ -33,17 +33,20 @@ public class VueTerrain extends Pane {
     public void init(){
         getChildren().clear();
         this.modele.getTerrain().getMap().forEach(objet -> {
+            //mettre le terrain au milieu
+            int newY = (int) (objet.getY() + getPrefHeight() / tailleCase / 2 - 15 );
+
             if (objet instanceof Bloc) {
-                getChildren().add(new VueBloc(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
+                getChildren().add(new VueBloc(modele, objet.getX(), newY, this.couleurNiveau,tailleCase));
             } else if (objet instanceof PiqueRetourne) {
-                getChildren().add(new VuePiqueRetourne(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
+                getChildren().add(new VuePiqueRetourne(modele, objet.getX(), newY, this.couleurNiveau,tailleCase));
             } else if (objet instanceof PiqueGauche) {
-                getChildren().add(new VuePiqueGauche(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
+                getChildren().add(new VuePiqueGauche(modele, objet.getX(), newY, this.couleurNiveau,tailleCase));
             } else if (objet instanceof PiqueDroit) {
-                getChildren().add(new VuePiqueDroit(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
+                getChildren().add(new VuePiqueDroit(modele, objet.getX(), newY, this.couleurNiveau,tailleCase));
             } else if (objet instanceof Pique) {
 
-                getChildren().add(new VuePique(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));
+                getChildren().add(new VuePique(modele, objet.getX(), newY, this.couleurNiveau,tailleCase));
 
             }
         });

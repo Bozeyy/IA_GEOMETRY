@@ -63,7 +63,10 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
                 panePrincipal.getChildren().add(neuroneVue.getShape());
             }
 
-            scoreJoueur.setText("Résultats du joueur: " + Math.floor(modele.getJoueur().getScoreApprentissage()) + "%");
+            if(choixSecondaire.getValue() != null)
+                scoreJoueur.setText("Résultats du joueur: " + choixSecondaire.getValue().substring(choixSecondaire.getValue().length() - 7,choixSecondaire.getValue().length() - 2) + "%");
+            else
+                scoreJoueur.setText("Résultats du joueur: " + Math.floor(modele.getJoueur().getScoreApprentissage()) + "%");
 
             panePrincipal.getChildren().addAll(vueReseau,apercuJoueur,scoreJoueur);
         } catch (Exception e) {
@@ -114,7 +117,7 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
                 //ajout des joueurs dans la choicebox
                 if (stringMapMap.containsKey(cleP) && stringMapMap.get(cleP).containsKey(cleS)) {
                     for (Joueur joueur : stringMapMap.get(cleP).get(cleS)) {
-                        choixSecondaire.getItems().add("Joueur n°" + (stringMapMap.get(cleP).get(cleS).indexOf(joueur) +1));
+                        choixSecondaire.getItems().add("Joueur n°" + (stringMapMap.get(cleP).get(cleS).indexOf(joueur) +1) + " - score : " + Math.floor(joueur.getScoreApprentissage()) + " %");
                     }
                 }
 

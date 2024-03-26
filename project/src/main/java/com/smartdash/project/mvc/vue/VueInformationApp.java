@@ -41,7 +41,6 @@ public class VueInformationApp extends HBox implements Observateur {
 
         // Convertir en hexadécimal
         String hex = String.format("#%f%f%f", red, green, blue);
-        System.out.println(hex);
 
         setStyle("-fx-background-color: grey");
 
@@ -88,7 +87,7 @@ public class VueInformationApp extends HBox implements Observateur {
 
 
         //ajout du score du joueur
-        Text score = new Text("- Score : " + donnees.getJoueur().getX());
+        Text score = new Text("- Score : " + (donnees.getJoueur().getX() + 1));
         score.setId("score");
         score.setStyle("-fx-font-size: 15px; -fx-fill: white");
 
@@ -142,7 +141,7 @@ public class VueInformationApp extends HBox implements Observateur {
     @Override
     public void actualiser(Sujet sujet) {
         joueurInfo.getChildren().stream().filter(node -> Objects.equals(node.getId(), "score")).forEach(node -> {
-            ((Text) node).setText("- Score : " + donnees.getJoueur().getX());
+            ((Text) node).setText("- Score : " + (donnees.getJoueur().getX() + 1));
         });
         joueurInfo.getChildren().stream().filter(node -> Objects.equals(node.getId(), "nbNeurone")).forEach(node -> {
             ((Text) node).setText("- Neurones : " + donnees.getJoueur().getReseau().getNbNeurone());

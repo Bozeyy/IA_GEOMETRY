@@ -36,7 +36,6 @@ public class SceneInterface extends Scene {
         this.modele.supprimerObservateurs();
         sceneJeu = new SceneJeu(this.modele,this.stage,this);
         stage.setScene(sceneJeu);
-        System.out.println(this.modele.getObservateurs().size());
     }
 
     public Jeu getModele() {
