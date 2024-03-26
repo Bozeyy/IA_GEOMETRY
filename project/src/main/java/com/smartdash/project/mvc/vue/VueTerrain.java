@@ -31,6 +31,7 @@ public class VueTerrain extends Pane {
     }
 
     public void init(){
+        getChildren().clear();
         this.modele.getTerrain().getMap().forEach(objet -> {
             if (objet instanceof Bloc) {
                 getChildren().add(new VueBloc(modele, objet.getX(), objet.getY(), this.couleurNiveau,tailleCase));

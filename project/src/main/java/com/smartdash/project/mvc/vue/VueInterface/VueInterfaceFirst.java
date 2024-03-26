@@ -27,7 +27,7 @@ public class VueInterfaceFirst extends InterfaceBase implements Observateur{
 
     public void init() throws Exception {
         super.init();
-        setPlay("play.png");
+        setPlay("play2.png");
     }
 
     public void setPlay(String fichierBouton) throws Exception {

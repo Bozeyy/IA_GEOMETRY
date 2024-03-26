@@ -73,6 +73,7 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
                     double hauteur = panePrincipal.getPrefHeight();
                     double x = panePrincipal.getLayoutX();
                     double y = panePrincipal.getLayoutY();
+                    panePrincipal.getChildren().clear();
                     getChildren().remove(panePrincipal);
                     
                     panePrincipal = new VueTerrain(modele,longueur,hauteur, Color.DARKBLUE);
