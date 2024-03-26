@@ -87,7 +87,7 @@ public class NeatFinal extends NeatVariation
                 // On fait jouer alors tout les joueurs sur 10 terrains aléatoires
                 for(Joueur joueur : populationCopie)
                 {
-                    moyenneScoreDonneeTest(joueur);
+                    moyenneScoreDonneeTest(joueur, 100);
                 }
 
                 // On en calcule ensuite les moyennes
@@ -142,12 +142,12 @@ public class NeatFinal extends NeatVariation
      * @param joueur joueur qui joue sur les 100 terrains.
      * @throws Exception exception pour la génération de terrain
      */
-    public void moyenneScoreDonneeTest(Joueur joueur) throws Exception {
+    public void moyenneScoreDonneeTest(Joueur joueur, int nbTerrains) throws Exception {
         List<Terrain> listesTerrain = new ArrayList<>();
         GenerateurTerrainAleatoire generateurTerrainAleatoire = new GenerateurTerrainAleatoire();
 
 
-        for(int i = 0; i<100; i++)
+        for(int i = 0; i<nbTerrains; i++)
         {
             listesTerrain.add(generateurTerrainAleatoire.genererTerrainAleatoire());
         }

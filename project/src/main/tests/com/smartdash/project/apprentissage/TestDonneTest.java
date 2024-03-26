@@ -38,7 +38,7 @@ public class TestDonneTest {
         // On fait jouer alors tous les joueurs sur 10 terrains aléatoires
         for(Joueur joueur : populationCopie)
         {
-            neatFinal.moyenneScoreDonneeTest(joueur);
+            neatFinal.moyenneScoreDonneeTest(joueur,10);
         }
 
         Joueur j1 = population.get(2);

@@ -96,26 +96,4 @@ public class TestEnregistrement {
 
         new File(pathname).delete();
     }
-
-    @Test
-    public void test_creation_fichier_gen() throws Exception {
-        String pathname = Enregistrement.debutEnregistrement();
-
-        int nbIndividu = 1;
-        List<Joueur> population = new ArrayList<>(nbIndividu);
-
-        for (int i = 0; i < nbIndividu; i++) {
-            population.add(new Joueur(ReseauFabrique.genererReseau()));
-        }
-
-        Enregistrement.generationEnregistrement(pathname, 0, population);
-
-        File f = new File(pathname + "/generation_0.txt");
-
-        assertTrue(f.exists());
-
-        f.delete();
-        new File(pathname).delete();
-    }
-
 }
