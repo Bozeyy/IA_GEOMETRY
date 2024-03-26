@@ -1,6 +1,7 @@
 package com.smartdash.project.demo;
 
 import com.smartdash.project.apprentissage.NeatAmelioration;
+import com.smartdash.project.apprentissage.NeatFinal;
 import com.smartdash.project.apprentissage.NeatPosition;
 import com.smartdash.project.apprentissage.NeatVariation;
 import com.smartdash.project.mvc.modele.Terrain;
@@ -53,12 +54,41 @@ public class Main
      */
     public static void lancerNormal()
     {
-         NeatVariation neatAmelioration = new NeatVariation(150,1);
+         NeatFinal neat = new NeatFinal(500,10);
 
         try {
-            neatAmelioration.lancerApprentissage();
+            neat.lancerApprentissage();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

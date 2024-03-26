@@ -76,7 +76,7 @@ public class NeatFinal extends NeatVariation
             System.out.println("Moyenne des 10 premiers de la population " + generation + " : " + moyenneGeneration);
 
             // on effectue des tests toute les 50 generations
-            if (generation % 50 == 0) {
+            if (generation % 10 == 0) {
                 // ON copie la population
                 List<Joueur> populationCopie = new ArrayList<>();
                 for(Joueur joueur : population) {

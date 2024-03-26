@@ -95,6 +95,11 @@ public class Statistique {
      * @param pathName path de l'enregistrement
      */
     public void genererPDF (String pathName) {
+        System.out.println("donne moyenne test stockés :");
+        for (Double d : this.moyenneTest) {
+            System.out.println(d);
+        }
+        System.out.println("--------------");
         String newPath = pathName.replace("enregistrement", "statistiques");
 
         try {
@@ -232,10 +237,12 @@ public class Statistique {
             for (int i = 0; i < this.moyenne.size(); i++) {
                 double moyennePop = moyenne.get(i);
                 double moyenneMeilleurs = moyenne10.get(i);
-                double moyenneTests = moyenneTest.get(i);
                 dataset.addValue(moyennePop, "Moyenne générale", Integer.toString(i));
                 dataset.addValue(moyenneMeilleurs, "Moyenne des 10 meilleurs", Integer.toString(i));
-                dataset.addValue(moyenneTests, "Moyenne des 10 meilleurs sur terrains de test", Integer.toString(i));
+                if (i < this.moyenneTest.size()) {
+                    double moyenneTests = moyenneTest.get(i);
+                    dataset.addValue(moyenneTests, "Moyenne des 10 meilleurs sur terrains de test", Integer.toString(i));
+                }
             }
 
             // Créer un graphique JFreeChart

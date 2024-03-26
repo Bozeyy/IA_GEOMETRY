@@ -102,7 +102,6 @@ public class Trajectoire
     private void ajouterTrajectoire(boolean aSauter, boolean aDescendu) {
         // Créer un objet trajectoire et l'ajoute à la liste
         ObjetTrajectoire objetTrajectoire = new ObjetTrajectoire(x,y, this.aDescendu, this.aSauter);
-        System.out.println("Coordonnée de l'objet x : " + objetTrajectoire.getX() + " y : " + objetTrajectoire.getY());
         this.listesTrajectoire.add(objetTrajectoire);
     }
 
@@ -129,7 +128,6 @@ public class Trajectoire
     private void actionTomber() {
         if (this.vy==0 && !verifierSurSol())
         {
-            System.out.println("HAHAHA");
             this.aDescendu = true;
         }
     }
