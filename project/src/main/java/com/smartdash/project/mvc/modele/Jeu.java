@@ -269,7 +269,7 @@ public class Jeu implements Sujet{
         assert listOfFiles != null;
         for (File file : listOfFiles) {
 
-            if (file.isDirectory() && (file.getName().equals("apprentissage") || file.getName().equals("Terrains") || file.getName().equals("test_apprentissage"))) {
+            if (file.isDirectory() && (file.getName().equals("apprentissage") || file.getName().equals("terrains_smartdash") || file.getName().equals("test_apprentissage"))) {
                 // On parcourt les terrains dans chaque dossier
                 for (File terrain : Objects.requireNonNull(file.listFiles())) {
                     // On ajoute le terrain à la liste
