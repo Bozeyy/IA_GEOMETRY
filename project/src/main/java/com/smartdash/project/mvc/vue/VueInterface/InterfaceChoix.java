@@ -35,7 +35,6 @@ public abstract class InterfaceChoix extends InterfaceBase{
     public void init() throws Exception {
         getChildren().clear();
         defilerImage("background2.png");
-        initTransition();
         initChoixPrincipal();
         initChoixSecondaire();
         initPanePrincipal();
@@ -43,13 +42,13 @@ public abstract class InterfaceChoix extends InterfaceBase{
         initValider();
     }
 
-    private void initTransition() {
+    private void initTransition(double scale) {
         animation = new ScaleTransition();
         animation.setDuration(javafx.util.Duration.millis(200));
         animation.setFromX(1.0);
         animation.setFromY(1.0);
-        animation.setToX(1.2);
-        animation.setToY(1.2);
+        animation.setToX(scale);
+        animation.setToY(scale);
     }
 
     private void initValider() {
@@ -62,6 +61,7 @@ public abstract class InterfaceChoix extends InterfaceBase{
 
         //Animation du bouton
         valider.setOnMouseEntered(event -> {
+            initTransition(1.1);
             animation.setNode(valider);
             animation.play();
         });
@@ -100,6 +100,7 @@ public abstract class InterfaceChoix extends InterfaceBase{
 
         //Animation du bouton
         retourArriere.setOnMouseEntered(event -> {
+            initTransition(1.4);
             animation.setNode(retourArriere);
             animation.play();
         });

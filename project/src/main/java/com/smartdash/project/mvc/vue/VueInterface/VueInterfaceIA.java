@@ -30,6 +30,7 @@ import java.util.Map;
 public class VueInterfaceIA extends InterfaceChoix implements Observateur{
     VueReseau vueReseau;
     Label scoreJoueur;
+    Label apercuJoueur;
 
     public VueInterfaceIA(Jeu modele, Stage stage, VueInterfaceFirst vueInterfaceFirst) throws Exception {
         super(modele,stage);
@@ -49,19 +50,25 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
         try {
             if(scoreJoueur == null)
                 this.scoreJoueur = new Label("");
+            if(apercuJoueur == null)
+                this.apercuJoueur = new Label("");
 
             modele.getJoueur().setX((int) (panePrincipal.getLayoutX() / modele.getTailleCase()));
             modele.getJoueur().setY((int) ((panePrincipal.getLayoutY() + panePrincipal.getPrefHeight() / 2 ) / modele.getTailleCase()));
             vueReseau = new VueReseau(modele);
 
-            panePrincipal.getChildren().remove(vueReseau);
+            panePrincipal.getChildren().clear();
+
             for (NeuroneVue neuroneVue : vueReseau.getNeurones()) {
                 panePrincipal.getChildren().add(neuroneVue.getShape());
             }
 
-            scoreJoueur.setText("Resultats du joueur: " + Math.round(modele.getJoueur().getScoreApprentissage()) + "%");
+            if(choixSecondaire.getValue() != null)
+                scoreJoueur.setText("Résultats du joueur: " + choixSecondaire.getValue().substring(choixSecondaire.getValue().length() - 7,choixSecondaire.getValue().length() - 2) + "%");
+            else
+                scoreJoueur.setText("Résultats du joueur: " + Math.floor(modele.getJoueur().getScoreApprentissage()) + "%");
 
-            panePrincipal.getChildren().add(vueReseau);
+            panePrincipal.getChildren().addAll(vueReseau,apercuJoueur,scoreJoueur);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,7 +117,7 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
                 //ajout des joueurs dans la choicebox
                 if (stringMapMap.containsKey(cleP) && stringMapMap.get(cleP).containsKey(cleS)) {
                     for (Joueur joueur : stringMapMap.get(cleP).get(cleS)) {
-                        choixSecondaire.getItems().add("Joueur n°" + (stringMapMap.get(cleP).get(cleS).indexOf(joueur) +1));
+                        choixSecondaire.getItems().add("Joueur n°" + (stringMapMap.get(cleP).get(cleS).indexOf(joueur) +1) + " - score : " + Math.floor(joueur.getScoreApprentissage()) + " %");
                     }
                 }
 
@@ -137,17 +144,21 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
     @Override
     public void addPanePrincipal() {
         //Titre du pane
-        Label lab = new Label("Aperçu du joueur");
-        lab.setPrefSize(panePrincipal.getPrefWidth(),50);
-        lab.setStyle("-fx-background-color:#debfbf; -fx-font-size: 30px; -fx-alignment: center");
-        panePrincipal.getChildren().add(lab);
+        apercuJoueur = new Label("Aperçu du joueur");
+        apercuJoueur.setId("apercu");
+        apercuJoueur.setPrefSize(panePrincipal.getPrefWidth(),50);
+        apercuJoueur.setStyle("-fx-background-color:#debfbf; -fx-font-size: 30px; -fx-alignment: center");
+        if (!panePrincipal.getChildren().contains(apercuJoueur))
+            panePrincipal.getChildren().add(apercuJoueur);
 
         //Score
-        scoreJoueur.setText("Resultats du joueur: " + Math.round(modele.getJoueur().getScoreApprentissage()) + "%");
+        scoreJoueur.setId("scoreJoueur");
+        scoreJoueur.setText("Résultats du joueur: " + Math.floor(modele.getJoueur().getScoreApprentissage()) + "%");
         scoreJoueur.setPrefSize(panePrincipal.getPrefWidth(),50);
         scoreJoueur.setLayoutY(50);
-        scoreJoueur.setStyle("-fx-font-size: 15px; -fx-alignment: left; -fx-padding: 5px; ");
-        panePrincipal.getChildren().add(scoreJoueur);
+        scoreJoueur.setStyle("-fx-font-size: 15px; -fx-padding: 5px; ");
+        if (!panePrincipal.getChildren().contains(scoreJoueur))
+            panePrincipal.getChildren().add(scoreJoueur);
     }
 
     @Override

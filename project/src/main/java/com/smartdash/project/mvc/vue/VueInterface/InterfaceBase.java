@@ -8,7 +8,10 @@ import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -131,6 +134,8 @@ public abstract class InterfaceBase extends Pane{
 
         // Démarrer l'animation
         timeline.play();
+
+        setBackground(new Background(new BackgroundFill(Color.GREY,null,null)));
 
     }
 }

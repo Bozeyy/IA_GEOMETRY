@@ -11,6 +11,7 @@ import com.smartdash.project.mvc.vue.VueJeu;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class SceneJeu extends Scene {
@@ -34,16 +35,9 @@ public class SceneJeu extends Scene {
     }
 
     public Parent init() throws Exception {
+        Screen screen = Screen.getPrimary();
 
         BorderPane borderPane = new BorderPane();
-        //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());
-        borderPane.setPrefSize(longueurFenetre, modele.getTailleCase() * modele.getTerrain().getLargeur());
-
-        //VueCommande
-        /*VueCommande vueCommande = new VueCommande(jeu, (int) borderPane.getPrefWidth(), hauteurVueCommande);
-        jeu.enregistrerObservateur(vueCommande);
-        borderPane.setTop(vueCommande);
-        vueCommande.init();*/
 
         //Vue Jeu
         VueJeu vueJeu = new VueJeu(modele);
@@ -53,7 +47,7 @@ public class SceneJeu extends Scene {
 
 
         //Vue Info
-        VueInformationApp vueInformationApp = new VueInformationApp(modele, (int) vueJeu.getPrefWidth(), hauteurVueInformation, vueJeu.getCouleurNiveau());
+        VueInformationApp vueInformationApp = new VueInformationApp(modele, (int) screen.getVisualBounds().getWidth(), (int) (screen.getVisualBounds().getHeight() - vueJeu.getPrefHeight()), vueJeu.getCouleurNiveau());
         modele.enregistrerObservateur(vueInformationApp);
         borderPane.setBottom(vueInformationApp);
         vueInformationApp.init();
