@@ -18,7 +18,7 @@ public class SceneInterface extends Scene {
         super(new Pane());
         this.modele = modele;
         this.stage = stage;
-        sceneJeu = new SceneJeu(modele, stage,this);
+        sceneJeu = new SceneJeu(modele, stage,this,"");
         setRoot(init());
     }
 
@@ -30,11 +30,11 @@ public class SceneInterface extends Scene {
         return vueInterface;
     }
 
-    public void setSceneJeu(Jeu modele, Stage stage) throws Exception {
+    public void setSceneJeu(Jeu modele, Stage stage, String couleur) throws Exception {
         this.modele = modele;
         this.stage = stage;
         this.modele.supprimerObservateurs();
-        sceneJeu = new SceneJeu(this.modele,this.stage,this);
+        sceneJeu = new SceneJeu(this.modele,this.stage,this, couleur);
         stage.setScene(sceneJeu);
     }
 

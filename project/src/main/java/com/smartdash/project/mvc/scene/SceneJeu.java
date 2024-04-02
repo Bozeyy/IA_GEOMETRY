@@ -24,11 +24,14 @@ public class SceneJeu extends Scene {
 
     SceneInterface sceneInterface;
 
-    public SceneJeu(Jeu modele,Stage stage,SceneInterface sceneInterface) throws Exception {
+    String couleur;
+
+    public SceneJeu(Jeu modele,Stage stage,SceneInterface sceneInterface, String couleur) throws Exception {
         super(new BorderPane());
         this.modele = modele;
         this.stage = stage;
         this.sceneInterface = sceneInterface;
+        this.couleur = couleur;
         setOnKeyPressed(new ControllerClavier(modele,stage));
         setOnMouseClicked(new ControllerSouris(modele));
         setRoot(init());
@@ -40,7 +43,7 @@ public class SceneJeu extends Scene {
         BorderPane borderPane = new BorderPane();
 
         //Vue Jeu
-        VueJeu vueJeu = new VueJeu(modele);
+        VueJeu vueJeu = new VueJeu(modele,couleur);
         modele.enregistrerObservateur(vueJeu);
         borderPane.setCenter(vueJeu);
         vueJeu.init();

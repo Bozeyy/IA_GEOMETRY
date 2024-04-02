@@ -57,7 +57,7 @@ public class Application extends javafx.application.Application {
         vueCommande.init();*/
 
         //Vue Jeu
-        VueJeu vueJeu = new VueJeu(jeu);
+        VueJeu vueJeu = new VueJeu(jeu,null);
         jeu.enregistrerObservateur(vueJeu);
         borderPane.setCenter(vueJeu);
         vueJeu.init();

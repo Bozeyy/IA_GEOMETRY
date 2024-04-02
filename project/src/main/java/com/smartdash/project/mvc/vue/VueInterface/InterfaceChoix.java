@@ -34,7 +34,7 @@ public abstract class InterfaceChoix extends InterfaceBase{
     @Override
     public void init() throws Exception {
         getChildren().clear();
-        defilerImage("background2.png");
+        super.defilerImage("background2.png");
         initChoixPrincipal();
         initChoixSecondaire();
         initPanePrincipal();

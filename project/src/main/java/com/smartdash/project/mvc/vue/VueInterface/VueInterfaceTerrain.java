@@ -19,6 +19,8 @@ import java.util.List;
 
 public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
 
+    List<String> couleurs;
+
     public VueInterfaceTerrain(Jeu modele, Stage stage, VueInterfaceIA vueInterfaceIA) throws Exception {
         super(modele, stage);
         ajouterInterfaceConnectee(vueInterfaceIA);
@@ -93,6 +95,17 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
 
     @Override
     public void addChoixSecondaire() throws Exception {
+        couleurs = List.of("black","red","darkblue");
+
+        for (String couleur : couleurs) {
+            choixSecondaire.getItems().add("Couleur : " + couleur);
+        }
+
+        choixSecondaire.setValue(choixSecondaire.getItems().getFirst());
+
+        choixSecondaire.setOnAction(e -> {
+            choixSecondaire.setStyle("-fx-font-size: 20px;  -fx-background-color: " + choixSecondaire.getSelectionModel().getSelectedItem().replaceAll(".*: ",""));
+        });
 
     }
 
@@ -113,7 +126,7 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
                 modele.setJoueur(new Joueur(terrain,joueur.getReseau()));
 
                 // On change de scene
-                ((SceneInterface)stage.getScene()).setSceneJeu(modele,stage);
+                ((SceneInterface)stage.getScene()).setSceneJeu(modele,stage,choixSecondaire.getSelectionModel().getSelectedItem().replaceAll(".*: ",""));
 
             } catch (Exception exception) {
                 exception.printStackTrace();

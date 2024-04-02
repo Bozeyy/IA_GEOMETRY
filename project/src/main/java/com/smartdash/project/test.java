@@ -12,23 +12,20 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class test extends javafx.application.Application {
+
+    Screen screen = Screen.getPrimary();
+    Rectangle2D bounds = screen.getVisualBounds();
     @Override
     public void start(Stage stage) throws Exception {
         Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_apprentissage_8-5.txt", 0);
         Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain9.txt"), joueur.getReseau());
+        jeu.getJoueur().setScoreApprentissage(joueur.getScoreApprentissage());
 
         SceneInterface sceneInterface = new SceneInterface(jeu, stage);
-
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-
-        //stage.setMinWidth(longueurFenetre);
-        //stage.setMinHeight(hauteurFenetre);
 
         stage.setMaximized(true);
         stage.setMinWidth(bounds.getWidth());
         stage.setMinHeight(bounds.getHeight());
-
 
         stage.setTitle("SmartDash");
         stage.setScene(sceneInterface);

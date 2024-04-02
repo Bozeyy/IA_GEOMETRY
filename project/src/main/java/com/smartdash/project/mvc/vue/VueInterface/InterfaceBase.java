@@ -106,11 +106,16 @@ public abstract class InterfaceBase extends Pane{
     public void defilerImage(String fichierBackground){
         Image image = new Image(fichierBackground);
 
+        double size = screen.getVisualBounds().getHeight();
+
         // Créer plusieurs ImageView pour afficher l'image en continu
         ImageView[] imageViews = new ImageView[4];
         for (int i = 0; i < imageViews.length; i++) {
             imageViews[i] = new ImageView(image);
-            imageViews[i].setTranslateX(i * image.getWidth());
+
+            imageViews[i].setFitHeight(size);
+            imageViews[i].setFitWidth(size);
+            imageViews[i].setTranslateX(i * size);
         }
 
         // Ajouter les ImageView à la scène
@@ -124,7 +129,7 @@ public abstract class InterfaceBase extends Pane{
 
                 // Si une image est complètement sortie de l'écran, réinitialiser sa position
                 if (imageView.getBoundsInParent().getMaxX() <= 0) {
-                    imageView.setTranslateX(imageView.getTranslateX() + image.getWidth() * imageViews.length);
+                    imageView.setTranslateX(imageView.getTranslateX() + size * imageViews.length);
                 }
             }
         }));

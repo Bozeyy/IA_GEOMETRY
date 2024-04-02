@@ -99,7 +99,9 @@ public class Enregistrement {
         //On récupère le joueur
         if(joueur < population.size())
         {
-            return new Joueur(population.get(joueur).getReseau().clone());
+            Joueur j = population.get(joueur);
+            j.setReseau(j.getReseau().clone());
+            return j;
         }
         else
             throw new IllegalArgumentException("Le joueur n'a pas été trouvé");

@@ -37,11 +37,19 @@ public class VueJeu extends Pane implements Observateur {
     private VueJoueur vueJoueur;
     private VueParticule vueParticule;
 
-    public VueJeu(Jeu donnees) throws Exception {
+    public VueJeu(Jeu donnees, String couleur) throws Exception {
         this.modele = donnees;
         this.vueReseau = new VueReseau(modele);
-        getRandomColor();
-
+        if(couleur == null)
+            getRandomColor();
+        else {
+            switch (couleur) {
+                case "red" -> couleurNiveau = Color.RED;
+                case "darkblue" -> couleurNiveau = Color.DARKBLUE;
+                case "black" -> couleurNiveau = Color.BLACK;
+                default -> couleurNiveau = Color.BLACK;
+            }
+        }
         //Taille de base de la fenêtre de jeu
         setPrefSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
 

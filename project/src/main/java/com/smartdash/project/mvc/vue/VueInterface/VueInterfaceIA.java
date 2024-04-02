@@ -105,6 +105,8 @@ public class VueInterfaceIA extends InterfaceChoix implements Observateur{
     public void addChoixSecondaire() throws Exception {
         Map<String, Map<String, List<Joueur>>> stringMapMap = modele.genererJoueurs(false);
 
+        choixSecondaire.setValue("Joueur n°0 - score : " + Math.floor(modele.getJoueur().getScoreApprentissage()) + " %");
+
         choixPrincipal.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.getChildren() != null && newValue.getChildren().isEmpty()) {
 

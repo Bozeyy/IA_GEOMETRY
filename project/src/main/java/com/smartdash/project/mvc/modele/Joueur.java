@@ -337,4 +337,8 @@ public class  Joueur
     public void setScoreApprentissage(double score) {
         this.scoreApprentissage = score;
     }
+
+    public void setReseau(Reseau reseau) {
+        this.reseau = reseau;
+    }
 }

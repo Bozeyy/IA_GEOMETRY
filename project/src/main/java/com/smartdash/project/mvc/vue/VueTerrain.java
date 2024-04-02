@@ -10,6 +10,7 @@ import com.smartdash.project.mvc.vue.VuePique.VuePique;
 import com.smartdash.project.mvc.vue.VuePique.VuePiqueDroit;
 import com.smartdash.project.mvc.vue.VuePique.VuePiqueGauche;
 import com.smartdash.project.mvc.vue.VuePique.VuePiqueRetourne;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -18,6 +19,8 @@ public class VueTerrain extends Pane {
 
     Jeu modele;
     double tailleCase;
+
+    Label titre;
 
     Color couleurNiveau;
 
@@ -32,6 +35,9 @@ public class VueTerrain extends Pane {
 
     public void init(){
         getChildren().clear();
+
+        initTitre();
+
         this.modele.getTerrain().getMap().forEach(objet -> {
             //mettre le terrain au milieu
             int newY = (int) (objet.getY() + getPrefHeight() / tailleCase / 2 - 15 );
@@ -50,5 +56,13 @@ public class VueTerrain extends Pane {
 
             }
         });
+    }
+
+    public void initTitre(){
+        titre = new Label("Aperçu du terrain");
+        titre.setId("apercu");
+        titre.setPrefSize(this.getPrefWidth(),50);
+        titre.setStyle("-fx-background-color:#debfbf; -fx-font-size: 30px; -fx-alignment: center");
+        getChildren().add(titre);
     }
 }
