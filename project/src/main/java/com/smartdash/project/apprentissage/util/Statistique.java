@@ -1,5 +1,6 @@
 package com.smartdash.project.apprentissage.util;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import com.smartdash.project.mvc.modele.Joueur;
@@ -12,16 +13,21 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class Statistique {
     private List<Double> moyenne = new ArrayList<>();
     private List<Double> moyenne10 = new ArrayList<>();
+
+    private List<Integer> nbNeuronesMeilleur = new ArrayList<>();
 
     private List<Double> moyenneTest = new ArrayList<>();
     private Joueur meilleurJoueur;
@@ -78,6 +84,7 @@ public class Statistique {
     public void addMoyennes (List<Joueur> joueurs) throws Exception {
         this.moyenne.add(calculerMoyenneDesScores(joueurs));
         this.moyenne10.add(calculerMoyenne10Meilleurs(joueurs));
+        this.nbNeuronesMeilleur.add(joueurs.get(0).getReseau().getNbNeurone());
     }
 
     /**
@@ -152,6 +159,7 @@ public class Statistique {
     private void genererPageGeneration(PDDocument document, PDPage page, int numGeneration) {
         double moyenne = this.moyenne.get(numGeneration);
         double moyenne10 = this.moyenne10.get(numGeneration);
+        int nbNeuroneMeileur = this.nbNeuronesMeilleur.get(numGeneration);
 
         try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 24);
@@ -177,6 +185,13 @@ public class Statistique {
             contentStream.beginText();
             contentStream.newLineAtOffset(100, 630);  // Ajustez la position verticale en fonction de votre besoin
             contentStream.showText("Moyenne des 10 meilleurs: " + moyenne10);
+            contentStream.newLine();
+            contentStream.endText();
+
+            // Afficher le nombre de neurone du meilleur
+            contentStream.beginText();
+            contentStream.newLineAtOffset(100, 610);  // Ajustez la position verticale en fonction de votre besoin
+            contentStream.showText("Nombre de neurones du meilleur: " + nbNeuroneMeileur);
             contentStream.newLine();
             contentStream.endText();
 
@@ -228,34 +243,51 @@ public class Statistique {
             // Titre de la page
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 24);
             contentStream.beginText();
-            contentStream.newLineAtOffset(100, 700);
+            contentStream.newLineAtOffset(100, 750);
             contentStream.showText("Evolution des Moyennes");
             contentStream.endText();
 
             // Créer un graphique JFreeChart
             // Ajouter les données au dataset
+            double moyenneTests = 0;
+            int j = 0;
             for (int i = 0; i < this.moyenne.size(); i++) {
                 double moyennePop = moyenne.get(i);
                 double moyenneMeilleurs = moyenne10.get(i);
-                dataset.addValue(moyennePop, "Moyenne générale", Integer.toString(i));
+                dataset.addValue (moyennePop, "Moyenne générale", Integer.toString(i));
                 dataset.addValue(moyenneMeilleurs, "Moyenne des 10 meilleurs", Integer.toString(i));
-                if (i < this.moyenneTest.size()) {
-                    double moyenneTests = moyenneTest.get(i);
-                    dataset.addValue(moyenneTests, "Moyenne des 10 meilleurs sur terrains de test", Integer.toString(i));
+
+                if (i % 20 == 0) {
+                    moyenneTests = moyenneTest.get(j);
+                    j++;
                 }
+                dataset.addValue(moyenneTests, "Moyenne des 10 meilleurs sur terrains de test", Integer.toString(i));
             }
 
             // Créer un graphique JFreeChart
             JFreeChart chart = createChart();
 
             // Convertir le graphique en image BufferedImage
-            BufferedImage bufferedImage = chart.createBufferedImage(500, 400);
+            BufferedImage bufferedImage = chart.createBufferedImage(600, 400);
 
             // Convertir l'image BufferedImage en PDImageXObject
             PDImageXObject pdImage = LosslessFactory.createFromImage(document, bufferedImage);
 
             // Dessiner l'image dans le contenu du PDF
-            contentStream.drawImage(pdImage, 100, 400, pdImage.getWidth(), pdImage.getHeight());
+            contentStream.drawImage(pdImage, 50, 250, pdImage.getWidth(), pdImage.getHeight());
+
+            // Afficher la genaration la plus flexible
+            double maxVal = this.moyenneTest.stream()
+                    .mapToDouble(Double::doubleValue)
+                    .max()
+                    .orElse(0.0);
+
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(100, 250);  // Ajustez la position verticale en fonction de votre besoin
+            contentStream.showText("Generation la plus flexible: " + this.moyenneTest.indexOf(maxVal)*20);
+            contentStream.newLine();
+            contentStream.endText();
 
 
         } catch (Exception e) {
@@ -282,6 +314,16 @@ public class Statistique {
         // Masquer les étiquettes de l'axe des x
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.getDomainAxis().setTickLabelsVisible(false);
+
+        // Définir l'espacement entre les points pour la troisième série
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        renderer.setSeriesPaint(0, Color.BLUE);   // Moyenne générale en bleu
+        renderer.setSeriesPaint(1, Color.RED);    // Moyenne des 10 meilleurs en rouge
+        renderer.setSeriesPaint(2, Color.ORANGE);  // Moyenne des 10 meilleurs sur terrains de test en vert
+        renderer.setSeriesStroke(2, new BasicStroke(2.0f));
+        renderer.setSeriesShapesVisible(2, true);
+        renderer.setSeriesShapesFilled(2, true);
+        renderer.setSeriesLinesVisible(2, true);
 
         return chart;
     }

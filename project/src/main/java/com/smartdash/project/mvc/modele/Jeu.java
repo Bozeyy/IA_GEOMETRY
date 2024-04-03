@@ -58,7 +58,10 @@ public class Jeu implements Sujet{
         lancerEvaluation(false);
 
         this.joueur.setScorePartie(joueur.getX() + 1 );
-        this.joueur.setScoreApprentissage(joueur.getScorePartie() - joueur.getReseau().getNbNeurone());
+        // pas de punition de taille pour le moment
+        double scoreFinal = joueur.getScorePartie() ;
+
+        this.joueur.setScoreApprentissage(scoreFinal);
     }
 
     /**

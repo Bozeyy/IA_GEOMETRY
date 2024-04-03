@@ -1,5 +1,13 @@
 package com.smartdash.project;
 
+import com.smartdash.project.IA.Module;
+import com.smartdash.project.IA.ModuleFabrique;
+import com.smartdash.project.IA.NeuroneFabrique;
+import com.smartdash.project.IA.ReseauFabrique;
+import com.smartdash.project.IA.neurones.Neurone;
+import com.smartdash.project.IA.neurones.NeuroneNonVide;
+import com.smartdash.project.IA.neurones.NeuronePique;
+import com.smartdash.project.IA.neurones.NeuroneVide;
 import com.smartdash.project.apprentissage.util.Enregistrement;
 import com.smartdash.project.mvc.controller.ControllerClavier;
 import com.smartdash.project.mvc.controller.ControllerSouris;
@@ -36,7 +44,8 @@ public class Application extends javafx.application.Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_2056.txt", 0);
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/27-03-2024_22-57-55_id456/generation_50.txt", 0);
+
 
         GenerateurTerrainAleatoire gta = new GenerateurTerrainAleatoire();
         Terrain t = gta.genererTerrainAleatoire();
@@ -72,13 +81,13 @@ public class Application extends javafx.application.Application {
 
         // Ajout de la musique
 
-        this.setSong("src/main/resources/song.mp3");
-
-        this.playSong();
-
-        stage.setOnCloseRequest(event -> {
-            this.stopSong();
-        });
+//        this.setSong("src/main/resources/song.mp3");
+//
+//        this.playSong();
+//
+//        stage.setOnCloseRequest(event -> {
+//            this.stopSong();
+//        });
 
         Scene scene = new Scene(borderPane);
         scene.setOnKeyPressed(new ControllerClavier(jeu, stage));

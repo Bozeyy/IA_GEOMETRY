@@ -58,7 +58,9 @@ public class NeatFinal extends NeatVariation
         List<Terrain> listesTerrain = new ArrayList<>();
         for(int i = 1; i<=nbTerrains ; i++)
         {
-            Terrain terrainAleatoire = new Terrain("src/main/resources/apprentissage/terrain"+i+".txt");
+//            Terrain terrainAleatoire = new Terrain("src/main/resources/apprentissage/terrain"+i+".txt");
+            GenerateurTerrainAleatoire gen = new GenerateurTerrainAleatoire();
+            Terrain terrainAleatoire = gen.genererTerrainAleatoire();
             listesTerrain.add(terrainAleatoire);
         }
 
@@ -77,7 +79,7 @@ public class NeatFinal extends NeatVariation
             System.out.println("Moyenne des 10 premiers de la population " + generation + " : " + moyenneGeneration);
 
             // on effectue des tests toute les 50 generations
-            if (generation % 10 == 0) {
+            if (generation % 20 == 0) {
                 // ON copie la population
                 List<Joueur> populationCopie = new ArrayList<>();
                 for(Joueur joueur : population) {
@@ -87,7 +89,7 @@ public class NeatFinal extends NeatVariation
                 // On fait jouer alors tout les joueurs sur 10 terrains aléatoires
                 for(Joueur joueur : populationCopie)
                 {
-                    moyenneScoreDonneeTest(joueur, 100);
+                    moyenneScoreDonneeTest(joueur, 10);
                 }
 
                 // On en calcule ensuite les moyennes

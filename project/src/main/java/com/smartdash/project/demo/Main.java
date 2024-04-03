@@ -12,7 +12,8 @@ import java.util.List;
 public class Main
 {
     public static void main(String[] args) {
-        lancerNormal();
+        lancerThread(4);
+//        lancerNormal();
     }
 
     /**
@@ -25,7 +26,7 @@ public class Main
 
         for (int i = 0; i < nombreInstances; i++) {
              Thread apprentissageThread = new Thread(() -> {
-                NeatVariation neatAmelioration = new NeatVariation(100, 15);
+                NeatFinal neatAmelioration = new NeatFinal(500, 10);
 
                 try {
                     neatAmelioration.lancerApprentissage();

@@ -158,7 +158,9 @@ public class Neat{
         // gérer les croisements de tailles non égales
         int tailleResMax = Math.max(parent1.getReseau().getModules().size(), parent2.getReseau().getModules().size());
 
+        int indice = 0;
         while (!arret) {
+            indice++;
             arret = true;
 
             for (int i = 0; i < tailleResMax; i++) {
@@ -183,7 +185,7 @@ public class Neat{
                     }
                 }
             }
-            if (Objects.equals(enfant.toString(), parent1.getReseau().toString()) || Objects.equals(enfant.toString(), parent2.getReseau().toString())) {
+            if ( (Objects.equals(enfant.toString(), parent1.getReseau().toString()) || Objects.equals(enfant.toString(), parent2.getReseau().toString())) && indice > 3) {
                 arret = false;
                 enfant = new Reseau();
             }

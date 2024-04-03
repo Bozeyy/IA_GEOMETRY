@@ -103,9 +103,18 @@ public class GenerateurTerrainAleatoire {
                         break;
 
                     case 1:
-                        // generation piege vide
-                        Objet vide = new Vide(objetCourant.getX() + 1, objetCourant.getY() + 1);
-                        this.objetsReserves.add(vide);
+                        if (!this.objetsReserves.contains(new Bloc(objetCourant.getX()+1, objetCourant.getY()+2))) {
+                            // generation piege vide
+                            Objet vide = new Vide(objetCourant.getX() + 1, objetCourant.getY() + 1);
+                            Objet pique1 = new Pique(objetCourant.getX() + 1, objetCourant.getY() + 2);
+                            Objet pique2 = new Pique(objetCourant.getX() + 2, objetCourant.getY() + 2);
+                            this.objetsReserves.add(vide);
+                            this.objetsReserves.add(pique1);
+                            this.objetsReserves.add(pique2);
+                        } else {
+                            Objet pique1 = new Pique(objetCourant.getX() + 1, objetCourant.getY() + 1);
+                            this.objetsReserves.add(pique1);
+                        }
                         break;
                 }
             } else {
