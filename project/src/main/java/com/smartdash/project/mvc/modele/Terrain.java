@@ -32,7 +32,7 @@ public class Terrain {
 
 
     public Terrain() {
-        this.longueur = 99;
+        this.longueur = 100;
         this.largeur = 25;
     }
 

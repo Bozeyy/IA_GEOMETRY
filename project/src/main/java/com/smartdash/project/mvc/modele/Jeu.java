@@ -61,7 +61,7 @@ public class Jeu implements Sujet{
 
         double scoreFinal;
         if (joueur.getScorePartie() == 100) {
-            scoreFinal = joueur.getScorePartie() - ( 0.1 * joueur.getReseau().getNbNeurone() );
+             scoreFinal = joueur.getScorePartie() - ( 0.1 * joueur.getReseau().getNbNeurone() );
         } else {
             // pas de punition de taille pour le moment
             scoreFinal = joueur.getScorePartie();

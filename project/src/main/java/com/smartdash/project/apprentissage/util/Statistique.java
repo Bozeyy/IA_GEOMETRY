@@ -268,13 +268,13 @@ public class Statistique {
             JFreeChart chart = createChart();
 
             // Convertir le graphique en image BufferedImage
-            BufferedImage bufferedImage = chart.createBufferedImage(600, 400);
+            BufferedImage bufferedImage = chart.createBufferedImage(500, 400);
 
             // Convertir l'image BufferedImage en PDImageXObject
             PDImageXObject pdImage = LosslessFactory.createFromImage(document, bufferedImage);
 
             // Dessiner l'image dans le contenu du PDF
-            contentStream.drawImage(pdImage, 50, 250, pdImage.getWidth(), pdImage.getHeight());
+            contentStream.drawImage(pdImage, 50, 230, pdImage.getWidth(), pdImage.getHeight());
 
             // Afficher la genaration la plus flexible
             double maxVal = this.moyenneTest.stream()

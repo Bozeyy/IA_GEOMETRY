@@ -49,6 +49,7 @@ public class Application extends javafx.application.Application {
 
         GenerateurTerrainAleatoire gta = new GenerateurTerrainAleatoire();
         Terrain t = gta.genererTerrainAleatoire();
+        System.out.println(t.getLongueur());
 
 
         //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain14.txt"), joueur.getReseau());
