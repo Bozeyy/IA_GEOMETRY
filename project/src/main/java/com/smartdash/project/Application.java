@@ -44,7 +44,7 @@ public class Application extends javafx.application.Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/27-03-2024_22-57-55_id456/generation_50.txt", 0);
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_2056.txt", 0);
 
 
         GenerateurTerrainAleatoire gta = new GenerateurTerrainAleatoire();
@@ -52,8 +52,8 @@ public class Application extends javafx.application.Application {
         System.out.println(t.getLongueur());
 
 
-        //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain14.txt"), joueur.getReseau());
-        Jeu jeu = new Jeu(t, joueur.getReseau());
+        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain3.txt"), joueur.getReseau());
+        //Jeu jeu = new Jeu(t, joueur.getReseau());
 
 
         BorderPane borderPane = new BorderPane();
