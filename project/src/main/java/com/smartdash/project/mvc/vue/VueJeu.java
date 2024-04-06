@@ -51,12 +51,12 @@ public class VueJeu extends Pane implements Observateur {
             }
         }
         //Taille de base de la fenêtre de jeu
-        setPrefSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
+        setPrefSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur() - 5 * this.modele.getTailleCase());
 
         //setMinSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
 
         //Taille maximale de la fenêtre de jeu
-        setMaxSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur());
+        setMaxSize(donnees.getTerrain().getLongueur() * this.modele.getTailleCase(), donnees.getTailleCase() * donnees.getTerrain().getLargeur() - 5 * this.modele.getTailleCase());
     }
 
     /**
