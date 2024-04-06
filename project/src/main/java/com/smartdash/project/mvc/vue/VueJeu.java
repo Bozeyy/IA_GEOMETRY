@@ -44,9 +44,9 @@ public class VueJeu extends Pane implements Observateur {
             getRandomColor();
         else {
             switch (couleur) {
-                case "red" -> couleurNiveau = Color.RED;
-                case "darkblue" -> couleurNiveau = Color.DARKBLUE;
-                case "black" -> couleurNiveau = Color.BLACK;
+                case "Rouge" -> couleurNiveau = Color.RED;
+                case "Bleu" -> couleurNiveau = Color.DARKBLUE;
+                case "Noir" -> couleurNiveau = Color.BLACK;
                 default -> couleurNiveau = Color.BLACK;
             }
         }
