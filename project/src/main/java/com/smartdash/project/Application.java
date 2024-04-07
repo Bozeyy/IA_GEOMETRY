@@ -1,9 +1,7 @@
 package com.smartdash.project;
 
+import com.smartdash.project.IA.*;
 import com.smartdash.project.IA.Module;
-import com.smartdash.project.IA.ModuleFabrique;
-import com.smartdash.project.IA.NeuroneFabrique;
-import com.smartdash.project.IA.ReseauFabrique;
 import com.smartdash.project.IA.neurones.Neurone;
 import com.smartdash.project.IA.neurones.NeuroneNonVide;
 import com.smartdash.project.IA.neurones.NeuronePique;
@@ -44,16 +42,15 @@ public class Application extends javafx.application.Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_2056.txt", 0);
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_neatfinal_499.txt", 0);
 
 
         GenerateurTerrainAleatoire gta = new GenerateurTerrainAleatoire();
         Terrain t = gta.genererTerrainAleatoire();
-        System.out.println(t.getLongueur());
 
 
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain3.txt"), joueur.getReseau());
-        //Jeu jeu = new Jeu(t, joueur.getReseau());
+//        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain14.txt"), joueur.getReseau());
+        Jeu jeu = new Jeu(t, joueur.getReseau());
 
 
         BorderPane borderPane = new BorderPane();

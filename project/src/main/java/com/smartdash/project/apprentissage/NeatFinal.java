@@ -90,6 +90,7 @@ public class NeatFinal extends NeatVariation
                 for(Joueur joueur : populationCopie)
                 {
                     moyenneScoreDonneeTest(joueur, 10);
+
                 }
 
                 // On en calcule ensuite les moyennes

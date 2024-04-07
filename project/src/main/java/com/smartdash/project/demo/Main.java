@@ -26,7 +26,7 @@ public class Main
 
         for (int i = 0; i < nombreInstances; i++) {
              Thread apprentissageThread = new Thread(() -> {
-                NeatFinal neatAmelioration = new NeatFinal(500, 10);
+                NeatFinal neatAmelioration = new NeatFinal(700, 10);
 
                 try {
                     neatAmelioration.lancerApprentissage();

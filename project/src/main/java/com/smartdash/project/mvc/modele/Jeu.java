@@ -60,7 +60,7 @@ public class Jeu implements Sujet{
         this.joueur.setScorePartie(joueur.getX() + 1 );
 
         double scoreFinal;
-        if (joueur.getScorePartie() == 100) {
+        if (joueur.getScorePartie() == 90) {
              scoreFinal = joueur.getScorePartie() - ( 0.1 * joueur.getReseau().getNbNeurone() );
         } else {
             // pas de punition de taille pour le moment
