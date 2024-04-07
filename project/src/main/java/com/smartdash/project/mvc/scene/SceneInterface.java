@@ -1,10 +1,9 @@
 package com.smartdash.project.mvc.scene;
 
 import com.smartdash.project.mvc.modele.Jeu;
-import com.smartdash.project.mvc.vue.VueInterface.VueInterfaceFirst;
+import com.smartdash.project.mvc.vue.VueInterface.InterfaceFirst;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -25,9 +24,8 @@ public class SceneInterface extends Scene {
     public Parent init() throws Exception {
 
         //Vueinterface
-        VueInterfaceFirst vueInterface = new VueInterfaceFirst(modele, stage);
-        modele.enregistrerObservateur(vueInterface);
-        return vueInterface;
+        InterfaceFirst interfaceFirst = new InterfaceFirst(modele, stage);
+        return interfaceFirst;
     }
 
     public void setSceneJeu(Jeu modele, Stage stage, String couleur) throws Exception {

@@ -2,17 +2,12 @@ package com.smartdash.project.mvc.vue.VueInterface;
 
 import com.smartdash.project.mvc.modele.Jeu;
 import com.smartdash.project.mvc.modele.Joueur;
-import com.smartdash.project.mvc.modele.Sujet;
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.scene.SceneInterface;
-import com.smartdash.project.mvc.vue.Observateur;
-import com.smartdash.project.mvc.vue.VueJeu;
 import com.smartdash.project.mvc.vue.VueTerrain;
 import com.smartdash.project.terrainAleatoire.GenerateurTerrainAleatoire;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -21,15 +16,15 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.List;
 
-public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
+public class InterfaceTerrain extends InterfaceChoix {
 
     List<String> couleurs;
     Rectangle affichageCouleur;
     Button genererTerrainAleatoire;
 
-    public VueInterfaceTerrain(Jeu modele, Stage stage, VueInterfaceIA vueInterfaceIA) throws Exception {
+    public InterfaceTerrain(Jeu modele, Stage stage, InterfaceIA interfaceIA) throws Exception {
         super(modele, stage);
-        ajouterInterfaceConnectee(vueInterfaceIA);
+        ajouterInterfaceConnectee(interfaceIA);
     }
 
     public void init() throws Exception {
@@ -43,7 +38,7 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
     @Override
     public void addRetourArriere() {
         retourArriere.setOnAction(e -> {
-            addTransitionInterface("VueInterfaceIA");
+            addTransitionInterface("InterfaceIA");
         });
     }
 
@@ -188,8 +183,4 @@ public class VueInterfaceTerrain extends InterfaceChoix implements Observateur {
 
     }
 
-    @Override
-    public void actualiser(Sujet sujet) {
-
-    }
 }

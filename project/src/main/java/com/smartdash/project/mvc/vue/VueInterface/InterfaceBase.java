@@ -98,7 +98,6 @@ public abstract class InterfaceBase extends Pane{
     public void addTransitionInterface(String nomInterface) {
         InterfaceBase interfaceBase = getInterfaceConnectee(nomInterface);
         if(interfaceBase != null) {
-            modele.enregistrerObservateur((Observateur) interfaceBase);
             stage.getScene().setRoot(interfaceBase);
         }
     }
