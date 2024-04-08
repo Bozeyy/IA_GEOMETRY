@@ -1,19 +1,14 @@
-package com.smartdash.project.demo;
+package com.smartdash.project;
 
-import com.smartdash.project.apprentissage.NeatAmelioration;
-import com.smartdash.project.apprentissage.NeatFinal;
-import com.smartdash.project.apprentissage.NeatPosition;
-import com.smartdash.project.apprentissage.NeatVariation;
-import com.smartdash.project.mvc.modele.Terrain;
+import com.smartdash.project.apprentissage.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main
+public class Apprentissage
 {
     public static void main(String[] args) {
-        lancerThread(4);
-//        lancerNormal();
+        lancerNormal();
     }
 
     /**
@@ -55,10 +50,10 @@ public class Main
      */
     public static void lancerNormal()
     {
-         NeatFinal neat = new NeatFinal(500,10);
+        NeatPositionAleatoire neatPositionAleatoire = new NeatPositionAleatoire(500, 35);
 
         try {
-            neat.lancerApprentissage();
+            neatPositionAleatoire.lancerApprentissage();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

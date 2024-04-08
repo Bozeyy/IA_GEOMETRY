@@ -22,7 +22,6 @@ public class SceneInterface extends Scene {
     }
 
     public Parent init() throws Exception {
-
         //Vueinterface
         InterfaceFirst interfaceFirst = new InterfaceFirst(modele, stage);
         return interfaceFirst;

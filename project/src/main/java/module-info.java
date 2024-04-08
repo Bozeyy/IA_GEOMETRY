@@ -27,4 +27,6 @@ module com.smartdash.project {
     opens com.smartdash.project.mvc.vue.VueInterface to javafx.fxml;
     exports com.smartdash.project.terrainAleatoire;
     opens com.smartdash.project.terrainAleatoire to javafx.fxml;
+    exports com.smartdash.project.application;
+    opens com.smartdash.project.application to javafx.fxml;
 }

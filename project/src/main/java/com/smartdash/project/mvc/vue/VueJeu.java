@@ -26,6 +26,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -66,8 +67,12 @@ public class VueJeu extends Pane implements Observateur {
         //On vide la fenêtre de jeu
         getChildren().clear();
 
-        String imagePath = "src/main/resources/background2.png";
-        Image image = new Image(new FileInputStream(imagePath));
+        String imagePath = "/background2.png"; // Assurez-vous que le chemin commence par un '/'
+        InputStream is = getClass().getResourceAsStream(imagePath);
+        if (is == null) {
+            throw new FileNotFoundException("background2.png");
+        }
+        Image image = new Image(is);
 
         // Créer un conteneur HBox pour positionner plusieurs images côte à côte
         HBox backgroundContainer = new HBox();

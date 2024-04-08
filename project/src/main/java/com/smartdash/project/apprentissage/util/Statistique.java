@@ -93,18 +93,17 @@ public class Statistique {
      * @throws Exception
      */
     public void addMoyennesTests (List<Joueur> joueurs) throws Exception {
-        this.moyenneTest.add(calculerMoyenne10Meilleurs(joueurs));
+        //this.moyenneTest.add(calculerMoyenne10Meilleurs(joueurs));
         this.moyenneTest.add(calculerScoreMeilleur(joueurs));
     }
 
-    private Double calculerScoreMeilleur(List<Joueur> joueurs) {
+    public Double calculerScoreMeilleur(List<Joueur> joueurs) {
         List<Joueur> copieJoueurs = new ArrayList<>(joueurs);
         copieJoueurs.sort(Comparator.comparingDouble(Joueur::getScorePartie).reversed());
 
 
         Joueur joueur = copieJoueurs.get(0);
         return joueur.getScorePartie();
-
     }
 
 

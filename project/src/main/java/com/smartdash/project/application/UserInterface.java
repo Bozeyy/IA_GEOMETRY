@@ -1,27 +1,19 @@
-package com.smartdash.project;
+package com.smartdash.project.application;
 
-import com.smartdash.project.apprentissage.util.Enregistrement;
+import com.smartdash.project.IA.Reseau;
 import com.smartdash.project.mvc.modele.Jeu;
-import com.smartdash.project.mvc.modele.Joueur;
 import com.smartdash.project.mvc.modele.Terrain;
 import com.smartdash.project.mvc.scene.SceneInterface;
-import com.smartdash.project.mvc.scene.SceneJeu;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class test extends javafx.application.Application {
-
+public class UserInterface extends javafx.application.Application {
     Screen screen = Screen.getPrimary();
     Rectangle2D bounds = screen.getVisualBounds();
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/generation_apprentissage_8-5.txt", 0);
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain9.txt"), joueur.getReseau());
-        jeu.getJoueur().setScoreApprentissage(joueur.getScoreApprentissage());
-
-        SceneInterface sceneInterface = new SceneInterface(jeu, stage);
+        SceneInterface sceneInterface = new SceneInterface(new Jeu(new Terrain(), new Reseau()), stage);
 
         stage.setMaximized(true);
         stage.setMinWidth(bounds.getWidth());
