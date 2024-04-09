@@ -40,18 +40,10 @@ public class Application extends javafx.application.Application {
         GenerateurTerrainAleatoire gta = new GenerateurTerrainAleatoire();
         Terrain t = gta.genererTerrainAleatoire();
 
-        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain2.txt"), joueur.getReseau());
-        //Jeu jeu = new Jeu(t, joueur.getReseau());
+        Jeu jeu = new Jeu(t, joueur.getReseau());
 
 
         BorderPane borderPane = new BorderPane();
-        //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());
-
-        //VueCommande
-        /*VueCommande vueCommande = new VueCommande(jeu, (int) borderPane.getPrefWidth(), hauteurVueCommande);
-        jeu.enregistrerObservateur(vueCommande);
-        borderPane.setTop(vueCommande);
-        vueCommande.init();*/
 
         //Vue Jeu
         VueJeu vueJeu = new VueJeu(jeu,null);
@@ -65,17 +57,6 @@ public class Application extends javafx.application.Application {
         jeu.enregistrerObservateur(vueInformationApp);
         borderPane.setBottom(vueInformationApp);
         vueInformationApp.init();
-
-
-        // Ajout de la musique
-
-//        this.setSong("src/main/resources/song.mp3");
-//
-//        this.playSong();
-//
-//        stage.setOnCloseRequest(event -> {
-//            this.stopSong();
-//        });
 
         Scene scene = new Scene(borderPane);
         scene.setOnKeyPressed(new ControllerClavier(jeu, stage));
