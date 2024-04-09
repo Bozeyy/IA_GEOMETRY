@@ -4,11 +4,13 @@ import com.smartdash.project.apprentissage.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Apprentissage
 {
     public static void main(String[] args) {
-        lancerThread(4);
+        // faire la methode lancerThread pour lancer la paralelisation sur l'algo de la methode
+        lancerNormal();
     }
 
     /**
@@ -21,7 +23,7 @@ public class Apprentissage
 
         for (int i = 0; i < nombreInstances; i++) {
              Thread apprentissageThread = new Thread(() -> {
-                NeatFinal neatAmelioration = new NeatFinal(700, 15);
+                Neat neatAmelioration = new NeatFinal(700, 15);
 
                 try {
                     neatAmelioration.lancerApprentissage();
@@ -50,12 +52,40 @@ public class Apprentissage
      */
     public static void lancerNormal()
     {
-        NeatPositionAleatoire neatPositionAleatoire = new NeatPositionAleatoire(500, 35);
+        Neat neatPositionAleatoire = choisirApprentissage();
 
         try {
             neatPositionAleatoire.lancerApprentissage();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static Neat choisirApprentissage () {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choisir un apprentissage : (1-7) :");
+        System.out.println("1. Neat positions fixes");
+        System.out.println("2. Neat positions modulables");
+        System.out.println("3. Neat position modulables (terrains aleatoires)");
+        System.out.println("4. Neat nombre de neurone modulables");
+        System.out.println("5. Neat nombre de neurone modulables (terrains aleatoires)");
+
+        int apprentissage = sc.nextInt();
+
+        switch (apprentissage) {
+            case 1:
+                return new Neat();
+            case 2:
+                return new NeatAmelioration(500,15);
+            case 3:
+                return new NeatPositionAleatoire(500, 15);
+            case 4:
+                return new NeatFinal(500, 15);
+            case 5:
+                return new NeatFinalAleatoire(500, 15);
+            default:
+                System.out.println("Apprentissage inconnu ! veuillez resayer\n");
+                return choisirApprentissage();
         }
     }
 }
