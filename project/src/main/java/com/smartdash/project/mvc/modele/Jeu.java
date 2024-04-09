@@ -60,7 +60,6 @@ public class Jeu implements Sujet{
         lancerEvaluation(false);
 
         this.joueur.setScorePartie(joueur.getX() + 1 );
-
         this.joueur.setScoreApprentissage(joueur.getScorePartie());
     }
 
