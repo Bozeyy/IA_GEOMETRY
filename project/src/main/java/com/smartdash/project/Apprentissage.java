@@ -78,7 +78,7 @@ public class Apprentissage
             case 2:
                 return new NeatAmelioration(500,15);
             case 3:
-                return new NeatPositionAleatoire(500, 15);
+                return new NeatPositionAleatoire(500, 35);
             case 4:
                 return new NeatFinal(500, 15);
             case 5:

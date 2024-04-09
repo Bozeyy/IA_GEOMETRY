@@ -32,7 +32,7 @@ public class Application extends javafx.application.Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/ia_flexible.txt", 0);
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/meilleurs/ia_flexible.txt", 0);
 
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
