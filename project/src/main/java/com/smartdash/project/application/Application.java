@@ -36,7 +36,7 @@ public class Application extends javafx.application.Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("ia_flexible.txt", 0);
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/enregistrement/08-04-2024_17-34-52_id371/generation_499.txt", 0);
 
 
         GenerateurTerrainAleatoire gta = new GenerateurTerrainAleatoire();

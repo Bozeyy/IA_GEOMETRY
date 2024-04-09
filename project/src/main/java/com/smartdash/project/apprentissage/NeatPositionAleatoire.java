@@ -149,11 +149,10 @@ public class NeatPositionAleatoire extends NeatAmelioration
      */
     public void moyenneScoreDonneeTest(Joueur joueur, int nbTerrains) throws Exception {
         List<Terrain> listesTerrain = new ArrayList<>();
-        GenerateurTerrainAleatoire generateurTerrainAleatoire = new GenerateurTerrainAleatoire();
-
 
         for(int i = 0; i<nbTerrains; i++)
         {
+            GenerateurTerrainAleatoire generateurTerrainAleatoire = new GenerateurTerrainAleatoire();
             listesTerrain.add(generateurTerrainAleatoire.genererTerrainAleatoire());
         }
 
@@ -163,6 +162,7 @@ public class NeatPositionAleatoire extends NeatAmelioration
             evaluerPerformance(joueur, terrain);
             scoreMoyenne += joueur.getScorePartie();
         }
+
         joueur.setScorePartie((scoreMoyenne/ nbTerrains));
     }
 }
