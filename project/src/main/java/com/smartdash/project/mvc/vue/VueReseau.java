@@ -55,11 +55,15 @@ public class VueReseau extends Pane implements Observateur {
 
     @Override
     public void actualiser(Sujet sujet) {
-        for (int i = 0; i < this.reseau.size(); i++) {
-            List<NeuroneVue> module = reseau.get(i);
-            boolean actif = ((Jeu)sujet).getJoueur().getReseau().getModules().get(i).isActive();
-            for (NeuroneVue neuroneVue : module) {
-                neuroneVue.updateView(actif);
+        boolean afficherReseau = ((Jeu) sujet).getAfficherReseau();
+
+        if(afficherReseau){
+            for (int i = 0; i < this.reseau.size(); i++) {
+                List<NeuroneVue> module = reseau.get(i);
+                boolean actif = ((Jeu)sujet).getJoueur().getReseau().getModules().get(i).isActive();
+                for (NeuroneVue neuroneVue : module) {
+                    neuroneVue.updateView(actif);
+                }
             }
         }
 

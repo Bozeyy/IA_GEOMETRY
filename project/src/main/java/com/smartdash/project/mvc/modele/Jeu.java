@@ -21,6 +21,8 @@ public class Jeu implements Sujet{
     private List<Observateur> observateurs;
     private final int TAIILE_CASE = 30;
 
+    private boolean afficherReseau = true;
+
 
     /**
      * Constructeur avec terrain et un reseau
@@ -419,5 +421,12 @@ public class Jeu implements Sujet{
         {
             observateur.actualiser(this);
         }
+    }
+    public boolean getAfficherReseau() {
+        return afficherReseau;
+    }
+
+    public void setAfficherReseau(boolean afficherReseau) {
+        this.afficherReseau = afficherReseau;
     }
 }

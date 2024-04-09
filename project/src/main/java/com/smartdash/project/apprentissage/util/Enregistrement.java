@@ -114,12 +114,12 @@ public class Enregistrement {
      * @throws Exception IO exception
      */
     public static List<Joueur> stringToPopulation(String pathname) throws Exception {
-        InputStream inputStream = Enregistrement.class.getClassLoader().getResourceAsStream(pathname);
+        /*InputStream inputStream = Enregistrement.class.getClassLoader().getResourceAsStream(pathname);
         if (inputStream == null) {
             throw new RuntimeException("La ressource n'a pas été trouvée: " + pathname);
-        }
+        }*/
 
-        try(BufferedReader r = new BufferedReader(new InputStreamReader(inputStream))){
+        try(BufferedReader r = new BufferedReader(new FileReader(pathname))){
             //On crée la population
             List<Joueur> population = new ArrayList<>();
 

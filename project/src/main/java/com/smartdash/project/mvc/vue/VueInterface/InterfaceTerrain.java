@@ -161,8 +161,6 @@ public class InterfaceTerrain extends InterfaceChoix {
     }
 
     public void initGenererTerrainAleatoire(){
-        GenerateurTerrainAleatoire generateur = new GenerateurTerrainAleatoire();
-
         genererTerrainAleatoire = new Button("Générer un terrain aléatoire");
         genererTerrainAleatoire.setStyle("-fx-font-size: 20px");
         genererTerrainAleatoire.setPrefSize(choixPrincipal.getPrefWidth(),50);
@@ -173,7 +171,9 @@ public class InterfaceTerrain extends InterfaceChoix {
 
         genererTerrainAleatoire.setOnAction(e -> {
             try {
-                modele.setTerrain(generateur.genererTerrainAleatoire());
+                GenerateurTerrainAleatoire generateur = new GenerateurTerrainAleatoire();
+                Terrain terrain = generateur.genererTerrainAleatoire();
+                modele.setTerrain(terrain);
                 afficherterrain();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
