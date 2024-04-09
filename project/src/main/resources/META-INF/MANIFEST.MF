@@ -1,3 +1,9 @@
 Manifest-Version: 1.0
-Main-Class: com.smartdash.project.Smartdash
+Main-Class:
+Class-Path: javafx-graphics-21-ea+24.jar javafx-fxml-21-ea+24-win.jar ja
+ vafx-controls-21-ea+24.jar fontbox-2.0.29.jar javafx-fxml-21-ea+24.jar
+ javafx-media-15.0.1-win.jar javafx-graphics-21-ea+24-win.jar commons-lo
+ gging-1.2.jar javafx-base-21-ea+24.jar jfreechart-1.5.4.jar javafx-base
+ -21-ea+24-win.jar javafx-media-15.0.1.jar pdfbox-2.0.29.jar javafx-cont
+ rols-21-ea+24-win.jar
 

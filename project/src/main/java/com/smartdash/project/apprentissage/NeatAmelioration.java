@@ -160,6 +160,13 @@ public class NeatAmelioration extends NeatPosition
             evaluerPerformance(joueur, terrain);
             scoreMoyenne += joueur.getScorePartie();
         }
-        joueur.setScorePartie((scoreMoyenne/ nbTerrains));
+        double score = scoreMoyenne / nbTerrains ;
+
+        // si score > 90 on puni les gros reseaux
+        if (score > 90) {
+            score -= 0.001 * joueur.getReseau().getNbNeurone();
+        }
+
+        joueur.setScorePartie((score));
     }
 }

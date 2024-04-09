@@ -11,7 +11,7 @@ import com.smartdash.project.terrainAleatoire.GenerateurTerrainAleatoire;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NeatFinal extends NeatVariation
+public class NeatFinalAleatoire extends NeatVariation
 {
     /**
      * Constructeur avec un max de génération et un nb de terrain à générer
@@ -19,7 +19,7 @@ public class NeatFinal extends NeatVariation
      * @param maxGenerations max de génération
      * @param nbTerrains     nombre de terrains max
      */
-    public NeatFinal(int maxGenerations, int nbTerrains) {
+    public NeatFinalAleatoire(int maxGenerations, int nbTerrains) {
         super(maxGenerations, nbTerrains);
     }
 
@@ -56,15 +56,15 @@ public class NeatFinal extends NeatVariation
 
 
         List<Terrain> listesTerrain = new ArrayList<>();
-        for(int i = 1; i<=nbTerrains ; i++)
-        {
-//            Terrain terrainAleatoire = new Terrain("src/main/resources/apprentissage/terrain"+i+".txt");
-            GenerateurTerrainAleatoire gen = new GenerateurTerrainAleatoire();
-            Terrain terrainAleatoire = gen.genererTerrainAleatoire();
-            listesTerrain.add(terrainAleatoire);
-        }
+
 
         while (generation < maxGenerations) {
+            listesTerrain.clear();
+            // génération des terrains:
+            for(int i = 1; i<=nbTerrains ; i++)
+            {
+                listesTerrain.add(new GenerateurTerrainAleatoire().genererTerrainAleatoire());
+            }
             // calcul du score des individus
             for (Joueur joueur : population) {
                 moyenneScore(joueur, listesTerrain);

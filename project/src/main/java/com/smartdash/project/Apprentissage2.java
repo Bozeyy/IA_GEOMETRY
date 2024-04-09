@@ -1,14 +1,16 @@
 package com.smartdash.project;
 
-import com.smartdash.project.apprentissage.*;
+import com.smartdash.project.apprentissage.NeatFinal;
+import com.smartdash.project.apprentissage.NeatFinalAleatoire;
+import com.smartdash.project.apprentissage.NeatPositionAleatoire;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Apprentissage
+public class Apprentissage2
 {
     public static void main(String[] args) {
-        lancerThread(4);
+        lancerNormal();
     }
 
     /**
@@ -50,7 +52,7 @@ public class Apprentissage
      */
     public static void lancerNormal()
     {
-        NeatPositionAleatoire neatPositionAleatoire = new NeatPositionAleatoire(500, 35);
+        NeatFinalAleatoire neatPositionAleatoire = new NeatFinalAleatoire(500, 35);
 
         try {
             neatPositionAleatoire.lancerApprentissage();

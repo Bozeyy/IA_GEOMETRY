@@ -29,8 +29,8 @@ public class NeuroneBlocVue extends NeuroneVue{
 
     @Override
     public void updateView(boolean actif) {
-        double x = (jeu.getJoueur().getX() + neurone.getX()) * jeu.getTailleCase() -5;
-        double y = (jeu.getJoueur().getY() + neurone.getY()) * jeu.getTailleCase() - 5;
+        double x = (jeu.getJoueur().getX() + neurone.getX()) * jeu.getTailleCase() + 5;
+        double y = (jeu.getJoueur().getY() + neurone.getY()) * jeu.getTailleCase() + 5;
 
         shape.setLayoutX(x);
         shape.setLayoutY(y);
