@@ -23,10 +23,6 @@ import java.io.File;
 
 public class Application extends javafx.application.Application {
     private MediaPlayer mediaPlayer;
-    private final int longueurFenetre = 800;
-    private final int hauteurVueInformation = 190;
-    private final int hauteurVueCommande = 15;
-    private int hauteurFenetre;
 
 
     /**
@@ -36,13 +32,13 @@ public class Application extends javafx.application.Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Joueur joueur = Enregistrement.recupererJoueurGeneration("ia_flexible.txt", 0);
+        Joueur joueur = Enregistrement.recupererJoueurGeneration("src/main/resources/ia_flexible.txt", 0);
 
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
 
         GenerateurTerrainAleatoire gta = new GenerateurTerrainAleatoire();
         Terrain t = gta.genererTerrainAleatoire();
-        System.out.println(t.getLongueur());
-
 
         //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain10.txt"), joueur.getReseau());
         Jeu jeu = new Jeu(t, joueur.getReseau());
@@ -50,7 +46,6 @@ public class Application extends javafx.application.Application {
 
         BorderPane borderPane = new BorderPane();
         //borderPane.setPrefSize(jeu.getTerrain().getLongueur() * jeu.getTailleCase(), jeu.getTailleCase() * jeu.getTerrain().getLargeur());
-        borderPane.setPrefSize(longueurFenetre, jeu.getTailleCase() * jeu.getTerrain().getLargeur());
 
         //VueCommande
         /*VueCommande vueCommande = new VueCommande(jeu, (int) borderPane.getPrefWidth(), hauteurVueCommande);
@@ -66,7 +61,7 @@ public class Application extends javafx.application.Application {
 
 
         //Vue Info
-        VueInformationApp vueInformationApp = new VueInformationApp(jeu, (int) vueJeu.getPrefWidth(), hauteurVueInformation, vueJeu.getCouleurNiveau());
+        VueInformationApp vueInformationApp = new VueInformationApp(jeu, (int) bounds.getWidth(), (int) (bounds.getHeight() - vueJeu.getPrefHeight() - 25), vueJeu.getCouleurNiveau());
         jeu.enregistrerObservateur(vueInformationApp);
         borderPane.setBottom(vueInformationApp);
         vueInformationApp.init();
@@ -86,12 +81,7 @@ public class Application extends javafx.application.Application {
         scene.setOnKeyPressed(new ControllerClavier(jeu, stage));
         scene.setOnMouseClicked(new ControllerSouris(jeu));
 
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-
-        //stage.setMinWidth(longueurFenetre);
-        //stage.setMinHeight(hauteurFenetre);
-
+        stage.setMaximized(true);
         stage.setMinWidth(bounds.getWidth());
         stage.setMinHeight(bounds.getHeight());
 

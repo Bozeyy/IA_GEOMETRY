@@ -139,7 +139,6 @@ public class VueJeu extends Pane implements Observateur {
             //On met à jour la caméra
             vueJoueur.translateXProperty().addListener((obs, old, newValue) -> {
                 int offset = newValue.intValue();
-                System.out.println();
                 if (offset > 400 && offset < (modele.getTerrain().getLongueur() * modele.getTailleCase()) - 400) {
                     setTranslateX(-(offset - 400));
                 } else if (offset < 400) {
