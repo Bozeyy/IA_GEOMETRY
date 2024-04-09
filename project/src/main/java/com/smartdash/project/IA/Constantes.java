@@ -10,9 +10,9 @@ public class Constantes {
 
     public static final int X_NEURONES_MIN = 0;
 
-    public static final int X_NEURONES_MAX = 3;
+    public static final int X_NEURONES_MAX = 5;
 
-    public static final int Y_NEURONES_MIN = -3;
+    public static final int Y_NEURONES_MIN = -5;
 
-    public static final int Y_NEURONES_MAX = 3;
+    public static final int Y_NEURONES_MAX = 5;
 }

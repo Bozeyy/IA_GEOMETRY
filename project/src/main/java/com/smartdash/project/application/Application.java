@@ -40,8 +40,8 @@ public class Application extends javafx.application.Application {
         GenerateurTerrainAleatoire gta = new GenerateurTerrainAleatoire();
         Terrain t = gta.genererTerrainAleatoire();
 
-        //Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain10.txt"), joueur.getReseau());
-        Jeu jeu = new Jeu(t, joueur.getReseau());
+        Jeu jeu = new Jeu(new Terrain("src/main/resources/apprentissage/terrain2.txt"), joueur.getReseau());
+        //Jeu jeu = new Jeu(t, joueur.getReseau());
 
 
         BorderPane borderPane = new BorderPane();

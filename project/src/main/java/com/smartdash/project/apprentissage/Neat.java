@@ -16,7 +16,6 @@ public class Neat{
     protected final Random random = new Random();
     protected int maxGenerations;
     protected Terrain terrain;
-
     protected final int NB_MEILLEURS = 8;
     protected final int NB_PARTIE_2 = 12;
     protected final int NB_PARTIE_3 = 7;

@@ -59,7 +59,7 @@ public class ControllerClavier implements EventHandler<KeyEvent> {
                 timeline.play();
             }
 
-            case J -> {
+            case ESCAPE -> {
                 if(timeline != null){
                     timeline.stop();
                     timeline = null;
