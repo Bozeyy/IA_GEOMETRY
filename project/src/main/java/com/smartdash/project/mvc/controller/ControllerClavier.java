@@ -76,7 +76,6 @@ public class ControllerClavier implements EventHandler<KeyEvent> {
 
             case N -> {
                 donnees.setAfficherReseau(!donnees.getAfficherReseau());
-                System.out.println(donnees.getAfficherReseau());
                 donnees.notifierObservateurs();
             }
         }
