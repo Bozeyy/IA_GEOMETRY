@@ -11,3 +11,7 @@ L'objectif est de programmer une simulation fidèle de Geometry Dash, en respect
 - **Créer une simulation précise de Geometry Dash**, avec un respect rigoureux des règles et une reproduction fidèle de l'esthétique du jeu.
 - **Concevoir une intelligence artificielle capable d'apprendre de manière autonome** à naviguer à travers les défis du jeu.
 - **Utiliser des techniques d'apprentissage profond et des réseaux de neurones** pour permettre à l'IA d'améliorer continuellement ses performances.
+
+### Fonctionnement
+
+Pour lancer une IA sur un terrain généré aléatoirement, veuillez ouvrir le fichier .bat ou le fichier .jar. Si vous souhaitez lancer l'application et pouvoir la contrôler plus efficacement, vous devrez alors exécuter l'interface utilisateur (UI) à partir d'un environnement de développement intégré (IDE).
